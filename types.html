@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>五大手术类型 — 清晰视界</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #0f1a2e; --ink-mid: #3d5068; --ink-light: #7a92a8;
+  --paper: #f8f6f1; --paper-warm: #f0ede6;
+  --accent: #1a5fb4; --accent-light: #e8f0fb;
+  --gold: #b8902a; --teal: #0d7a6a; --teal-light: #e5f5f2;
+  --serif: 'Noto Serif SC', serif; --sans: 'Noto Sans SC', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.7; font-size: 16px; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(248,246,241,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(15,26,46,0.08);
+  padding: 0 2rem; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand { font-family: var(--serif); font-size: 18px; color: var(--ink); text-decoration: none; letter-spacing: 0.05em; }
+.nav-brand span { color: var(--accent); }
+.nav-back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--ink-mid); text-decoration: none; border: 1px solid rgba(15,26,46,0.12); padding: 6px 16px; border-radius: 100px; transition: all 0.2s; }
+.nav-back:hover { color: var(--accent); border-color: var(--accent); }
+
+.page-hero { padding: 100px 2rem 4rem; background: linear-gradient(135deg, #e8f0fb 0%, #f0ede6 100%); text-align: center; }
+.page-hero-label { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+.page-hero-title { font-family: var(--serif); font-size: clamp(28px,4vw,44px); color: var(--ink); margin-bottom: 1rem; }
+.page-hero-sub { font-size: 16px; color: var(--ink-mid); max-width: 560px; margin: 0 auto; line-height: 1.8; }
+
+.section-inner { max-width: 1100px; margin: 0 auto; }
+section { padding: 5rem 2rem; }
+
+/* COMPARE TABLE */
+.compare-wrap { overflow-x: auto; margin-bottom: 3rem; }
+.compare-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid rgba(15,26,46,0.08); min-width: 700px; }
+.compare-table th { background: var(--ink); color: #fff; padding: 14px 18px; font-size: 13px; font-weight: 500; text-align: left; }
+.compare-table td { padding: 13px 18px; font-size: 13px; color: var(--ink-mid); border-bottom: 1px solid rgba(15,26,46,0.05); vertical-align: top; }
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:nth-child(even) td { background: var(--paper); }
+.compare-table td:first-child { color: var(--ink); font-weight: 500; white-space: nowrap; }
+
+/* TYPE DETAIL CARDS */
+.types-detail { display: flex; flex-direction: column; gap: 2rem; }
+.type-detail-card {
+  background: #fff; border-radius: 16px;
+  border: 1px solid rgba(15,26,46,0.08);
+  overflow: hidden;
+  border-left: 5px solid var(--card-color, var(--accent));
+}
+.tdc-header {
+  padding: 1.75rem 2rem; display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 1rem;
+  border-bottom: 1px solid rgba(15,26,46,0.06);
+}
+.tdc-title-wrap {}
+.tdc-name { font-family: var(--serif); font-size: 22px; color: var(--ink); margin-bottom: 4px; }
+.tdc-en { font-size: 11px; letter-spacing: 0.1em; color: var(--ink-light); text-transform: uppercase; }
+.tdc-badge { font-size: 11px; font-weight: 500; padding: 5px 14px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+.tdc-body { padding: 1.75rem 2rem; display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
+.tdc-desc { font-size: 15px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 1rem; }
+.tdc-pros { font-size: 14px; }
+.tdc-pros-title { font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+.tdc-pros ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.tdc-pros ul li { font-size: 13px; color: var(--ink-mid); display: flex; gap: 8px; }
+.tdc-pros ul li::before { content: '✓'; color: var(--teal); flex-shrink: 0; }
+.tdc-specs { background: var(--paper); border-radius: 10px; padding: 1.25rem; align-self: start; }
+.tdc-spec-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(15,26,46,0.06); font-size: 13px; }
+.tdc-spec-row:last-child { border-bottom: none; }
+.tdc-spec-key { color: var(--ink-light); }
+.tdc-spec-val { color: var(--ink); font-weight: 500; text-align: right; }
+
+.tip-box { background: var(--accent-light); border-radius: 12px; padding: 1.5rem; border-left: 4px solid var(--accent); margin-top: 2rem; }
+.tip-title { font-size: 14px; font-weight: 500; color: var(--accent); margin-bottom: 6px; }
+.tip-text { font-size: 14px; color: var(--ink-mid); line-height: 1.75; }
+
+footer { background: #0a1220; color: rgba(255,255,255,0.4); padding: 2rem; text-align: center; font-size: 13px; }
+footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+footer span { color: rgba(255,255,255,0.2); margin: 0 8px; }
+
+@media (max-width: 768px) {
+  .tdc-body { grid-template-columns: 1fr; }
+  .tdc-header { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html"><span>清</span>晰视界</a>
+  <a class="nav-back" href="index.html">← 返回主页</a>
+</nav>
+
+<div class="page-hero">
+  <p class="page-hero-label">手术类型指南</p>
+  <h1 class="page-hero-title">五大主流屈光手术类型</h1>
+  <p class="page-hero-sub">从激光角膜手术到晶体植入，了解各术式的原理、优势与适用人群，帮助你做出最知情的选择。</p>
+</div>
+
+<!-- 对比总览 -->
+<section style="background: var(--paper);">
+  <div class="section-inner">
+    <p style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.75rem;">快速对比</p>
+    <h2 style="font-family:var(--serif);font-size:clamp(22px,3vw,32px);color:var(--ink);margin-bottom:.75rem;">五大术式一览</h2>
+    <p style="font-size:15px;color:var(--ink-mid);margin-bottom:2rem;max-width:520px;">快速了解各术式核心参数，向下查看每种手术的详细介绍。</p>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>术式</th>
+            <th>适应近视度数</th>
+            <th>散光矫正</th>
+            <th>恢复时间</th>
+            <th>参考费用（双眼）</th>
+            <th>核心优势</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>全飞秒 SMILE</td>
+            <td>100–1000°</td>
+            <td>600° 以内</td>
+            <td>1–3 天</td>
+            <td>1.5–3 万元</td>
+            <td>干眼症最低，无角膜瓣</td>
+          </tr>
+          <tr>
+            <td>半飞秒 FS-LASIK</td>
+            <td>100–1200°</td>
+            <td>600° 以内</td>
+            <td>1–7 天</td>
+            <td>1–2 万元</td>
+            <td>技术最成熟，适应范围广</td>
+          </tr>
+          <tr>
+            <td>表层手术 PRK/LASEK</td>
+            <td>100–800°</td>
+            <td>600° 以内</td>
+            <td>3–7 天</td>
+            <td>0.6–1.5 万元</td>
+            <td>无制瓣，角膜薄者可选</td>
+          </tr>
+          <tr>
+            <td>全激光 TPRK</td>
+            <td>100–800°</td>
+            <td>600° 以内</td>
+            <td>3–5 天</td>
+            <td>1–2 万元</td>
+            <td>一步完成，感染风险低</td>
+          </tr>
+          <tr>
+            <td>ICL 晶体植入</td>
+            <td>300–1800°</td>
+            <td>Toric 版 600°</td>
+            <td>1–3 天</td>
+            <td>3–5 万元</td>
+            <td>不切削角膜，可逆可取出</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 详细介绍 -->
+<section style="background: var(--paper-warm);">
+  <div class="section-inner">
+    <p style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.75rem;">详细介绍</p>
+    <h2 style="font-family:var(--serif);font-size:clamp(22px,3vw,32px);color:var(--ink);margin-bottom:2rem;">每种术式深度解析</h2>
+
+    <div class="types-detail">
+
+      <!-- SMILE -->
+      <div class="type-detail-card" style="--card-color:#1a5fb4;">
+        <div class="tdc-header">
+          <div class="tdc-title-wrap">
+            <div class="tdc-name">全飞秒 SMILE</div>
+            <div class="tdc-en">Small Incision Lenticule Extraction</div>
+          </div>
+          <span class="tdc-badge" style="background:#e8f0fb;color:#1a5fb4;">目前最广泛</span>
+        </div>
+        <div class="tdc-body">
+          <div>
+            <p class="tdc-desc">全飞秒 SMILE 是目前最主流的激光屈光手术。飞秒激光在角膜基质层内雕刻出一片透镜形组织（透镜），再通过仅 2–4mm 的微小切口将其取出，从而改变角膜曲率，实现矫正。整个过程无需制作角膜瓣，角膜完整性更好，神经损伤更少，干眼症发生率显著低于半飞秒。</p>
+            <div class="tdc-pros">
+              <div class="tdc-pros-title">主要优势</div>
+              <ul>
+                <li>无角膜瓣，角膜生物力学结构保留更完整</li>
+                <li>切口仅 2mm，干眼症发生率最低</li>
+                <li>全程飞秒激光，无需准分子激光配合</li>
+                <li>术后恢复快，次日多数可正常用眼</li>
+                <li>适合运动员、户外工作者</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tdc-specs">
+            <div class="tdc-spec-row"><span class="tdc-spec-key">适应近视</span><span class="tdc-spec-val">100–1000°</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">散光矫正</span><span class="tdc-spec-val">600° 以内</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">恢复时间</span><span class="tdc-spec-val">1–3 天</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">参考费用</span><span class="tdc-spec-val">1.5–3 万元</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">角膜厚度要求</span><span class="tdc-spec-val">≥ 480μm</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">代表设备</span><span class="tdc-spec-val">蔡司 VisuMax</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FS-LASIK -->
+      <div class="type-detail-card" style="--card-color:#0d7a6a;">
+        <div class="tdc-header">
+          <div class="tdc-title-wrap">
+            <div class="tdc-name">半飞秒 FS-LASIK</div>
+            <div class="tdc-en">Femtosecond LASIK</div>
+          </div>
+          <span class="tdc-badge" style="background:#e5f5f2;color:#0d7a6a;">经典成熟</span>
+        </div>
+        <div class="tdc-body">
+          <div>
+            <p class="tdc-desc">半飞秒 FS-LASIK 是两步法手术：先用飞秒激光在角膜表面制作一个薄薄的角膜瓣，翻开后用准分子激光对基质层进行切削，再将角膜瓣复位。"半飞秒"指的是只有制瓣步骤用到飞秒激光，切削仍用准分子。技术积累超过 25 年，全球案例最多，适应度数范围更广。</p>
+            <div class="tdc-pros">
+              <div class="tdc-pros-title">主要优势</div>
+              <ul>
+                <li>技术最成熟，全球临床数据最充分</li>
+                <li>适应度数范围较 SMILE 更广（最高 1200°）</li>
+                <li>手术时间短，视力恢复较快</li>
+                <li>费用相对较低</li>
+                <li>可进行个性化波前像差引导切削</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tdc-specs">
+            <div class="tdc-spec-row"><span class="tdc-spec-key">适应近视</span><span class="tdc-spec-val">100–1200°</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">散光矫正</span><span class="tdc-spec-val">600° 以内</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">恢复时间</span><span class="tdc-spec-val">1–7 天</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">参考费用</span><span class="tdc-spec-val">1–2 万元</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">角膜厚度要求</span><span class="tdc-spec-val">≥ 500μm</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">代表设备</span><span class="tdc-spec-val">爱尔康 EX500</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRK/LASEK -->
+      <div class="type-detail-card" style="--card-color:#7b5ea7;">
+        <div class="tdc-header">
+          <div class="tdc-title-wrap">
+            <div class="tdc-name">表层手术 PRK / LASEK</div>
+            <div class="tdc-en">Photorefractive Keratectomy / Laser Epithelial Keratomileusis</div>
+          </div>
+          <span class="tdc-badge" style="background:#f0ebfa;color:#7b5ea7;">历史最久</span>
+        </div>
+        <div class="tdc-body">
+          <div>
+            <p class="tdc-desc">表层手术是激光屈光手术中历史最悠久的术式，已有近 30 年临床应用。PRK 直接去除角膜上皮，LASEK 则用酒精软化上皮后掀开，两者均在角膜表面（基质层）进行准分子激光切削。无需制作角膜瓣，角膜结构保留完整，特别适合角膜偏薄的患者。恢复期比 SMILE 和半飞秒长，需 3–5 天上皮愈合。</p>
+            <div class="tdc-pros">
+              <div class="tdc-pros-title">主要优势</div>
+              <ul>
+                <li>无角膜瓣，无制瓣相关风险</li>
+                <li>对角膜厚度要求最低</li>
+                <li>长期效果与 SMILE / 半飞秒相当</li>
+                <li>费用最低，性价比高</li>
+                <li>适合角膜形态偏平坦的患者</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tdc-specs">
+            <div class="tdc-spec-row"><span class="tdc-spec-key">适应近视</span><span class="tdc-spec-val">100–800°</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">散光矫正</span><span class="tdc-spec-val">600° 以内</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">恢复时间</span><span class="tdc-spec-val">3–7 天</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">参考费用</span><span class="tdc-spec-val">0.6–1.5 万元</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">角膜厚度要求</span><span class="tdc-spec-val">≥ 450μm</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">代表设备</span><span class="tdc-spec-val">阿玛仕 / 爱尔康</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TPRK -->
+      <div class="type-detail-card" style="--card-color:#d4522a;">
+        <div class="tdc-header">
+          <div class="tdc-title-wrap">
+            <div class="tdc-name">全激光手术 TPRK</div>
+            <div class="tdc-en">Transepithelial PRK</div>
+          </div>
+          <span class="tdc-badge" style="background:#fdf0ec;color:#d4522a;">新兴术式</span>
+        </div>
+        <div class="tdc-body">
+          <div>
+            <p class="tdc-desc">TPRK 是表层手术的升级版，用激光一步完成上皮去除和基质切削，无需机械刮除或酒精处理角膜上皮。整个手术更简洁、快速，减少了器械接触和感染风险。阿玛仕 1050RS 是 TPRK 的主流平台，配合个性化切削方案可获得良好视觉质量。</p>
+            <div class="tdc-pros">
+              <div class="tdc-pros-title">主要优势</div>
+              <ul>
+                <li>一步完成，减少器械操作与感染风险</li>
+                <li>无需机械或酒精处理上皮</li>
+                <li>角膜表面更光滑，切削更精准</li>
+                <li>适合角膜偏薄者（同表层手术）</li>
+                <li>是 PRK/LASEK 的现代升级版</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tdc-specs">
+            <div class="tdc-spec-row"><span class="tdc-spec-key">适应近视</span><span class="tdc-spec-val">100–800°</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">散光矫正</span><span class="tdc-spec-val">600° 以内</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">恢复时间</span><span class="tdc-spec-val">3–5 天</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">参考费用</span><span class="tdc-spec-val">1–2 万元</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">角膜厚度要求</span><span class="tdc-spec-val">≥ 450μm</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">代表设备</span><span class="tdc-spec-val">阿玛仕 1050RS</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ICL -->
+      <div class="type-detail-card" style="--card-color:#b8902a;">
+        <div class="tdc-header">
+          <div class="tdc-title-wrap">
+            <div class="tdc-name">ICL 晶体植入</div>
+            <div class="tdc-en">Implantable Collamer Lens</div>
+          </div>
+          <span class="tdc-badge" style="background:#faf4e8;color:#b8902a;">高度近视首选</span>
+        </div>
+        <div class="tdc-body">
+          <div>
+            <p class="tdc-desc">ICL 不是激光手术，而是在眼内（虹膜与晶状体之间）植入一枚软性人工晶体，通过增加一个折射元件来矫正近视。全程不切削角膜，对角膜完整性零影响。手术可逆，若视力变化或有需要可取出更换。尤其适合角膜偏薄、度数过高（超过 1000°）、或因干眼症无法做激光手术的患者。</p>
+            <div class="tdc-pros">
+              <div class="tdc-pros-title">主要优势</div>
+              <ul>
+                <li>不切削角膜，保留角膜完整性</li>
+                <li>可矫正度数范围最广（最高 1800°）</li>
+                <li>手术可逆，晶体可取出更换</li>
+                <li>视觉质量优异，夜间视力好</li>
+                <li>干眼症患者友好</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tdc-specs">
+            <div class="tdc-spec-row"><span class="tdc-spec-key">适应近视</span><span class="tdc-spec-val">300–1800°</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">散光矫正</span><span class="tdc-spec-val">Toric 版最高 600°</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">恢复时间</span><span class="tdc-spec-val">1–3 天</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">参考费用</span><span class="tdc-spec-val">3–5 万元</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">年龄要求</span><span class="tdc-spec-val">18–45 岁</span></div>
+            <div class="tdc-spec-row"><span class="tdc-spec-key">代表产品</span><span class="tdc-spec-val">STAAR EVO ICL</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tip-box" style="margin-top:2.5rem;">
+      <div class="tip-title">💡 如何选择适合自己的术式？</div>
+      <p class="tip-text">术式选择由术前检查数据决定，不是个人偏好。角膜厚度、形态、度数、眼压、瞳孔大小等指标共同决定你的可选范围。医生会综合这些数据为你推荐最安全、效果最佳的方案。一般来说：角膜厚 + 度数中等 → SMILE；角膜薄 + 激光禁忌 → ICL；预算有限 → 半飞秒或表层。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2024 清晰视界 · 屈光手术科普平台
+  <span>|</span> <a href="index.html">返回主页</a>
+  <span>|</span> 本页面仅作科普参考，不构成医疗建议</p>
+</footer>
+</body>
+</html>

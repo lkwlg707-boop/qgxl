@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>清晰视界 — 屈光手术指南</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0f1a2e; --ink-mid: #3d5068; --ink-light: #7a92a8;
+    --paper: #f8f6f1; --paper-warm: #f0ede6;
+    --accent: #1a5fb4; --accent-light: #e8f0fb;
+    --gold: #b8902a; --teal: #0d7a6a; --teal-light: #e5f5f2;
+    --serif: 'Noto Serif SC', serif; --sans: 'Noto Sans SC', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.7; font-size: 16px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(248,246,241,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(15,26,46,0.08); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-brand { font-family: var(--serif); font-size: 18px; color: var(--ink); text-decoration: none; letter-spacing: 0.05em; }
+  .nav-brand span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 1.5rem; }
+  nav ul a { text-decoration: none; font-size: 14px; color: var(--ink-mid); transition: color 0.2s; }
+  nav ul a:hover { color: var(--accent); }
+  .nav-cta { background: var(--accent); color: #fff !important; padding: 7px 18px; border-radius: 100px; font-weight: 500 !important; }
+  .nav-cta:hover { background: #1450a0 !important; }
+
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 80px 2rem 4rem; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 65% 50%, #ddeafb 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 20% 80%, #e5f5f2 0%, transparent 60%); z-index: 0; }
+  .hero-grid { position: absolute; inset: 0; z-index: 0; opacity: 0.035; background-image: linear-gradient(var(--ink) 1px, transparent 1px), linear-gradient(90deg, var(--ink) 1px, transparent 1px); background-size: 40px 40px; }
+  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
+  .hero-eyebrow { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .hero-title { font-family: var(--serif); font-size: clamp(36px, 5vw, 56px); line-height: 1.25; color: var(--ink); margin-bottom: 1.5rem; }
+  .hero-title em { font-style: normal; color: var(--accent); }
+  .hero-desc { font-size: 16px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 2rem; max-width: 440px; }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; }
+  .btn-primary { background: var(--ink); color: #fff; padding: 14px 28px; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 500; transition: background 0.2s, transform 0.1s; }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-ghost { color: var(--ink-mid); text-decoration: none; font-size: 15px; border-bottom: 1px solid var(--ink-light); padding-bottom: 2px; transition: color 0.2s; }
+  .btn-ghost:hover { color: var(--accent); }
+  .hero-visual { display: flex; align-items: center; justify-content: center; }
+
+  .stats-bar { background: var(--ink); color: #fff; padding: 2rem; }
+  .stats-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+  .stat-num { font-family: var(--serif); font-size: 32px; font-weight: 600; color: #fff; line-height: 1; margin-bottom: 6px; }
+  .stat-num span { color: #7ab3f5; }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,0.55); }
+
+  .entry-section { padding: 5rem 2rem; }
+  .entry-section.bg-warm { background: var(--paper-warm); }
+  .entry-section.bg-normal { background: var(--paper); }
+  .entry-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .entry-inner.reverse { direction: rtl; }
+  .entry-inner.reverse > * { direction: ltr; }
+
+  .entry-num { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.75rem; }
+  .entry-title { font-family: var(--serif); font-size: clamp(24px, 3vw, 36px); color: var(--ink); line-height: 1.3; margin-bottom: 1rem; }
+  .entry-desc { font-size: 15px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 1.75rem; }
+  .entry-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.75rem; }
+  .entry-tag { font-size: 12px; padding: 4px 12px; border-radius: 100px; border: 1px solid rgba(15,26,46,0.1); color: var(--ink-mid); }
+  .entry-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: 500; transition: opacity 0.2s, transform 0.15s; color: #fff; }
+  .entry-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+  .entry-btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.2s; color: var(--ink); border: 1.5px solid rgba(15,26,46,0.18); margin-left: 10px; }
+  .entry-btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  .entry-visual { background: #fff; border-radius: 16px; padding: 2rem; border: 1px solid rgba(15,26,46,0.08); }
+  .mini-list { display: flex; flex-direction: column; gap: 10px; }
+  .mini-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--paper); border-radius: 10px; }
+  .mini-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .mini-name { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .mini-sub { font-size: 12px; color: var(--ink-light); margin-top: 1px; }
+
+  .mini-check { display: flex; flex-direction: column; gap: 0; }
+  .mc-group-title { font-size: 12px; font-weight: 500; margin-bottom: 8px; }
+  .mc-item { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--ink-mid); padding: 7px 0; border-bottom: 1px solid rgba(15,26,46,0.05); }
+  .mc-item:last-of-type { border-bottom: none; margin-bottom: 12px; }
+  .mc-icon { flex-shrink: 0; }
+
+  .mini-steps { display: flex; flex-direction: column; gap: 0; }
+  .ms-item { display: flex; gap: 12px; align-items: flex-start; padding: 11px 0; border-bottom: 1px solid rgba(15,26,46,0.06); }
+  .ms-item:last-child { border-bottom: none; }
+  .ms-num { width: 28px; height: 28px; border-radius: 50%; color: #fff; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ms-text { font-size: 13px; color: var(--ink-mid); line-height: 1.55; padding-top: 4px; }
+
+  .mini-faq { display: flex; flex-direction: column; }
+  .mf-item { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid rgba(15,26,46,0.06); font-size: 13px; color: var(--ink-mid); }
+  .mf-item:last-of-type { border-bottom: none; }
+  .mf-q { background: var(--accent-light); color: var(--accent); font-weight: 600; font-size: 11px; padding: 2px 7px; border-radius: 4px; flex-shrink: 0; }
+
+  #cta { background: var(--ink); color: #fff; text-align: center; padding: 6rem 2rem; }
+  .cta-title { font-family: var(--serif); font-size: clamp(28px,4vw,40px); color: #fff; margin-bottom: 1rem; }
+  .cta-sub { font-size: 16px; color: rgba(255,255,255,0.55); max-width: 480px; margin: 0 auto 2rem; line-height: 1.8; }
+  .cta-form { display: flex; max-width: 440px; margin: 0 auto; border-radius: 8px; overflow: hidden; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); }
+  .cta-form input { flex: 1; background: none; border: none; padding: 14px 20px; font-family: var(--sans); font-size: 15px; color: #fff; outline: none; }
+  .cta-form input::placeholder { color: rgba(255,255,255,0.35); }
+  .cta-form button { background: var(--accent); color: #fff; border: none; padding: 14px 24px; font-family: var(--sans); font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+  .cta-form button:hover { background: #1450a0; }
+  .cta-note { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 1rem; }
+
+  footer { background: #0a1220; color: rgba(255,255,255,0.4); padding: 2rem; text-align: center; font-size: 13px; }
+  footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+  footer span { color: rgba(255,255,255,0.2); margin: 0 8px; }
+
+  @media (max-width: 900px) {
+    .hero-inner, .entry-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-visual, .entry-visual { display: none; }
+    .entry-inner.reverse { direction: ltr; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    nav ul { display: none; }
+  }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+  .hero-title { animation: fadeUp 0.6s 0.1s ease both; }
+  .hero-desc { animation: fadeUp 0.6s 0.2s ease both; }
+  .hero-actions { animation: fadeUp 0.6s 0.3s ease both; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html"><span>清</span>晰视界</a>
+  <ul>
+    <li><a href="types.html">手术类型</a></li>
+    <li><a href="equipment.html">设备耗材</a></li>
+    <li><a href="suitable.html">适合人群</a></li>
+    <li><a href="process.html">手术流程</a></li>
+    <li><a href="faq.html">常见问题</a></li>
+    <li><a href="#cta" class="nav-cta">预约咨询</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">屈光手术科普指南 2024</p>
+      <h1 class="hero-title">告别眼镜，<br>重新认识<em>清晰世界</em></h1>
+      <p class="hero-desc">从激光角膜手术到晶体植入，现代屈光手术已帮助超过 8000 万人摘掉眼镜。了解不同术式，找到最适合你的方案。</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="types.html">了解手术类型 →</a>
+        <a class="btn-ghost" href="suitable.html">我适合做手术吗？</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg width="380" height="320" viewBox="0 0 380 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="190" cy="160" rx="160" ry="90" fill="#e8f0fb" stroke="#1a5fb4" stroke-width="2"/>
+        <circle cx="190" cy="160" r="55" fill="#b5d4f4" stroke="#1a5fb4" stroke-width="1.5"/>
+        <circle cx="190" cy="160" r="45" fill="none" stroke="#1a5fb4" stroke-width="0.5" stroke-dasharray="3 4"/>
+        <circle cx="190" cy="160" r="35" fill="#378add" stroke="#1a5fb4" stroke-width="1"/>
+        <circle cx="190" cy="160" r="20" fill="#0f1a2e"/>
+        <ellipse cx="178" cy="150" rx="7" ry="5" fill="rgba(255,255,255,0.7)" transform="rotate(-20 178 150)"/>
+        <line x1="80" y1="100" x2="165" y2="155" stroke="#1a5fb4" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.6"/>
+        <line x1="80" y1="120" x2="165" y2="158" stroke="#1a5fb4" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.6"/>
+        <line x1="80" y1="140" x2="165" y2="161" stroke="#1a5fb4" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.6"/>
+        <rect x="40" y="90" width="42" height="60" rx="6" fill="#1a5fb4" opacity="0.15" stroke="#1a5fb4" stroke-width="1.5"/>
+        <text x="61" y="124" font-family="sans-serif" font-size="9" fill="#1a5fb4" text-anchor="middle">激光</text>
+        <line x1="190" y1="70" x2="240" y2="40" stroke="#7a92a8" stroke-width="1"/>
+        <text x="244" y="38" font-family="sans-serif" font-size="12" fill="#3d5068">角膜</text>
+        <circle cx="190" cy="160" r="4" fill="#1a5fb4"/>
+        <line x1="232" y1="160" x2="280" y2="140" stroke="#7a92a8" stroke-width="1"/>
+        <text x="284" y="138" font-family="sans-serif" font-size="12" fill="#3d5068">晶状体</text>
+        <text x="310" y="200" font-family="sans-serif" font-size="12" fill="#3d5068">视网膜</text>
+        <path d="M 190 105 Q 200 108 210 105" stroke="#0d7a6a" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+        <text x="190" y="275" font-family="sans-serif" font-size="13" fill="#3d5068" text-anchor="middle">激光精准重塑角膜曲率，矫正屈光不正</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div><div class="stat-num">8000<span>万+</span></div><div class="stat-label">全球手术例数</div></div>
+    <div><div class="stat-num">96<span>%</span></div><div class="stat-label">患者满意度</div></div>
+    <div><div class="stat-num">30<span>年</span></div><div class="stat-label">技术验证历史</div></div>
+    <div><div class="stat-num">15<span>min</span></div><div class="stat-label">手术时长</div></div>
+  </div>
+</div>
+
+<!-- 01 手术类型 -->
+<div class="entry-section bg-normal">
+  <div class="entry-inner">
+    <div>
+      <p class="entry-num">01 · 手术类型</p>
+      <h2 class="entry-title">五大主流术式，各有所长</h2>
+      <p class="entry-desc">从全飞秒 SMILE、半飞秒 FS-LASIK、表层手术 PRK/LASEK、全激光 TPRK，到 ICL 晶体植入，每种术式针对不同角膜条件和度数范围，了解详细介绍与横向对比表。</p>
+      <div class="entry-tags">
+        <span class="entry-tag">全飞秒 SMILE</span>
+        <span class="entry-tag">半飞秒 FS-LASIK</span>
+        <span class="entry-tag">表层手术 PRK</span>
+        <span class="entry-tag">全激光 TPRK</span>
+        <span class="entry-tag">ICL 晶体植入</span>
+      </div>
+      <a class="entry-btn" href="types.html" style="background: var(--accent);">查看五大手术类型 →</a>
+    </div>
+    <div class="entry-visual">
+      <div class="mini-list">
+        <div class="mini-item"><div class="mini-dot" style="background:#1a5fb4;"></div><div><div class="mini-name">全飞秒 SMILE</div><div class="mini-sub">近视 100–1000° · 干眼症风险最低</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#0d7a6a;"></div><div><div class="mini-name">半飞秒 FS-LASIK</div><div class="mini-sub">近视 100–1200° · 技术最成熟</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#7b5ea7;"></div><div><div class="mini-name">表层手术 PRK/LASEK</div><div class="mini-sub">近视 100–800° · 角膜薄者首选</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#d4522a;"></div><div><div class="mini-name">全激光 TPRK</div><div class="mini-sub">近视 100–800° · 一步完成升级版</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#b8902a;"></div><div><div class="mini-name">ICL 晶体植入</div><div class="mini-sub">近视 300–1800° · 不切削角膜</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 设备与耗材 -->
+<div class="entry-section bg-warm">
+  <div class="entry-inner reverse">
+    <div>
+      <p class="entry-num">02 · 设备与耗材</p>
+      <h2 class="entry-title">主流激光设备与 ICL 晶体</h2>
+      <p class="entry-desc">蔡司、阿玛仕、爱尔康三大品牌激光设备各有侧重，STAAR EVO ICL V4C/V5 与国产昊海生科晶体各具优势。了解核心参数与品牌对比，与医生沟通更有把握。</p>
+      <div class="entry-tags">
+        <span class="entry-tag">蔡司 VisuMax 800/500/MEL90</span>
+        <span class="entry-tag">阿玛仕 1050RS/750S</span>
+        <span class="entry-tag">爱尔康 EX500/FS200</span>
+        <span class="entry-tag">EVO ICL V4C/V5</span>
+      </div>
+      <a class="entry-btn" href="equipment.html" style="background:#1a3a6b;">查看激光设备介绍 →</a>
+      <a class="entry-btn-outline" href="equipment.html">ICL 晶体详情</a>
+    </div>
+    <div class="entry-visual">
+      <div style="font-size:12px;color:var(--ink-light);letter-spacing:.08em;margin-bottom:10px;">激光设备</div>
+      <div class="mini-list" style="margin-bottom:1.25rem;">
+        <div class="mini-item"><div class="mini-dot" style="background:#2d5fa8;"></div><div><div class="mini-name">蔡司 ZEISS</div><div class="mini-sub">VisuMax 800 / 500 / MEL 90</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#2a9d6e;"></div><div><div class="mini-name">阿玛仕 AMARIS</div><div class="mini-sub">1050RS / 750S · 全球最高频率</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#c0692a;"></div><div><div class="mini-name">爱尔康 ALCON</div><div class="mini-sub">EX500 / FS200 · 装机量最大</div></div></div>
+      </div>
+      <div style="font-size:12px;color:var(--ink-light);letter-spacing:.08em;margin-bottom:10px;">ICL 晶体</div>
+      <div class="mini-list">
+        <div class="mini-item"><div class="mini-dot" style="background:#1a5fb4;"></div><div><div class="mini-name">STAAR EVO ICL V4C / V5</div><div class="mini-sub">全球销量第一 · 中央孔设计</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#0d7a6a;"></div><div><div class="mini-name">昊海生科 PreVail ICL</div><div class="mini-sub">国产 · NMPA 认证 · 性价比优</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 适合人群 -->
+<div class="entry-section bg-normal">
+  <div class="entry-inner">
+    <div>
+      <p class="entry-num">03 · 适合人群</p>
+      <h2 class="entry-title">我适合做屈光手术吗？</h2>
+      <p class="entry-desc">年龄、度数、角膜厚度、眼部健康……了解适应症与禁忌症，以及不同情况对应的可选术式矩阵，初步判断你是否为合适的手术候选人。</p>
+      <div class="entry-tags">
+        <span class="entry-tag">适应症 / 禁忌症</span>
+        <span class="entry-tag">术式适应矩阵</span>
+        <span class="entry-tag">术前自查清单</span>
+      </div>
+      <a class="entry-btn" href="suitable.html" style="background: var(--teal);">查看适合人群详情 →</a>
+    </div>
+    <div class="entry-visual">
+      <div class="mini-check">
+        <div class="mc-group-title" style="color:var(--teal);">✓ 适合考虑手术</div>
+        <div class="mc-item"><span class="mc-icon" style="color:var(--teal);">✓</span>年龄 18–50 岁，度数稳定 2 年以上</div>
+        <div class="mc-item"><span class="mc-icon" style="color:var(--teal);">✓</span>近视度数在可矫正范围内</div>
+        <div class="mc-item"><span class="mc-icon" style="color:var(--teal);">✓</span>角膜厚度、形态正常，无圆锥角膜</div>
+        <div class="mc-item" style="border-bottom: 1px solid rgba(15,26,46,0.05); margin-bottom: 12px;"><span class="mc-icon" style="color:var(--teal);">✓</span>眼压正常，无青光眼</div>
+        <div class="mc-group-title" style="color:#e05a5a;">✕ 暂不建议手术</div>
+        <div class="mc-item"><span class="mc-icon" style="color:#e05a5a;">✕</span>未满 18 岁，或度数仍在增长</div>
+        <div class="mc-item"><span class="mc-icon" style="color:#e05a5a;">✕</span>角膜过薄或存在圆锥角膜</div>
+        <div class="mc-item" style="border:none;"><span class="mc-icon" style="color:#e05a5a;">✕</span>自身免疫性疾病 / 妊娠哺乳期</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 手术流程 -->
+<div class="entry-section bg-warm">
+  <div class="entry-inner reverse">
+    <div>
+      <p class="entry-num">04 · 手术流程</p>
+      <h2 class="entry-title">从检查到康复，全程透明</h2>
+      <p class="entry-desc">术前检查 → 方案设计 → 手术当天 → 术后随访，整个流程通常只需 2 次就诊。手术本身约 15 分钟，了解每个环节，消除未知的焦虑感。</p>
+      <div class="entry-tags">
+        <span class="entry-tag">术前检查 20+ 项</span>
+        <span class="entry-tag">手术约 15 分钟</span>
+        <span class="entry-tag">6 次术后随访</span>
+        <span class="entry-tag">术后注意事项</span>
+      </div>
+      <a class="entry-btn" href="process.html" style="background: var(--ink);">查看完整手术流程 →</a>
+    </div>
+    <div class="entry-visual">
+      <div class="mini-steps">
+        <div class="ms-item"><div class="ms-num" style="background:var(--accent);">1</div><div class="ms-text"><strong>术前全面检查</strong> — 20+ 项精密检查，约 2–3 小时，评估手术可行性</div></div>
+        <div class="ms-item"><div class="ms-num" style="background:var(--teal);">2</div><div class="ms-text"><strong>方案设计与沟通</strong> — 个性化手术方案设计，签署知情同意书</div></div>
+        <div class="ms-item"><div class="ms-num" style="background:#b8902a;">3</div><div class="ms-text"><strong>手术当天</strong> — 双眼约 15 分钟，表麻全程无痛，全程清醒配合</div></div>
+        <div class="ms-item"><div class="ms-num" style="background:#7b5ea7;">4</div><div class="ms-text"><strong>术后复查随访</strong> — 1天/1周/1月/3月/6月/1年，全程追踪视力</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 常见问题 -->
+<div class="entry-section bg-normal">
+  <div class="entry-inner">
+    <div>
+      <p class="entry-num">05 · 常见问题</p>
+      <h2 class="entry-title">你最想问的，这里都有答案</h2>
+      <p class="entry-desc">汇集患者术前最常见的 20+ 个疑问，涵盖安全与风险、手术过程、效果与恢复、费用与选择四大主题，找到你的问题，消除手术前的顾虑。</p>
+      <div class="entry-tags">
+        <span class="entry-tag">安全与风险</span>
+        <span class="entry-tag">手术过程</span>
+        <span class="entry-tag">效果与恢复</span>
+        <span class="entry-tag">费用与选择</span>
+      </div>
+      <a class="entry-btn" href="faq.html" style="background:#4a2d8a;">查看全部常见问题 →</a>
+    </div>
+    <div class="entry-visual">
+      <div class="mini-faq">
+        <div class="mf-item"><span class="mf-q">Q</span>手术疼吗？全程清醒吗？</div>
+        <div class="mf-item"><span class="mf-q">Q</span>术后会失明吗？</div>
+        <div class="mf-item"><span class="mf-q">Q</span>术后会反弹、近视复发吗？</div>
+        <div class="mf-item"><span class="mf-q">Q</span>近视手术需要多少钱？</div>
+        <div class="mf-item"><span class="mf-q">Q</span>干眼症术后会变严重吗？</div>
+        <div class="mf-item" style="border:none;"><span class="mf-q">Q</span>SMILE、半飞秒、表层、ICL 怎么选？</div>
+        <div style="text-align:center;padding-top:12px;"><a href="faq.html" style="font-size:13px;color:var(--accent);text-decoration:none;">查看全部 20+ 个问题 →</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section id="cta">
+  <p style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:1rem;">下一步</p>
+  <h2 class="cta-title">预约免费术前咨询</h2>
+  <p class="cta-sub">留下联系方式，我们会在 24 小时内安排专业顾问与你沟通，无任何销售压力。</p>
+  <div class="cta-form">
+    <input type="tel" placeholder="请输入您的手机号码" id="phoneInput"/>
+    <button onclick="handleCta()">预约咨询</button>
+  </div>
+  <p class="cta-note">隐私保护承诺：您的信息仅用于预约联系，不会用于其他商业目的</p>
+</section>
+
+<footer>
+  <p>© 2024 清晰视界 · 屈光手术科普平台
+  <span>|</span> <a href="#">隐私政策</a>
+  <span>|</span> <a href="#">免责声明</a>
+  <span>|</span> 本页面仅作科普参考，不构成医疗建议</p>
+</footer>
+
+<script>
+function handleCta() {
+  const phone = document.getElementById('phoneInput').value;
+  if (phone.length < 8) { alert('请输入有效的手机号码'); return; }
+  alert('感谢您的预约！我们将在 24 小时内联系您。');
+  document.getElementById('phoneInput').value = '';
+}
+</script>
+</body>
+</html>
