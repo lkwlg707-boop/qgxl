@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>主流激光设备与 ICL 晶体 — 清晰视界</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f1a2e;
+    --ink-mid: #3d5068;
+    --ink-light: #7a92a8;
+    --paper: #f8f6f1;
+    --paper-warm: #f0ede6;
+    --accent: #1a5fb4;
+    --accent-light: #e8f0fb;
+    --gold: #b8902a;
+    --teal: #0d7a6a;
+    --teal-light: #e5f5f2;
+    --serif: 'Noto Serif SC', serif;
+    --sans: 'Noto Sans SC', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(248, 246, 241, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(15, 26, 46, 0.08);
+    padding: 0 2rem;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .nav-brand {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-brand span { color: var(--accent); }
+
+  .nav-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 14px; color: var(--ink-mid);
+    text-decoration: none;
+    border: 1px solid rgba(15,26,46,0.12);
+    padding: 6px 16px; border-radius: 100px;
+    transition: all 0.2s;
+  }
+
+  .nav-back:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* HERO */
+  .page-hero {
+    padding: 100px 2rem 4rem;
+    background: linear-gradient(135deg, #e8f0fb 0%, #f0ede6 100%);
+    text-align: center;
+  }
+
+  .page-hero-label {
+    font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem;
+  }
+
+  .page-hero-title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 4vw, 44px);
+    color: var(--ink); margin-bottom: 1rem;
+  }
+
+  .page-hero-sub {
+    font-size: 16px; color: var(--ink-mid);
+    max-width: 560px; margin: 0 auto; line-height: 1.8;
+  }
+
+  /* TAB NAV */
+  .tab-nav {
+    background: #fff;
+    border-bottom: 1px solid rgba(15,26,46,0.08);
+    display: flex; justify-content: center; gap: 0;
+    position: sticky; top: 60px; z-index: 50;
+  }
+
+  .tab-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: var(--sans); font-size: 15px; color: var(--ink-mid);
+    padding: 1rem 2.5rem;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+  .tab-btn:hover { color: var(--accent); }
+
+  /* SECTIONS */
+  .content-section { padding: 5rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(24px, 3vw, 36px);
+    color: var(--ink); margin-bottom: 1rem; line-height: 1.3;
+  }
+
+  .section-sub {
+    font-size: 15px; color: var(--ink-mid);
+    max-width: 560px; line-height: 1.8; margin-bottom: 3rem;
+  }
+
+  /* BRAND HEADER */
+  .brand-header {
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-bottom: 2rem; padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(15,26,46,0.08);
+  }
+
+  .brand-badge {
+    width: 60px; height: 60px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 13px; font-weight: 600;
+    color: #fff; letter-spacing: 0.05em; flex-shrink: 0;
+    text-align: center; line-height: 1.3;
+  }
+
+  .brand-name { font-family: var(--serif); font-size: 22px; color: var(--ink); }
+  .brand-origin { font-size: 13px; color: var(--ink-light); margin-top: 2px; }
+
+  /* DEVICE CARD */
+  .device-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(15,26,46,0.08);
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .device-card-header {
+    padding: 1.5rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(15,26,46,0.06);
+  }
+
+  .device-name { font-family: var(--serif); font-size: 20px; color: var(--ink); }
+
+  .device-tag {
+    font-size: 11px; font-weight: 500;
+    padding: 4px 12px; border-radius: 100px;
+  }
+
+  .device-body { padding: 2rem; }
+
+  .device-desc {
+    font-size: 15px; color: var(--ink-mid); line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .spec-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .spec-box {
+    background: var(--paper);
+    border-radius: 10px; padding: 14px;
+  }
+
+  .spec-box-label { font-size: 11px; color: var(--ink-light); margin-bottom: 4px; }
+  .spec-box-val { font-size: 14px; font-weight: 500; color: var(--ink); }
+
+  .feature-list {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+
+  .feature-tag {
+    font-size: 12px; padding: 4px 12px; border-radius: 100px;
+    border: 1px solid rgba(15,26,46,0.1); color: var(--ink-mid);
+  }
+
+  /* DEVICE IMAGE */
+  .device-img-wrap {
+    width: 100%; height: 240px;
+    border-radius: 10px; overflow: hidden;
+    background: #fff;
+    margin-bottom: 1.25rem;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    border: 1px solid rgba(15,26,46,0.06);
+  }
+  .device-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: contain; object-position: center;
+    padding: 8px;
+    transition: transform 0.4s ease;
+  }
+  .device-img-wrap:hover img { transform: scale(1.03); }
+  .device-img-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(15,26,46,0.45));
+    color: #fff; font-size: 11px; padding: 20px 12px 8px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ICL IMAGE */
+  .icl-img-wrap {
+    width: 100%; height: 180px;
+    border-radius: 10px; overflow: hidden;
+    background: #fff; margin-bottom: 1.25rem;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(15,26,46,0.06);
+  }
+  .icl-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: contain; object-position: center;
+    padding: 8px;
+    transition: transform 0.4s ease;
+  }
+  .icl-img-wrap:hover img { transform: scale(1.03); }
+
+  /* BRAND BLOCK */
+  .brand-block {
+    background: #fff; border-radius: 16px;
+    border: 1px solid rgba(15,26,46,0.08);
+    padding: 2.5rem; margin-bottom: 3rem;
+  }
+
+  .brand-divider {
+    height: 1px; background: rgba(15,26,46,0.06); margin: 2rem 0;
+  }
+
+  /* ICL CARDS */
+  .icl-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+
+  .icl-card {
+    background: #fff; border-radius: 16px;
+    border: 1px solid rgba(15,26,46,0.08); overflow: hidden;
+  }
+
+  .icl-card-top {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(15,26,46,0.06);
+    display: flex; align-items: center; gap: 1rem;
+  }
+
+  .icl-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+
+  .icl-card-body { padding: 1.5rem 2rem; }
+
+  .icl-version {
+    background: var(--paper); border-radius: 10px;
+    padding: 1.25rem; margin-bottom: 1rem;
+  }
+
+  .icl-version-title {
+    font-size: 14px; font-weight: 500; color: var(--ink);
+    margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+  }
+
+  .icl-version-desc {
+    font-size: 13px; color: var(--ink-mid); line-height: 1.75;
+    margin-bottom: 10px;
+  }
+
+  .icl-specs {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+  }
+
+  .icl-spec {
+    background: #fff; border-radius: 6px; padding: 8px 12px;
+  }
+
+  .icl-spec-label { font-size: 11px; color: var(--ink-light); }
+  .icl-spec-val { font-size: 13px; font-weight: 500; color: var(--ink); margin-top: 2px; }
+
+  /* TIP BOX */
+  .tip-box {
+    background: var(--accent-light); border-radius: 12px;
+    padding: 1.5rem; border-left: 4px solid var(--accent);
+    margin-top: 2rem;
+  }
+
+  .tip-title { font-size: 14px; font-weight: 500; color: var(--accent); margin-bottom: 6px; }
+  .tip-text { font-size: 14px; color: var(--ink-mid); line-height: 1.75; }
+
+  /* COMPARISON TABLE */
+  .compare-table {
+    width: 100%; border-collapse: collapse;
+    background: #fff; border-radius: 12px; overflow: hidden;
+    border: 1px solid rgba(15,26,46,0.08);
+    margin-top: 2rem;
+  }
+
+  .compare-table th {
+    background: var(--ink); color: #fff;
+    padding: 14px 20px; font-size: 13px; font-weight: 500;
+    text-align: left;
+  }
+
+  .compare-table td {
+    padding: 12px 20px; font-size: 13px; color: var(--ink-mid);
+    border-bottom: 1px solid rgba(15,26,46,0.05);
+  }
+
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:nth-child(even) td { background: var(--paper); }
+  .compare-table td:first-child { color: var(--ink); font-weight: 500; }
+
+  /* FOOTER */
+  footer {
+    background: #0a1220; color: rgba(255,255,255,0.4);
+    padding: 2rem; text-align: center; font-size: 13px;
+  }
+
+  footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+  footer span { color: rgba(255,255,255,0.2); margin: 0 8px; }
+
+  @media (max-width: 900px) {
+    .spec-grid { grid-template-columns: repeat(2, 1fr); }
+    .icl-grid { grid-template-columns: 1fr; }
+    .tab-btn { padding: 1rem 1.2rem; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="index.html"><span>李鹏飞</span>眼科医生</a>
+  <a class="nav-back" href="index.html">← 返回主页</a>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <p class="page-hero-label">设备与耗材指南</p>
+  <h1 class="page-hero-title">主流激光设备与 ICL 晶体</h1>
+  <p class="page-hero-sub">了解手术中使用的核心设备与耗材，帮助你与医生更有效地沟通，做出更知情的选择。</p>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('laser')">🔬 激光设备</button>
+  <button class="tab-btn" onclick="switchTab('icl')">💎 ICL 晶体</button>
+  <button class="tab-btn" onclick="switchTab('compare')">📊 对比总览</button>
+</div>
+
+<!-- ===== LASER TAB ===== -->
+<div id="tab-laser">
+
+  <!-- 蔡司 -->
+  <section class="content-section" style="background: var(--paper);">
+    <div class="section-inner">
+      <div class="brand-block">
+        <div class="brand-header">
+          <div class="brand-badge" style="background: linear-gradient(135deg, #1a3a6b, #2d5fa8);">ZEISS</div>
+          <div>
+            <div class="brand-name">德国蔡司 ZEISS</div>
+            <div class="brand-origin">德国 · 全飞秒 SMILE 开创者</div>
+          </div>
+        </div>
+
+        <!-- VisuMax 800 -->
+        <div class="device-card">
+          <div class="device-card-header">
+            <div class="device-name">VisuMax 800</div>
+            <span class="device-tag" style="background:#e8f0fb; color:#1a5fb4;">新一代</span>
+          </div>
+          <div class="device-body">
+                        <div class="device-img-wrap" style="background: linear-gradient(135deg,#0d1f3c 0%,#1a3a6b 60%,#2d5fa8 100%);margin-bottom:1.25rem;">
+              <svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;padding:10px;">
+                <!-- base platform -->
+                <rect x="60" y="140" width="400" height="18" rx="4" fill="rgba(255,255,255,0.12)"/>
+                <!-- main body -->
+                <rect x="160" y="60" width="200" height="82" rx="12" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                <!-- screen -->
+                <rect x="172" y="70" width="90" height="56" rx="6" fill="rgba(26,95,180,0.6)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                <rect x="176" y="74" width="82" height="48" rx="4" fill="rgba(10,30,80,0.8)"/>
+                <line x1="183" y1="85" x2="250" y2="85" stroke="#7ab3f5" stroke-width="1" opacity="0.7"/>
+                <line x1="183" y1="93" x2="240" y2="93" stroke="#7ab3f5" stroke-width="1" opacity="0.5"/>
+                <line x1="183" y1="101" x2="245" y2="101" stroke="#7ab3f5" stroke-width="1" opacity="0.4"/>
+                <circle cx="220" cy="112" r="4" fill="#1a5fb4" opacity="0.8"/>
+                <!-- laser arm -->
+                <rect x="270" y="50" width="30" height="100" rx="8" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+                <rect x="276" y="56" width="18" height="16" rx="3" fill="rgba(26,95,180,0.5)"/>
+                <!-- laser head -->
+                <ellipse cx="285" cy="100" rx="18" ry="14" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+                <ellipse cx="285" cy="100" rx="10" ry="8" fill="rgba(26,95,180,0.5)"/>
+                <!-- laser beam -->
+                <line x1="285" y1="114" x2="285" y2="140" stroke="#7ab3f5" stroke-width="2" stroke-dasharray="4 3" opacity="0.8"/>
+                <ellipse cx="285" cy="143" rx="20" ry="4" fill="rgba(122,179,245,0.3)"/>
+                <!-- patient bed -->
+                <rect x="310" y="120" width="120" height="12" rx="6" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                <ellipse cx="340" cy="118" rx="14" ry="10" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                <!-- brand text -->
+                <text x="80" y="100" font-family="sans-serif" font-size="13" fill="rgba(255,255,255,0.9)" font-weight="600" letter-spacing="2">ZEISS</text>
+                <text x="80" y="118" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" letter-spacing="1">VisuMax 800</text>
+                <!-- spec badge -->
+                <rect x="55" y="126" width="130" height="22" rx="11" fill="rgba(26,95,180,0.5)" stroke="rgba(122,179,245,0.4)" stroke-width="1"/>
+                <text x="120" y="142" font-family="sans-serif" font-size="10" fill="#7ab3f5" text-anchor="middle">SMILE Pro · 2000kHz</text>
+              </svg>
+              <div class="device-img-caption">ZEISS VisuMax 800 · 全飞秒激光平台 · 支持 SMILE Pro</div>
+            </div>
+            </div>
+            <p class="device-desc">蔡司最新一代全飞秒激光平台，支持 SMILE Pro 术式，单眼手术时间缩短至约 10 秒，精度与稳定性全面提升。切口仅 2mm，对角膜结构损伤极小，术后干眼症发生率业内最低。</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <div class="spec-box-label">激光频率</div>
+                <div class="spec-box-val">2000 kHz</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">切口大小</div>
+                <div class="spec-box-val">2 mm</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">单眼时长</div>
+                <div class="spec-box-val">约 10 秒</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">支持术式</div>
+                <div class="spec-box-val">SMILE Pro</div>
+              </div>
+            </div>
+            </div>
+            <div class="feature-list">
+              <span class="feature-tag">SMILE 首选</span>
+              <span class="feature-tag">最短手术时间</span>
+              <span class="feature-tag">干眼症风险最低</span>
+              <span class="feature-tag">德国制造</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- VisuMax 500 -->
+        <div class="device-card">
+          <div class="device-card-header">
+            <div class="device-name">VisuMax 500</div>
+            <span class="device-tag" style="background:#e5f5f2; color:#0d7a6a;">经典款</span>
+          </div>
+          <div class="device-body">
+            <div class="device-img-wrap" style="background: linear-gradient(135deg,#0a1a30 0%,#1a3a6b 100%);">
+              <svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;padding:10px;">
+                <rect x="60" y="145" width="400" height="14" rx="4" fill="rgba(255,255,255,0.1)"/>
+                <rect x="140" y="65" width="220" height="82" rx="14" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+                <rect x="152" y="75" width="100" height="60" rx="6" fill="rgba(10,30,80,0.8)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                <circle cx="202" cy="95" r="18" fill="none" stroke="rgba(122,179,245,0.6)" stroke-width="1.5"/>
+                <circle cx="202" cy="95" r="10" fill="none" stroke="rgba(122,179,245,0.4)" stroke-width="1"/>
+                <circle cx="202" cy="95" r="4" fill="#7ab3f5" opacity="0.8"/>
+                <line x1="165" y1="120" x2="245" y2="120" stroke="rgba(122,179,245,0.3)" stroke-width="1"/>
+                <rect x="265" y="55" width="32" height="106" rx="8" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+                <ellipse cx="281" cy="104" rx="16" ry="12" fill="rgba(26,95,180,0.5)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                <line x1="281" y1="116" x2="281" y2="145" stroke="#7ab3f5" stroke-width="2" stroke-dasharray="4 3" opacity="0.7"/>
+                <rect x="310" y="122" width="110" height="10" rx="5" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                <text x="75" y="98" font-family="sans-serif" font-size="13" fill="rgba(255,255,255,0.9)" font-weight="600" letter-spacing="2">ZEISS</text>
+                <text x="75" y="114" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" letter-spacing="1">VisuMax 500</text>
+                <rect x="75" y="122" width="68" height="18" rx="9" fill="rgba(13,122,106,0.5)" stroke="rgba(13,122,106,0.6)" stroke-width="1"/>
+                <text x="109" y="135" font-family="sans-serif" font-size="9" fill="#6ecfc0" text-anchor="middle">全球装机量第一</text>
+              </svg>
+              <div class="device-img-caption">ZEISS VisuMax 500 · 全飞秒经典平台 · 全球 500 万+ 案例</div>
+            </div>
+            <p class="device-desc">全球装机量最大的全飞秒平台，SMILE 术式的发源机型，技术积累超过 15 年，全球完成超过 500 万例手术。国内大多数开展全飞秒手术的医院主力机型，经验丰富、数据充分。</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <div class="spec-box-label">激光频率</div>
+                <div class="spec-box-val">500 kHz</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">切口大小</div>
+                <div class="spec-box-val">2–4 mm</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">全球案例</div>
+                <div class="spec-box-val">500 万+</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">支持术式</div>
+                <div class="spec-box-val">SMILE</div>
+              </div>
+            </div>
+            <div class="feature-list">
+              <span class="feature-tag">全球装机量第一</span>
+              <span class="feature-tag">案例积累最多</span>
+              <span class="feature-tag">技术成熟稳定</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MEL 90 -->
+        <div class="device-card">
+          <div class="device-card-header">
+            <div class="device-name">MEL 90</div>
+            <span class="device-tag" style="background:#faf4e8; color:#b8902a;">准分子激光</span>
+          </div>
+          <div class="device-body">
+            <div class="device-img-wrap" style="background: linear-gradient(135deg,#1a1a2e 0%,#2a2a5a 100%);">
+              <svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;padding:10px;">
+                <rect x="60" y="148" width="400" height="12" rx="4" fill="rgba(255,255,255,0.08)"/>
+                <rect x="130" y="55" width="160" height="95" rx="10" fill="rgba(255,255,255,0.08)" stroke="rgba(184,144,42,0.4)" stroke-width="1.5"/>
+                <rect x="142" y="65" width="80" height="55" rx="5" fill="rgba(10,10,40,0.8)" stroke="rgba(184,144,42,0.3)" stroke-width="1"/>
+                <line x1="150" y1="80" x2="214" y2="80" stroke="rgba(184,144,42,0.6)" stroke-width="1"/>
+                <line x1="150" y1="90" x2="210" y2="90" stroke="rgba(184,144,42,0.4)" stroke-width="1"/>
+                <line x1="150" y1="100" x2="208" y2="100" stroke="rgba(184,144,42,0.3)" stroke-width="1"/>
+                <rect x="230" y="65" width="16" height="55" rx="4" fill="rgba(184,144,42,0.2)" stroke="rgba(184,144,42,0.35)" stroke-width="1"/>
+                <rect x="300" y="45" width="28" height="110" rx="8" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+                <ellipse cx="314" cy="108" rx="16" ry="12" fill="rgba(184,144,42,0.4)" stroke="rgba(184,144,42,0.5)" stroke-width="1.5"/>
+                <!-- excimer beam lines - multiple parallel -->
+                <line x1="314" y1="120" x2="314" y2="148" stroke="#f0c040" stroke-width="2" opacity="0.8"/>
+                <line x1="310" y1="122" x2="310" y2="148" stroke="#f0c040" stroke-width="1" opacity="0.4"/>
+                <line x1="318" y1="122" x2="318" y2="148" stroke="#f0c040" stroke-width="1" opacity="0.4"/>
+                <ellipse cx="314" cy="150" rx="24" ry="5" fill="rgba(240,192,64,0.25)"/>
+                <rect x="340" y="125" width="100" height="10" rx="5" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+                <text x="75" y="95" font-family="sans-serif" font-size="13" fill="rgba(255,255,255,0.9)" font-weight="600" letter-spacing="2">ZEISS</text>
+                <text x="75" y="111" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" letter-spacing="1">MEL 90</text>
+                <rect x="75" y="119" width="58" height="18" rx="9" fill="rgba(184,144,42,0.4)" stroke="rgba(184,144,42,0.5)" stroke-width="1"/>
+                <text x="104" y="132" font-family="sans-serif" font-size="9" fill="#f0c040" text-anchor="middle">1050 Hz</text>
+              </svg>
+              <div class="device-img-caption">ZEISS MEL 90 · 准分子激光 · 1050Hz · 个性化像差引导</div>
+            </div>
+            <p class="device-desc">蔡司旗下准分子激光平台，超高 1050Hz 频率，切削速度快、热损伤极低。支持个性化波前像差引导切削，可针对每位患者的眼球像差定制切削方案，视觉质量更优。配合半飞秒或表层手术使用。</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <div class="spec-box-label">激光频率</div>
+                <div class="spec-box-val">1050 Hz</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">激光类型</div>
+                <div class="spec-box-val">准分子</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">像差引导</div>
+                <div class="spec-box-val">支持</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">配合术式</div>
+                <div class="spec-box-val">半飞秒 / 表层</div>
+              </div>
+            </div>
+            <div class="feature-list">
+              <span class="feature-tag">个性化切削</span>
+              <span class="feature-tag">热损伤极低</span>
+              <span class="feature-tag">视觉质量优</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 阿玛仕 -->
+  <section class="content-section" style="background: var(--paper-warm);">
+    <div class="section-inner">
+      <div class="brand-block">
+        <div class="brand-header">
+          <div class="brand-badge" style="background: linear-gradient(135deg, #1a6b4b, #2a9d6e);">AMARIS</div>
+          <div>
+            <div class="brand-name">德国施耐德阿玛仕 AMARIS</div>
+            <div class="brand-origin">德国 · 全球频率最高准分子激光</div>
+          </div>
+        </div>
+
+        <!-- AMARIS 1050RS -->
+        <div class="device-card">
+          <div class="device-card-header">
+            <div class="device-name">AMARIS 1050RS</div>
+            <span class="device-tag" style="background:#e5f5f2; color:#0d7a6a;">旗舰款</span>
+          </div>
+          <div class="device-body">
+            <div class="device-img-wrap" style="background: linear-gradient(135deg,#0a2a1a 0%,#1a5a3a 100%);">
+              <svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;padding:10px;">
+                <rect x="60" y="148" width="400" height="12" rx="4" fill="rgba(255,255,255,0.08)"/>
+                <!-- main body tall -->
+                <rect x="150" y="42" width="170" height="108" rx="12" fill="rgba(255,255,255,0.09)" stroke="rgba(13,122,106,0.5)" stroke-width="1.5"/>
+                <!-- front panel -->
+                <rect x="162" y="54" width="90" height="70" rx="6" fill="rgba(5,40,25,0.85)" stroke="rgba(13,122,106,0.4)" stroke-width="1"/>
+                <!-- 5D tracking indicator -->
+                <circle cx="207" cy="72" r="14" fill="none" stroke="rgba(13,200,160,0.5)" stroke-width="1.5"/>
+                <circle cx="207" cy="72" r="8" fill="none" stroke="rgba(13,200,160,0.35)" stroke-width="1"/>
+                <circle cx="207" cy="72" r="3" fill="rgba(13,200,160,0.7)"/>
+                <line x1="193" y1="72" x2="221" y2="72" stroke="rgba(13,200,160,0.4)" stroke-width="1"/>
+                <line x1="207" y1="58" x2="207" y2="86" stroke="rgba(13,200,160,0.4)" stroke-width="1"/>
+                <text x="207" y="104" font-family="sans-serif" font-size="8" fill="rgba(13,200,160,0.7)" text-anchor="middle">5D TRACKING</text>
+                <text x="207" y="115" font-family="sans-serif" font-size="7" fill="rgba(255,255,255,0.3)" text-anchor="middle">1050 Hz</text>
+                <!-- arm -->
+                <rect x="332" y="48" width="26" height="108" rx="8" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+                <ellipse cx="345" cy="110" rx="15" ry="11" fill="rgba(13,122,106,0.5)" stroke="rgba(13,200,160,0.5)" stroke-width="1.5"/>
+                <!-- beam -->
+                <line x1="345" y1="121" x2="345" y2="148" stroke="#13c8a0" stroke-width="2" opacity="0.9"/>
+                <line x1="341" y1="123" x2="341" y2="148" stroke="#13c8a0" stroke-width="1" opacity="0.35"/>
+                <line x1="349" y1="123" x2="349" y2="148" stroke="#13c8a0" stroke-width="1" opacity="0.35"/>
+                <ellipse cx="345" cy="150" rx="22" ry="4" fill="rgba(19,200,160,0.3)"/>
+                <rect x="370" y="126" width="90" height="10" rx="5" fill="rgba(255,255,255,0.07)"/>
+                <text x="75" y="88" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.9)" font-weight="600" letter-spacing="1">SCHWIND</text>
+                <text x="75" y="103" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.6)" letter-spacing="0.5">AMARIS 1050RS</text>
+                <rect x="75" y="111" width="68" height="18" rx="9" fill="rgba(13,122,106,0.5)" stroke="rgba(13,200,160,0.4)" stroke-width="1"/>
+                <text x="109" y="124" font-family="sans-serif" font-size="9" fill="#13c8a0" text-anchor="middle">全球最高频率</text>
+              </svg>
+              <div class="device-img-caption">SCHWIND AMARIS 1050RS · 1050Hz · 5D眼球追踪 · TPRK首选</div>
+            </div>
+            <p class="device-desc">全球频率最高的准分子激光系统，1050Hz 超高频率使切削速度极快，单位时间热量积累极少，角膜愈合更好。搭载 5D 眼球追踪系统（含旋转追踪），对散光矫正精度大幅提升，尤其适合高度散光患者。</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <div class="spec-box-label">激光频率</div>
+                <div class="spec-box-val">1050 Hz</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">眼球追踪</div>
+                <div class="spec-box-val">5D 追踪</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">散光矫正</div>
+                <div class="spec-box-val">精度业内领先</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">配合术式</div>
+                <div class="spec-box-val">TPRK / 半飞秒</div>
+              </div>
+            </div>
+            <div class="feature-list">
+              <span class="feature-tag">全球频率最高</span>
+              <span class="feature-tag">5D 眼球追踪</span>
+              <span class="feature-tag">散光首选</span>
+              <span class="feature-tag">TPRK 主力</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AMARIS 750S -->
+        <div class="device-card">
+          <div class="device-card-header">
+            <div class="device-name">AMARIS 750S</div>
+            <span class="device-tag" style="background:#e5f5f2; color:#0d7a6a;">经典款</span>
+          </div>
+          <div class="device-body">
+            <div class="device-img-wrap" style="background: linear-gradient(135deg,#0a2218 0%,#1a4a30 100%);">
+              <svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;padding:10px;">
+                <rect x="60" y="148" width="400" height="12" rx="4" fill="rgba(255,255,255,0.07)"/>
+                <rect x="155" y="48" width="160" height="102" rx="10" fill="rgba(255,255,255,0.08)" stroke="rgba(13,122,106,0.4)" stroke-width="1.5"/>
+                <rect x="166" y="58" width="85" height="65" rx="5" fill="rgba(5,35,20,0.85)" stroke="rgba(13,122,106,0.3)" stroke-width="1"/>
+                <line x1="173" y1="74" x2="243" y2="74" stroke="rgba(19,200,160,0.5)" stroke-width="1"/>
+                <line x1="173" y1="83" x2="238" y2="83" stroke="rgba(19,200,160,0.35)" stroke-width="1"/>
+                <line x1="173" y1="92" x2="240" y2="92" stroke="rgba(19,200,160,0.25)" stroke-width="1"/>
+                <rect x="173" y="100" width="40" height="14" rx="3" fill="rgba(13,122,106,0.4)"/>
+                <text x="193" y="111" font-family="sans-serif" font-size="8" fill="rgba(19,200,160,0.8)" text-anchor="middle">750 Hz</text>
+                <rect x="328" y="50" width="24" height="106" rx="7" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+                <ellipse cx="340" cy="108" rx="14" ry="10" fill="rgba(13,122,106,0.45)" stroke="rgba(19,200,160,0.4)" stroke-width="1.5"/>
+                <line x1="340" y1="118" x2="340" y2="148" stroke="#13c8a0" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.75"/>
+                <ellipse cx="340" cy="150" rx="20" ry="4" fill="rgba(19,200,160,0.2)"/>
+                <rect x="364" y="126" width="96" height="10" rx="5" fill="rgba(255,255,255,0.06)"/>
+                <text x="75" y="90" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.9)" font-weight="600" letter-spacing="1">SCHWIND</text>
+                <text x="75" y="105" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" letter-spacing="0.5">AMARIS 750S</text>
+                <rect x="75" y="113" width="60" height="18" rx="9" fill="rgba(13,122,106,0.45)" stroke="rgba(13,122,106,0.55)" stroke-width="1"/>
+                <text x="105" y="126" font-family="sans-serif" font-size="9" fill="#6ecfc0" text-anchor="middle">经典稳定</text>
+              </svg>
+              <div class="device-img-caption">SCHWIND AMARIS 750S · 750Hz · 广泛用于半飞秒及表层手术</div>
+            </div>
+            <p class="device-desc">750Hz 准分子激光平台，性能稳定、性价比出色，广泛应用于半飞秒及表层手术（TPRK/PRK/LASEK）。支持个性化像差引导切削，国内装机量大，临床经验丰富。</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <div class="spec-box-label">激光频率</div>
+                <div class="spec-box-val">750 Hz</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">像差引导</div>
+                <div class="spec-box-val">支持</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">配合术式</div>
+                <div class="spec-box-val">半飞秒 / 表层</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">装机数量</div>
+                <div class="spec-box-val">国内广泛</div>
+              </div>
+            </div>
+            <div class="feature-list">
+              <span class="feature-tag">性价比优秀</span>
+              <span class="feature-tag">案例积累丰富</span>
+              <span class="feature-tag">稳定可靠</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 爱尔康 -->
+  <section class="content-section" style="background: var(--paper);">
+    <div class="section-inner">
+      <div class="brand-block">
+        <div class="brand-header">
+          <div class="brand-badge" style="background: linear-gradient(135deg, #6b3a1a, #c0692a);">ALCON</div>
+          <div>
+            <div class="brand-name">美国爱尔康 ALCON</div>
+            <div class="brand-origin">美国 · 全球眼科设备领导品牌</div>
+          </div>
+        </div>
+
+        <!-- EX500 -->
+        <div class="device-card">
+          <div class="device-card-header">
+            <div class="device-name">WaveLight EX500</div>
+            <span class="device-tag" style="background:#faf4e8; color:#b8902a;">准分子主力</span>
+          </div>
+          <div class="device-body">
+            <div class="device-img-wrap" style="background: linear-gradient(135deg,#1a1008 0%,#3a2010 60%,#5a3015 100%);">
+              <svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;padding:10px;">
+                <rect x="60" y="148" width="400" height="12" rx="4" fill="rgba(255,255,255,0.08)"/>
+                <rect x="145" y="44" width="185" height="106" rx="12" fill="rgba(255,255,255,0.09)" stroke="rgba(192,105,42,0.45)" stroke-width="1.5"/>
+                <rect x="157" y="55" width="100" height="65" rx="6" fill="rgba(30,15,5,0.85)" stroke="rgba(192,105,42,0.3)" stroke-width="1"/>
+                <rect x="164" y="63" width="86" height="40" rx="3" fill="rgba(15,8,3,0.9)"/>
+                <!-- waveform display -->
+                <polyline points="168,88 176,76 184,84 192,70 200,80 208,72 216,82 224,74 232,83 240,78 246,83" fill="none" stroke="rgba(192,105,42,0.8)" stroke-width="1.5"/>
+                <line x1="164" y1="95" x2="250" y2="95" stroke="rgba(192,105,42,0.25)" stroke-width="1"/>
+                <text x="207" y="107" font-family="sans-serif" font-size="7.5" fill="rgba(192,105,42,0.65)" text-anchor="middle">WaveLight EX500</text>
+                <rect x="340" y="46" width="26" height="108" rx="8" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+                <ellipse cx="353" cy="108" rx="15" ry="11" fill="rgba(192,105,42,0.45)" stroke="rgba(240,160,60,0.5)" stroke-width="1.5"/>
+                <line x1="353" y1="119" x2="353" y2="148" stroke="#f0a028" stroke-width="2" opacity="0.85"/>
+                <line x1="349" y1="121" x2="349" y2="148" stroke="#f0a028" stroke-width="1" opacity="0.3"/>
+                <line x1="357" y1="121" x2="357" y2="148" stroke="#f0a028" stroke-width="1" opacity="0.3"/>
+                <ellipse cx="353" cy="150" rx="22" ry="4" fill="rgba(240,160,40,0.25)"/>
+                <text x="75" y="90" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.9)" font-weight="600" letter-spacing="1">ALCON</text>
+                <text x="75" y="105" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" letter-spacing="0.5">WaveLight EX500</text>
+                <rect x="75" y="113" width="58" height="18" rx="9" fill="rgba(192,105,42,0.45)" stroke="rgba(192,105,42,0.5)" stroke-width="1"/>
+                <text x="104" y="126" font-family="sans-serif" font-size="9" fill="#f0c080" text-anchor="middle">500 Hz</text>
+              </svg>
+              <div class="device-img-caption">Alcon WaveLight EX500 · 500Hz · 波前像差引导 · 全球装机最多</div>
+            </div>
+            <p class="device-desc">全球装机量最大的准分子激光平台之一，500Hz 频率，支持波前像差引导个性化切削。眼球追踪速度达 1050Hz，追踪精度高，配合半飞秒或表层手术效果稳定，全球临床数据最为充分。</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <div class="spec-box-label">激光频率</div>
+                <div class="spec-box-val">500 Hz</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">眼球追踪</div>
+                <div class="spec-box-val">1050 Hz</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">像差引导</div>
+                <div class="spec-box-val">支持</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">配合术式</div>
+                <div class="spec-box-val">半飞秒 / 表层</div>
+              </div>
+            </div>
+            <div class="feature-list">
+              <span class="feature-tag">全球装机量最大</span>
+              <span class="feature-tag">波前像差引导</span>
+              <span class="feature-tag">临床数据最充分</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FS200 -->
+        <div class="device-card">
+          <div class="device-card-header">
+            <div class="device-name">WaveLight FS200</div>
+            <span class="device-tag" style="background:#faf4e8; color:#b8902a;">飞秒制瓣</span>
+          </div>
+          <div class="device-body">
+            <div class="device-img-wrap" style="background: linear-gradient(135deg,#150d04 0%,#2e1a08 60%,#4a2a10 100%);">
+              <svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;padding:10px;">
+                <rect x="60" y="148" width="400" height="12" rx="4" fill="rgba(255,255,255,0.07)"/>
+                <rect x="150" y="50" width="172" height="100" rx="10" fill="rgba(255,255,255,0.08)" stroke="rgba(192,105,42,0.38)" stroke-width="1.5"/>
+                <rect x="162" y="60" width="88" height="62" rx="5" fill="rgba(22,12,4,0.88)" stroke="rgba(192,105,42,0.25)" stroke-width="1"/>
+                <!-- corneal flap diagram on screen -->
+                <ellipse cx="206" cy="82" rx="28" ry="18" fill="none" stroke="rgba(240,160,60,0.5)" stroke-width="1.5"/>
+                <path d="M 178 82 Q 186 65 206 63 Q 226 65 234 82" fill="none" stroke="rgba(240,160,60,0.7)" stroke-width="1.5" stroke-dasharray="3 2"/>
+                <text x="206" y="104" font-family="sans-serif" font-size="7" fill="rgba(240,160,60,0.6)" text-anchor="middle">制瓣 200 kHz</text>
+                <!-- second arm for flap laser -->
+                <rect x="336" y="52" width="24" height="104" rx="7" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+                <ellipse cx="348" cy="106" rx="14" ry="10" fill="rgba(192,105,42,0.4)" stroke="rgba(240,160,60,0.45)" stroke-width="1.5"/>
+                <line x1="348" y1="116" x2="348" y2="148" stroke="#f0a028" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
+                <ellipse cx="348" cy="150" rx="20" ry="4" fill="rgba(240,160,40,0.2)"/>
+                <text x="75" y="90" font-family="sans-serif" font-size="11" fill="rgba(255,255,255,0.9)" font-weight="600" letter-spacing="1">ALCON</text>
+                <text x="75" y="105" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.55)" letter-spacing="0.5">WaveLight FS200</text>
+                <rect x="75" y="113" width="60" height="18" rx="9" fill="rgba(192,105,42,0.4)" stroke="rgba(192,105,42,0.5)" stroke-width="1"/>
+                <text x="105" y="126" font-family="sans-serif" font-size="9" fill="#f0c080" text-anchor="middle">飞秒制瓣</text>
+              </svg>
+              <div class="device-img-caption">Alcon WaveLight FS200 · 200kHz飞秒制瓣 · 与EX500黄金组合</div>
+            </div>
+            <p class="device-desc">专用飞秒激光制瓣系统，200kHz 频率，制瓣均匀精准、厚度一致性高。通常与 EX500 组合使用，构成完整的半飞秒手术解决方案（FS200 + EX500），是国内半飞秒手术的主流组合之一。</p>
+            <div class="spec-grid">
+              <div class="spec-box">
+                <div class="spec-box-label">激光频率</div>
+                <div class="spec-box-val">200 kHz</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">用途</div>
+                <div class="spec-box-val">飞秒制瓣</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">制瓣均匀性</div>
+                <div class="spec-box-val">业内领先</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">配合设备</div>
+                <div class="spec-box-val">EX500</div>
+              </div>
+            </div>
+            <div class="feature-list">
+              <span class="feature-tag">半飞秒制瓣专用</span>
+              <span class="feature-tag">制瓣厚度均匀</span>
+              <span class="feature-tag">与 EX500 黄金组合</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-title">💡 设备选择建议</div>
+        <p class="tip-text">设备品牌是重要参考，但医生经验与手术量更为关键。同一台设备在不同医生手中，效果差异可能远大于品牌间差异。建议优先选择年手术量 500 例以上、从事屈光手术 5 年以上的医生。</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===== ICL TAB ===== -->
+<div id="tab-icl" style="display:none;">
+  <section class="content-section" style="background: var(--paper);">
+    <div class="section-inner">
+      <p class="section-label">ICL 人工晶体</p>
+      <h2 class="section-title">主流 ICL 晶体品牌</h2>
+      <p class="section-sub">ICL 是植入眼内的软性人工晶体，不切削角膜，可逆可取出，尤其适合高度近视或角膜偏薄的患者。</p>
+
+      <div class="icl-grid">
+
+        <!-- STAAR EVO ICL -->
+        <div class="icl-card">
+          <div class="icl-card-top">
+            <div class="icl-icon" style="background: linear-gradient(135deg, #1a5fb4, #4a90d9);">👁</div>
+            <div>
+              <div style="font-family: var(--serif); font-size: 18px; color: var(--ink);">STAAR EVO ICL</div>
+              <div style="font-size: 12px; color: var(--ink-light);">美国爱尔维 · 全球主流</div>
+            </div>
+          </div>
+          <div class="icl-card-body">
+            <div class="icl-img-wrap" style="background: linear-gradient(135deg,#0a1828 0%,#1a3a6b 100%);">
+              <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;padding:8px;">
+                <!-- ICL lens illustration - top view -->
+                <ellipse cx="200" cy="80" rx="90" ry="55" fill="rgba(122,179,245,0.15)" stroke="rgba(122,179,245,0.6)" stroke-width="2"/>
+                <ellipse cx="200" cy="80" rx="70" ry="42" fill="rgba(122,179,245,0.1)" stroke="rgba(122,179,245,0.4)" stroke-width="1.5"/>
+                <!-- central hole V4C/V5 feature -->
+                <circle cx="200" cy="80" r="10" fill="rgba(10,30,80,0.8)" stroke="rgba(122,179,245,0.7)" stroke-width="1.5"/>
+                <text x="200" y="84" font-family="sans-serif" font-size="7" fill="rgba(122,179,245,0.9)" text-anchor="middle">孔</text>
+                <!-- haptics -->
+                <path d="M 115 60 Q 100 48 108 38" fill="none" stroke="rgba(122,179,245,0.55)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M 115 100 Q 100 112 108 122" fill="none" stroke="rgba(122,179,245,0.55)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M 285 60 Q 300 48 292 38" fill="none" stroke="rgba(122,179,245,0.55)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M 285 100 Q 300 112 292 122" fill="none" stroke="rgba(122,179,245,0.55)" stroke-width="2" stroke-linecap="round"/>
+                <!-- refraction lines -->
+                <line x1="50" y1="55" x2="140" y2="72" stroke="rgba(122,179,245,0.35)" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="50" y1="80" x2="130" y2="80" stroke="rgba(122,179,245,0.35)" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="50" y1="105" x2="140" y2="88" stroke="rgba(122,179,245,0.35)" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="260" y1="72" x2="350" y2="60" stroke="rgba(122,179,245,0.35)" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="270" y1="80" x2="350" y2="80" stroke="rgba(122,179,245,0.35)" stroke-width="1" stroke-dasharray="3 3"/>
+                <line x1="260" y1="88" x2="350" y2="100" stroke="rgba(122,179,245,0.35)" stroke-width="1" stroke-dasharray="3 3"/>
+                <!-- labels -->
+                <text x="200" y="148" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.7)" text-anchor="middle" letter-spacing="1">STAAR EVO ICL · Collamer 胶原共聚物 · 中央孔设计</text>
+              </svg>
+            </div>
+            <p style="font-size: 14px; color: var(--ink-mid); line-height: 1.75; margin-bottom: 1.25rem;">全球使用最广泛的后房型有晶体眼人工晶体，材料为专利 Collamer 胶原共聚物，生物相容性极佳，可长期稳定留存于眼内。中央孔设计无需虹膜打孔，可逆可取出。分 V4C 和 V5 两代。</p>
+
+            <div class="icl-version">
+              <div class="icl-version-title">
+                EVO ICL V4C
+                <span style="font-size: 11px; background: #e8f0fb; color: #1a5fb4; padding: 2px 8px; border-radius: 100px;">经典款</span>
+              </div>
+              <p class="icl-version-desc">第四代中央孔设计，孔径 0.36mm，无需虹膜打孔，国内临床最广泛版本，有球镜版和 Toric 散光版可选。</p>
+              <div class="icl-specs">
+                <div class="icl-spec">
+                  <div class="icl-spec-label">矫正近视</div>
+                  <div class="icl-spec-val">300–1800°</div>
+                </div>
+                <div class="icl-spec">
+                  <div class="icl-spec-label">散光矫正</div>
+                  <div class="icl-spec-val">Toric 版最高 600°</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="icl-version">
+              <div class="icl-version-title">
+                EVO+ ICL V5
+                <span style="font-size: 11px; background: #e5f5f2; color: #0d7a6a; padding: 2px 8px; border-radius: 100px;">升级款</span>
+              </div>
+              <p class="icl-version-desc">第五代，光学区直径从 5.0mm 扩至 6.0mm，夜间视觉质量更优，瞳孔大或暗光需求高的患者更适合。晶体更薄，拱高更稳定。</p>
+              <div class="icl-specs">
+                <div class="icl-spec">
+                  <div class="icl-spec-label">光学区直径</div>
+                  <div class="icl-spec-val">6.0 mm（更大）</div>
+                </div>
+                <div class="icl-spec">
+                  <div class="icl-spec-label">夜间视觉</div>
+                  <div class="icl-spec-val">优于 V4C</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-list" style="margin-top: 1rem;">
+              <span class="feature-tag">FDA 认证</span>
+              <span class="feature-tag">中央孔设计</span>
+              <span class="feature-tag">全球销量第一</span>
+              <span class="feature-tag">可逆可取出</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 昊海生科 -->
+        <div class="icl-card">
+          <div class="icl-card-top">
+            <div class="icl-icon" style="background: linear-gradient(135deg, #0d7a6a, #2ab89a);">🔬</div>
+            <div>
+              <div style="font-family: var(--serif); font-size: 18px; color: var(--ink);">昊海生科 PreVail ICL</div>
+              <div style="font-size: 12px; color: var(--ink-light);">中国国产 · 性价比之选</div>
+            </div>
+          </div>
+          <div class="icl-card-body">
+            <div class="icl-img-wrap" style="background: linear-gradient(135deg,#051a12 0%,#0d3a22 100%);">
+              <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;padding:8px;">
+                <!-- ICL lens illustration - side profile view -->
+                <ellipse cx="200" cy="80" rx="88" ry="50" fill="rgba(19,200,160,0.12)" stroke="rgba(19,200,160,0.55)" stroke-width="2"/>
+                <ellipse cx="200" cy="80" rx="68" ry="38" fill="rgba(19,200,160,0.08)" stroke="rgba(19,200,160,0.35)" stroke-width="1.5"/>
+                <!-- lens curvature lines -->
+                <ellipse cx="200" cy="80" rx="45" ry="24" fill="rgba(19,200,160,0.06)" stroke="rgba(19,200,160,0.25)" stroke-width="1"/>
+                <circle cx="200" cy="80" r="9" fill="rgba(5,40,25,0.85)" stroke="rgba(19,200,160,0.6)" stroke-width="1.5"/>
+                <!-- haptics -->
+                <path d="M 116 64 Q 98 50 106 40" fill="none" stroke="rgba(19,200,160,0.5)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M 116 96 Q 98 110 106 120" fill="none" stroke="rgba(19,200,160,0.5)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M 284 64 Q 302 50 294 40" fill="none" stroke="rgba(19,200,160,0.5)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M 284 96 Q 302 110 294 120" fill="none" stroke="rgba(19,200,160,0.5)" stroke-width="2" stroke-linecap="round"/>
+                <!-- NMPA badge -->
+                <rect x="60" y="34" width="54" height="20" rx="10" fill="rgba(13,122,106,0.5)" stroke="rgba(19,200,160,0.4)" stroke-width="1"/>
+                <text x="87" y="48" font-family="sans-serif" font-size="8.5" fill="#6ecfc0" text-anchor="middle">NMPA 认证</text>
+                <text x="200" y="148" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,0.65)" text-anchor="middle" letter-spacing="0.5">昊海生科 PreVail ICL · 国产自研 · 亲水性丙烯酸酯</text>
+              </svg>
+            </div>
+            <p style="font-size: 14px; color: var(--ink-mid); line-height: 1.75; margin-bottom: 1.25rem;">国内自主研发的后房型有晶体眼人工晶体，已获国家药品监督管理局（NMPA）批准上市。材料采用亲水性丙烯酸酯，生物相容性良好，价格较进口产品更为亲民。</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+              <div class="spec-box">
+                <div class="spec-box-label">矫正范围</div>
+                <div class="spec-box-val">近视 300–1800°</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">散光矫正</div>
+                <div class="spec-box-val">Toric 版可矫正</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">价格优势</div>
+                <div class="spec-box-val">节省约 30–50%</div>
+              </div>
+              <div class="spec-box">
+                <div class="spec-box-label">监管认证</div>
+                <div class="spec-box-val">NMPA 批准</div>
+              </div>
+            </div>
+
+            <div class="feature-list">
+              <span class="feature-tag">国产自研</span>
+              <span class="feature-tag">NMPA 认证</span>
+              <span class="feature-tag">价格亲民</span>
+              <span class="feature-tag">可逆可取出</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-title">💡 ICL 选择建议</div>
+        <p class="tip-text">V4C 与 V5 的选择主要看瞳孔大小和夜间视觉需求，医生会通过暗室瞳孔直径测量来判断。进口与国产的选择主要看预算，两者均经过严格监管认证，安全性有保障。最终由医生根据你的眼部数据推荐最合适的型号和尺寸。</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===== COMPARE TAB ===== -->
+<div id="tab-compare" style="display:none;">
+  <section class="content-section" style="background: var(--paper);">
+    <div class="section-inner">
+      <p class="section-label">对比总览</p>
+      <h2 class="section-title">激光设备横向对比</h2>
+      <p class="section-sub">快速对比各品牌核心参数，供参考。</p>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>设备型号</th>
+            <th>品牌</th>
+            <th>激光频率</th>
+            <th>适合术式</th>
+            <th>核心优势</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>VisuMax 800</td>
+            <td>蔡司 ZEISS</td>
+            <td>2000 kHz 飞秒</td>
+            <td>全飞秒 SMILE Pro</td>
+            <td>最快速度，SMILE 新一代</td>
+          </tr>
+          <tr>
+            <td>VisuMax 500</td>
+            <td>蔡司 ZEISS</td>
+            <td>500 kHz 飞秒</td>
+            <td>全飞秒 SMILE</td>
+            <td>全球案例最多，技术最成熟</td>
+          </tr>
+          <tr>
+            <td>MEL 90</td>
+            <td>蔡司 ZEISS</td>
+            <td>1050 Hz 准分子</td>
+            <td>半飞秒 / 表层</td>
+            <td>个性化像差引导，视觉质量优</td>
+          </tr>
+          <tr>
+            <td>AMARIS 1050RS</td>
+            <td>阿玛仕 AMARIS</td>
+            <td>1050 Hz 准分子</td>
+            <td>TPRK / 半飞秒</td>
+            <td>全球最高频率，5D 眼球追踪</td>
+          </tr>
+          <tr>
+            <td>AMARIS 750S</td>
+            <td>阿玛仕 AMARIS</td>
+            <td>750 Hz 准分子</td>
+            <td>半飞秒 / 表层</td>
+            <td>性价比高，国内装机量大</td>
+          </tr>
+          <tr>
+            <td>WaveLight EX500</td>
+            <td>爱尔康 ALCON</td>
+            <td>500 Hz 准分子</td>
+            <td>半飞秒 / 表层</td>
+            <td>全球装机量最大，数据最充分</td>
+          </tr>
+          <tr>
+            <td>WaveLight FS200</td>
+            <td>爱尔康 ALCON</td>
+            <td>200 kHz 飞秒</td>
+            <td>半飞秒制瓣</td>
+            <td>制瓣均匀，与 EX500 黄金组合</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-title" style="margin-top: 3rem;">ICL 晶体对比</h2>
+      <table class="compare-table" style="margin-top: 1rem;">
+        <thead>
+          <tr>
+            <th>型号</th>
+            <th>品牌</th>
+            <th>光学区</th>
+            <th>矫正范围</th>
+            <th>价格区间</th>
+            <th>核心特点</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>EVO ICL V4C</td>
+            <td>STAAR 爱尔维</td>
+            <td>5.0 mm</td>
+            <td>近视 300–1800°</td>
+            <td>3–4 万元（双眼）</td>
+            <td>国内最广泛，经典中央孔</td>
+          </tr>
+          <tr>
+            <td>EVO+ ICL V5</td>
+            <td>STAAR 爱尔维</td>
+            <td>6.0 mm</td>
+            <td>近视 300–1800°</td>
+            <td>4–5 万元（双眼）</td>
+            <td>夜间视觉更优，拱高更稳定</td>
+          </tr>
+          <tr>
+            <td>PreVail ICL</td>
+            <td>昊海生科</td>
+            <td>—</td>
+            <td>近视 300–1800°</td>
+            <td>2–3 万元（双眼）</td>
+            <td>国产性价比，NMPA 认证</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tip-box" style="margin-top: 2rem;">
+        <div class="tip-title">📌 重要提示</div>
+        <p class="tip-text">以上参数与价格仅供参考，实际以医院报价和最新产品规格为准。手术方案最终由医生根据你的术前检查数据决定，不同医院使用的设备组合也可能不同。</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <p>© 2026 李鹏飞眼科医生 · 屈光手术科普平台
+  <span>|</span> <a href="index.html">返回主页</a>
+  <span>|</span> 本页面仅作科普参考，不构成医疗建议</p>
+</footer>
+
+<script>
+  function switchTab(tab) {
+    document.getElementById('tab-laser').style.display = tab === 'laser' ? 'block' : 'none';
+    document.getElementById('tab-icl').style.display = tab === 'icl' ? 'block' : 'none';
+    document.getElementById('tab-compare').style.display = tab === 'compare' ? 'block' : 'none';
+    document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', ['laser','icl','compare'][i] === tab);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
