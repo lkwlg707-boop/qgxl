@@ -173,9 +173,281 @@
   .hero-actions { animation: fadeUp 0.6s 0.3s ease both; }
   .doctor-card { animation: fadeUp 0.7s 0.4s ease both; }
 </style>
+ <!-- 在 </style> 之后，<body> 之前添加以下样式 -->
+<style>
+/* ========== 登录/注册弹窗样式 ========== */
+.auth-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+.auth-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+.auth-container {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fc 100%);
+    border-radius: 32px;
+    width: 480px;
+    max-width: 90%;
+    padding: 40px 32px;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+.auth-modal.active .auth-container {
+    transform: scale(1);
+}
+.auth-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #94a3b8;
+    transition: color 0.2s;
+    line-height: 1;
+}
+.auth-close:hover {
+    color: #1e293b;
+}
+.auth-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+.auth-header h2 {
+    font-size: 28px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #1e293b, #334155);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 8px;
+}
+.auth-header p {
+    color: #64748b;
+    font-size: 14px;
+}
+.auth-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+    background: #f1f5f9;
+    padding: 6px;
+    border-radius: 100px;
+}
+.auth-tab {
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 100px;
+    transition: all 0.2s;
+    color: #64748b;
+}
+.auth-tab.active {
+    background: #ffffff;
+    color: #2563eb;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+}
+.auth-form {
+    display: none;
+}
+.auth-form.active {
+    display: block;
+}
+.auth-input-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+.auth-input-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #334155;
+    margin-bottom: 6px;
+}
+.auth-input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 16px;
+    font-size: 15px;
+    transition: all 0.2s;
+    background: #ffffff;
+}
+.auth-input-group input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+.auth-input-group input.error {
+    border-color: #ef4444;
+}
+.auth-error {
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 6px;
+    display: none;
+}
+.auth-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #1e293b, #334155);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 12px;
+}
+.auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(30, 41, 59, 0.3);
+}
+.auth-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+.auth-switch {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 13px;
+    color: #64748b;
+}
+.auth-switch a {
+    color: #2563eb;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+}
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+.auth-extra {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+}
+.auth-extra p {
+    font-size: 12px;
+    color: #94a3b8;
+}
+/* 用户信息栏 - 在导航栏中 */
+.user-menu {
+    position: relative;
+    cursor: pointer;
+}
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #2563eb, #1e3a8a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    transition: transform 0.2s;
+}
+.user-avatar:hover {
+    transform: scale(1.05);
+}
+.user-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 260px;
+    padding: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s;
+    z-index: 10001;
+}
+.user-menu:hover .user-dropdown {
+    opacity: 1;
+    visibility: visible;
+}
+.user-dropdown .user-info {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 12px;
+}
+.user-dropdown .user-name {
+    font-weight: 600;
+    color: #1e293b;
+}
+.user-dropdown .user-balance {
+    font-size: 13px;
+    color: #2563eb;
+    margin-top: 6px;
+}
+.user-dropdown .user-balance span {
+    font-weight: 700;
+}
+.user-dropdown a {
+    display: block;
+    padding: 10px 8px;
+    color: #475569;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 12px;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+.user-dropdown a:hover {
+    background: #f1f5f9;
+    color: #2563eb;
+}
+.user-dropdown .logout-btn {
+    color: #ef4444;
+}
+.user-dropdown .logout-btn:hover {
+    background: #fef2f2;
+    color: #dc2626;
+}
+/* 未登录时显示登录按钮 */
+.auth-nav-btn {
+    background: linear-gradient(135deg, #2563eb, #1e3a8a);
+    color: white !important;
+    padding: 8px 20px !important;
+    border-radius: 100px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s !important;
+}
+.auth-nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+</style>
 </head>
 <body>
 
+<!-- 在 <body> 开始处，导航栏后面添加用户菜单（替换原来的导航栏右侧区域） -->
+<!-- 修改导航栏，添加用户菜单 -->
 <nav>
   <a class="nav-brand" href="index.html"><span>李鹏飞</span>眼科医生</a>
   <ul>
@@ -186,6 +458,24 @@
     <li><a href="faq.html">常见问题</a></li>
     <li><a href="#cta" class="nav-cta">预约咨询</a></li>
   </ul>
+  <!-- 用户菜单区域 -->
+  <div id="userNav" style="display: flex; align-items: center;">
+    <!-- 未登录时显示 -->
+    <a id="loginBtnNav" class="auth-nav-btn" style="display: flex; cursor: pointer;">登录 / 注册</a>
+    <!-- 已登录时显示 -->
+    <div id="userMenu" class="user-menu" style="display: none;">
+      <div class="user-avatar" id="userAvatar">李</div>
+      <div class="user-dropdown">
+        <div class="user-info">
+          <div class="user-name" id="dropdownUsername">用户名</div>
+          <div class="user-balance">余额: <span id="dropdownBalance">0.00</span> 元</div>
+        </div>
+        <a href="javascript:void(0)" onclick="openRechargeModal()">💰 充值</a>
+        <a href="javascript:void(0)" onclick="viewRecords()">📋 消费记录</a>
+        <a href="javascript:void(0)" class="logout-btn" onclick="logout()">🚪 退出登录</a>
+      </div>
+    </div>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -553,5 +843,6 @@ window.onload = function(){
 btn.addEventListener("click",()=>{
     win.style.display = win.style.display === "none" ? "block" : "none";
 });
-</script></body>
+</script>
+</body>
 </html>
