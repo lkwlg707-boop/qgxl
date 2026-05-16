@@ -605,9 +605,34 @@ btn.addEventListener("click",()=>{
     win.style.display = win.style.display === "none" ? "block" : "none";
 });
 </script>
+```html id="kr9rme"
 <script>
-fetch('footer.html')
-  .then(res => res.text())
-  .then(data => document.body.insertAdjacentHTML('beforeend', data));
-</script></body>
+fetch("footer.html")
+  .then(response => response.text())
+  .then(html => {
+
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = html;
+
+    document.body.appendChild(wrapper);
+
+    // 执行script
+    wrapper.querySelectorAll("script").forEach(script => {
+
+      const s = document.createElement("script");
+
+      if (script.src) {
+        s.src = script.src;
+      } else {
+        s.textContent = script.textContent;
+      }
+
+      document.body.appendChild(s);
+
+    });
+
+  });
+</script>
+```
+</body>
 </html>
