@@ -606,5 +606,411 @@ btn.addEventListener("click",()=>{
 });
 </script>
 ```html id="kr9rme"
+```html id="evs5gx"
+<!-- ========================= -->
+<!-- DeepSeek AI 悬浮客服开始 -->
+<!-- ========================= -->
+
+<style>
+
+#ds-ai-btn{
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  width:68px;
+  height:68px;
+  border-radius:50%;
+  background:#1677ff;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+  z-index:999999;
+  font-size:30px;
+  transition:.2s;
+}
+
+#ds-ai-btn:hover{
+  transform:scale(1.06);
+}
+
+#ds-ai-window{
+  position:fixed;
+  right:24px;
+  bottom:105px;
+  width:360px;
+  height:560px;
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,0,0,.18);
+  z-index:999999;
+  display:none;
+  flex-direction:column;
+  border:1px solid #eee;
+}
+
+#ds-ai-header{
+  height:60px;
+  background:#1677ff;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  font-size:16px;
+}
+
+#ds-ai-close{
+  cursor:pointer;
+  font-size:24px;
+}
+
+#ds-ai-content{
+  flex:1;
+  overflow-y:auto;
+  padding:16px;
+  background:#f7f7f7;
+}
+
+.ds-msg{
+  margin-bottom:14px;
+  display:flex;
+}
+
+.ds-user{
+  justify-content:flex-end;
+}
+
+.ds-bot{
+  justify-content:flex-start;
+}
+
+.ds-msg span{
+  max-width:78%;
+  padding:10px 14px;
+  border-radius:14px;
+  line-height:1.6;
+  word-break:break-word;
+  font-size:14px;
+}
+
+.ds-user span{
+  background:#1677ff;
+  color:#fff;
+}
+
+.ds-bot span{
+  background:#fff;
+  color:#333;
+  border:1px solid #eee;
+}
+
+#ds-ai-input-wrap{
+  height:72px;
+  border-top:1px solid #eee;
+  display:flex;
+  align-items:center;
+  padding:0 12px;
+  background:#fff;
+}
+
+#ds-ai-input{
+  flex:1;
+  height:42px;
+  border:1px solid #ddd;
+  border-radius:22px;
+  padding:0 14px;
+  outline:none;
+  font-size:14px;
+}
+
+#ds-ai-send{
+  margin-left:10px;
+  width:72px;
+  height:42px;
+  border:none;
+  border-radius:22px;
+  background:#1677ff;
+  color:#fff;
+  cursor:pointer;
+}
+
+@media(max-width:768px){
+
+  #ds-ai-window{
+    width:94%;
+    right:3%;
+    height:82vh;
+    bottom:92px;
+  }
+
+  #ds-ai-btn{
+    right:18px;
+    bottom:18px;
+  }
+
+}
+
+</style>
+
+<!-- 悬浮按钮 -->
+<div id="ds-ai-btn">
+💬
+</div>
+
+<!-- 聊天窗 -->
+<div id="ds-ai-window">
+
+  <div id="ds-ai-header">
+
+    <div>AI 智能助手</div>
+
+    <div id="ds-ai-close">×</div>
+
+  </div>
+
+  <div id="ds-ai-content">
+
+    <div class="ds-msg ds-bot">
+      <span>
+        你好 👋<br>
+        我是 DeepSeek 智能助手
+      </span>
+    </div>
+
+  </div>
+
+  <div id="ds-ai-input-wrap">
+
+    <input
+      id="ds-ai-input"
+      placeholder="请输入问题..."
+    />
+
+    <button id="ds-ai-send">
+      发送
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+(function(){
+
+// ======================
+// DeepSeek 配置
+// ======================
+
+const API_KEY = "sk-08aaa58dfb654a2d83df301f5f03e506";
+
+const API_URL =
+"https://api.deepseek.com/anthropic";
+
+const MODEL = "deepseek-v4-pro";
+
+// ======================
+// DOM
+// ======================
+
+const btn =
+document.getElementById("ds-ai-btn");
+
+const win =
+document.getElementById("ds-ai-window");
+
+const closeBtn =
+document.getElementById("ds-ai-close");
+
+const input =
+document.getElementById("ds-ai-input");
+
+const sendBtn =
+document.getElementById("ds-ai-send");
+
+const content =
+document.getElementById("ds-ai-content");
+
+// ======================
+// 上下文记忆
+// ======================
+
+const messages = [
+  {
+    role:"system",
+    content:"你是一个专业的网站AI客服助手"
+  }
+];
+
+// ======================
+// 打开关闭
+// ======================
+
+btn.onclick = () => {
+
+  const visible =
+    getComputedStyle(win).display === "flex";
+
+  win.style.display =
+    visible ? "none" : "flex";
+
+};
+
+closeBtn.onclick = () => {
+
+  win.style.display = "none";
+
+};
+
+// ======================
+// 添加消息
+// ======================
+
+function addMessage(type,text){
+
+  const div =
+    document.createElement("div");
+
+  div.className =
+    `ds-msg ds-${type}`;
+
+  const span =
+    document.createElement("span");
+
+  span.textContent = text;
+
+  div.appendChild(span);
+
+  content.appendChild(div);
+
+  content.scrollTop =
+    content.scrollHeight;
+
+  return div;
+
+}
+
+// ======================
+// 发送消息
+// ======================
+
+async function sendMessage(){
+
+  const question =
+    input.value.trim();
+
+  if(!question) return;
+
+  addMessage("user",question);
+
+  messages.push({
+    role:"user",
+    content:question
+  });
+
+  input.value = "";
+
+  const loading =
+    addMessage(
+      "bot",
+      "正在思考中..."
+    );
+
+  try{
+
+    const response =
+      await fetch(API_URL,{
+
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":
+          `Bearer ${API_KEY}`
+      },
+
+      body:JSON.stringify({
+
+        model:MODEL,
+
+        messages:messages,
+
+        temperature:0.7
+
+      })
+
+    });
+
+    if(!response.ok){
+
+      throw new Error(
+        "HTTP错误："+response.status
+      );
+
+    }
+
+    const data =
+      await response.json();
+
+    console.log(data);
+
+    const answer =
+      data.choices?.[0]?.message?.content
+      || "暂无回复";
+
+    loading.querySelector("span")
+      .textContent = answer;
+
+    messages.push({
+      role:"assistant",
+      content:answer
+    });
+
+  }catch(err){
+
+    console.error(err);
+
+    loading.querySelector("span")
+      .textContent =
+      "请求失败，请检查API Key";
+
+  }
+
+  content.scrollTop =
+    content.scrollHeight;
+
+}
+
+// ======================
+// 发送
+// ======================
+
+sendBtn.onclick = sendMessage;
+
+input.addEventListener(
+  "keydown",
+  e => {
+
+    if(e.key === "Enter"){
+
+      sendMessage();
+
+    }
+
+  }
+);
+
+})();
+
+</script>
+
+<!-- ========================= -->
+<!-- DeepSeek AI 悬浮客服结束 -->
+<!-- ========================= -->
+```
 </body>
 </html>
