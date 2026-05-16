@@ -492,24 +492,24 @@
 <script></script>
 <style>
 @keyframes pulse {
-  0% { transform: scale(1); box-shadow: 0 4px 20px rgba(0,123,255,0.4); }
-  50% { transform: scale(1.03); box-shadow: 0 6px 25px rgba(0,123,255,0.5); }
-  100% { transform: scale(1); box-shadow: 0 4px 20px rgba(0,123,255,0.4); }
+  0% { transform: scale(1); box-shadow: 0 4px 20px rgba(123,191,255,0.4); }
+  50% { transform: scale(1.03); box-shadow: 0 6px 25px rgba(123,191,255,0.5); }
+  100% { transform: scale(1); box-shadow: 0 4px 20px rgba(123,191,255,0.4); }
 }
 #ai-chat-button:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 25px rgba(0,123,255,0.5);
+  box-shadow: 0 6px 25px rgba(123,191,255,0.5);
   transition: all 0.2s ease;
 }
 </style>
 
-<!-- 咨询弹窗 默认打开 -->
-<div id="ai-chat-window" style="display:block;position:fixed;bottom:115px;right:30px;width:380px;height:620px;background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.15);z-index:9999;overflow:hidden;border:1px solid #eee;">
+<!-- 咨询弹窗 高度缩短 -->
+<div id="ai-chat-window" style="display:block;position:fixed;bottom:115px;right:30px;width:380px;height:500px;background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.15);z-index:9999;overflow:hidden;border:1px solid #eee;">
   <iframe id="ai-iframe" src="" frameborder="0" width="100%" height="100%"></iframe>
 </div>
 
-<!-- 屈光手术智能咨询悬浮按钮 右移对齐弹窗底部居中 -->
-<div id="ai-chat-button" style="position:fixed;bottom:30px;right:30px;width:150px;height:76px;background:#007bff;border-radius:38px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;box-shadow:0 4px 20px rgba(0,123,255,0.4);z-index:9999;font-weight:500;user-select:none;gap:8px;padding:0 12px;animation:pulse 2s infinite;transition:all 0.2s ease;">
+<!-- 屈光手术智能咨询悬浮按钮 -->
+<div id="ai-chat-button" style="position:fixed;bottom:30px;right:30px;width:150px;height:76px;background:#007bff;border-radius:38px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;box-shadow:0 4px 20px rgba(123,191,255,0.4);z-index:9999;font-weight:500;user-select:none;gap:8px;padding:0 12px;animation:pulse 2s infinite;transition:all 0.2s ease;">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="10"></circle>
         <polyline points="12 6 12 12 16 14"></polyline>
@@ -521,18 +521,16 @@
 </div>
 
 <script>
-// 替换为你的 Open WebUI 地址
+// 替换成你的 Open WebUI 访问地址
 const AI_UI_URL = "http://你的IP:3000";
 const btn = document.getElementById("ai-chat-button");
 const win = document.getElementById("ai-chat-window");
 const iframe = document.getElementById("ai-iframe");
 
-// 页面加载自动加载弹窗
 window.onload = function(){
     iframe.src = AI_UI_URL;
 }
 
-// 点击切换弹窗显隐
 btn.addEventListener("click",()=>{
     win.style.display = win.style.display === "none" ? "block" : "none";
 });
