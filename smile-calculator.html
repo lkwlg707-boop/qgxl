@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全飞秒切削深度计算器 - 李鹏飞眼科医生</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0f1a2e; --ink-mid: #3d5068; --ink-light: #7a92a8;
+    --paper: #f8f6f1; --paper-warm: #f0ede6;
+    --accent: #1a5fb4; --accent-light: #e8f0fb;
+    --gold: #b8902a; --teal: #0d7a6a;
+    --serif: 'Noto Serif SC', serif; --sans: 'Noto Sans SC', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.7; font-size: 16px; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(248,246,241,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(15,26,46,0.08); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-brand { font-family: var(--serif); font-size: 17px; color: var(--ink); text-decoration: none; letter-spacing: 0.03em; }
+  .nav-brand span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 1.4rem; }
+  nav ul a { text-decoration: none; font-size: 14px; color: var(--ink-mid); transition: color 0.2s; }
+  nav ul a:hover { color: var(--accent); }
+  .nav-cta { background: var(--accent); color: #fff !important; padding: 7px 18px; border-radius: 100px; font-weight: 500 !important; }
+
+  .page { padding: 112px 2rem 5rem; min-height: 100vh; }
+  .calculator-inner { max-width: 1100px; margin: 0 auto; }
+  .calculator-head { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 2rem; align-items: end; margin-bottom: 2rem; }
+  .calculator-kicker { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; }
+  .calculator-title { font-family: var(--serif); font-size: clamp(30px, 4vw, 44px); line-height: 1.25; color: var(--ink); }
+  .calculator-copy { font-size: 14px; color: var(--ink-mid); line-height: 1.9; }
+  .calculator-shell { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 1.5rem; align-items: stretch; }
+  .calculator-panel { background: var(--paper-warm); border: 1px solid rgba(15,26,46,0.08); border-radius: 8px; padding: 1.5rem; }
+  .calculator-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .calc-field { display: flex; flex-direction: column; gap: 6px; }
+  .calc-field label { font-size: 12px; color: var(--ink-mid); font-weight: 500; }
+  .calc-field input, .calc-field select { width: 100%; border: 1px solid rgba(15,26,46,0.12); background: #fff; border-radius: 6px; padding: 12px; font-family: var(--sans); font-size: 15px; color: var(--ink); outline: none; }
+  .calc-field input:focus, .calc-field select:focus { border-color: rgba(13,122,106,0.45); box-shadow: 0 0 0 3px rgba(13,122,106,0.08); }
+  .calc-field small { font-size: 11px; color: var(--ink-light); line-height: 1.5; }
+  .calc-field.full { grid-column: 1 / -1; }
+  .calc-presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+  .calc-presets button { border: 1px solid rgba(15,26,46,0.12); background: #fff; color: var(--ink-mid); border-radius: 6px; padding: 8px 10px; font-family: var(--sans); font-size: 12px; cursor: pointer; transition: all 0.2s; }
+  .calc-presets button:hover { border-color: var(--teal); color: var(--teal); }
+  .calc-results { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .calc-result-main { grid-column: 1 / -1; background: var(--ink); color: #fff; border-radius: 8px; padding: 1.35rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: end; }
+  .calc-label { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 4px; }
+  .calc-value { font-family: var(--serif); font-size: clamp(38px, 6vw, 56px); line-height: 1; color: #fff; }
+  .calc-value span { font-family: var(--sans); font-size: 15px; color: rgba(255,255,255,0.55); margin-left: 4px; }
+  .calc-badge { align-self: start; width: 42px; height: 12px; border-radius: 100px; padding: 0; background: rgba(13,122,106,0.55); color: transparent; white-space: nowrap; overflow: hidden; text-indent: -999px; }
+  .calc-badge.warn { background: rgba(184,144,42,0.16); color: #f0d780; }
+  .calc-badge.danger { background: rgba(192,57,43,0.18); color: #ffaaa0; }
+  .calc-metric { background: #fff; border: 1px solid rgba(15,26,46,0.08); border-radius: 8px; padding: 1rem; }
+  .calc-metric-label { font-size: 12px; color: var(--ink-light); margin-bottom: 4px; }
+  .calc-metric-value { font-family: var(--serif); font-size: 26px; color: var(--ink); line-height: 1.1; }
+  .calc-metric-value span { font-family: var(--sans); font-size: 12px; color: var(--ink-light); margin-left: 3px; }
+  .calc-metric-value.safe { color: var(--teal); }
+  .calc-metric-value.warn { color: var(--gold); }
+  .calc-metric-value.danger { color: #c0392b; }
+  .calc-metric-value.safe span, .calc-metric-value.warn span, .calc-metric-value.danger span { color: currentColor; opacity: 0.72; }
+  .calc-visual { background: linear-gradient(180deg, #f7fafc, #edf3f8); border: 1px solid rgba(15,26,46,0.08); border-radius: 8px; padding: 1rem; }
+  .cornea-chart { position: relative; height: 190px; margin: 6px 0 12px; border-bottom: 1px solid rgba(15,26,46,0.12); overflow: hidden; }
+  .cornea-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .cornea-fill { fill: rgba(13,122,106,0.16); }
+  .cornea-outline { fill: none; stroke: rgba(13,122,106,0.4); stroke-width: 2.5; stroke-linecap: round; }
+  .epithelium-layer { fill: rgba(255,255,255,0.5); stroke: rgba(26,95,180,0.22); stroke-width: 1; }
+  .cap-layer { fill: rgba(26,95,180,0.08); stroke: rgba(26,95,180,0.22); stroke-width: 1.1; }
+  .cap-line { fill: none; stroke: rgba(26,95,180,0.5); stroke-width: 2; stroke-dasharray: 6 5; }
+  .lenticule-shape { fill: rgba(184,144,42,0.36); stroke: rgba(184,144,42,0.62); stroke-width: 1.5; }
+  .calc-scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-light); }
+  .calc-note { font-size: 12px; color: var(--ink-light); line-height: 1.7; margin-top: 1rem; }
+  .calc-warning { margin-top: 1rem; padding: 12px 14px; border-radius: 8px; background: #fff8e6; color: #7a5a13; font-size: 12px; line-height: 1.7; border: 1px solid rgba(184,144,42,0.22); }
+  .calc-warning.ok { background: #ecf8f5; color: #0d6256; border-color: rgba(13,122,106,0.18); }
+  .calc-warning.danger { background: #fdecea; color: #a82020; border-color: rgba(192,57,43,0.22); }
+  .back-link { display: inline-flex; color: var(--ink-mid); text-decoration: none; font-size: 14px; margin-bottom: 1.25rem; }
+  .back-link:hover { color: var(--accent); }
+  footer { background: #0a1220; color: rgba(255,255,255,0.4); padding: 2rem; text-align: center; font-size: 13px; }
+
+  @media (max-width: 900px) {
+    .calculator-head, .calculator-shell { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+  }
+  @media (max-width: 620px) {
+    .page { padding: 92px 1rem 3rem; }
+    .calculator-form, .calc-results { grid-template-columns: 1fr; }
+    .calc-result-main { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-brand" href="index.html"><span>李鹏飞</span>眼科医生</a>
+  <ul>
+    <li><a href="types.html">手术类型</a></li>
+    <li><a href="equipment.html">设备耗材</a></li>
+    <li><a href="suitable.html">适合人群</a></li>
+    <li><a href="process.html">手术流程</a></li>
+    <li><a href="faq.html">常见问题</a></li>
+    <li><a href="index.html#cta" class="nav-cta">预约咨询</a></li>
+  </ul>
+</nav>
+
+<main class="page">
+  <div class="calculator-inner">
+    <a class="back-link" href="index.html">← 返回首页</a>
+    <div class="calculator-head">
+      <div>
+        <p class="calculator-kicker">SMILE · 全飞秒</p>
+        <h1 class="calculator-title">飞秒激光切削计算器</h1>
+      </div>
+      <p class="calculator-copy">按 SMILE 计算器公式估算微透镜厚度、剩余基质床和术后平均 K 值。公式以 nomogram 后的球镜与散光度数为输入，结果仅用于术前沟通和方案预估，最终以完整检查和医生设计为准。</p>
+    </div>
+
+    <div class="calculator-shell">
+      <div class="calculator-panel">
+        <div class="calculator-form">
+          <div class="calc-field">
+            <label for="calc-sph">球镜 SPH (D)</label>
+            <input id="calc-sph" type="text" value="-6.10" enterkeyhint="next" autocomplete="off" autocapitalize="off" spellcheck="false" pattern="[+-]?[0-9]*[.]?[0-9]*">
+          </div>
+          <div class="calc-field">
+            <label for="calc-cyl">散光 CYL (D)</label>
+            <input id="calc-cyl" type="text" value="-0.25" enterkeyhint="next" autocomplete="off" autocapitalize="off" spellcheck="false" pattern="[+-]?[0-9]*[.]?[0-9]*">
+          </div>
+          <div class="calc-field">
+            <label for="calc-diameter">微透镜直径 (mm)</label>
+            <select id="calc-diameter">
+              <option value="5.5">5.5</option>
+              <option value="6.0">6.0</option>
+              <option value="6.5" selected>6.5</option>
+              <option value="7.0">7.0</option>
+              <option value="7.5">7.5</option>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label for="calc-cap">Cap 厚度 (μm)</label>
+            <input id="calc-cap" type="text" value="120" inputmode="numeric" enterkeyhint="next" autocomplete="off" pattern="[0-9]*">
+          </div>
+          <div class="calc-field">
+            <label for="calc-pachy">角膜厚度 (μm)</label>
+            <input id="calc-pachy" type="text" value="542" inputmode="numeric" enterkeyhint="next" autocomplete="off" pattern="[0-9]*">
+          </div>
+          <div class="calc-field">
+            <label for="calc-min-bed">最低剩余基质床 (μm)</label>
+            <input id="calc-min-bed" type="text" value="280" inputmode="numeric" enterkeyhint="next" autocomplete="off" pattern="[0-9]*">
+          </div>
+          <div class="calc-field">
+            <label for="calc-k1">K 值 1 (D)</label>
+            <input id="calc-k1" type="text" value="42.9" inputmode="decimal" enterkeyhint="next" autocomplete="off" pattern="[0-9]*[.]?[0-9]*">
+          </div>
+          <div class="calc-field">
+            <label for="calc-k2">K 值 2 (D)</label>
+            <input id="calc-k2" type="text" value="44.8" inputmode="decimal" enterkeyhint="next" autocomplete="off" pattern="[0-9]*[.]?[0-9]*">
+          </div>
+          <div class="calc-field full">
+            <label for="calc-shift">近视改变参数</label>
+            <input id="calc-shift" type="text" value="0.75" inputmode="decimal" enterkeyhint="done" autocomplete="off" pattern="[0-9]*[.]?[0-9]*">
+            <small>原表说明：请输入 nomogram 后的度数；近视改变参数通常为 0.75 或 0.8。</small>
+          </div>
+        </div>
+        <div class="calc-presets" aria-label="示例参数">
+          <button type="button" data-preset="-3,-0.5,6.0,120,540,280,43.2,44.1,0.75">低中度近视</button>
+          <button type="button" data-preset="-6.1,-0.25,6.5,120,542,280,42.9,44.8,0.75">表格示例</button>
+          <button type="button" data-preset="-8,-1,6.5,120,560,280,43.5,44.5,0.8">高度近视</button>
+        </div>
+      </div>
+
+      <div class="calculator-panel">
+        <div class="calc-results">
+          <div class="calc-result-main">
+            <div>
+              <div class="calc-label">微透镜厚度</div>
+              <div class="calc-value"><output id="calc-lenticule">111</output><span>μm</span></div>
+            </div>
+            <div id="calc-status" class="calc-badge" aria-label="安全状态"></div>
+          </div>
+          <div class="calc-metric">
+            <div class="calc-metric-label">剩余基质床</div>
+            <div id="calc-bed-wrap" class="calc-metric-value safe"><output id="calc-bed">311</output><span>μm</span></div>
+          </div>
+          <div class="calc-metric">
+            <div class="calc-metric-label">术后中央角膜厚度</div>
+            <div class="calc-metric-value"><output id="calc-post">431</output><span>μm</span></div>
+          </div>
+          <div class="calc-metric">
+            <div class="calc-metric-label">术后平均 K 值</div>
+            <div class="calc-metric-value"><output id="calc-final-k">39.05</output><span>D</span></div>
+          </div>
+          <div class="calc-metric">
+            <div class="calc-metric-label">微透镜组织占比</div>
+            <div class="calc-metric-value"><output id="calc-ratio">20.5</output><span>%</span></div>
+          </div>
+        </div>
+
+        <div class="calc-visual" aria-hidden="true">
+          <div class="cornea-chart">
+            <svg class="cornea-svg" viewBox="0 0 420 170" preserveAspectRatio="none" focusable="false">
+              <path id="cornea-section" class="cornea-fill" d=""></path>
+              <path id="cap-layer" class="cap-layer" d=""></path>
+              <path id="epithelium-layer" class="epithelium-layer" d=""></path>
+              <path id="cornea-outline" class="cornea-outline" d=""></path>
+              <path id="posterior-outline" class="cornea-outline" d=""></path>
+              <path id="cap-line" class="cap-line" d=""></path>
+              <path id="lenticule-shape" class="lenticule-shape" d=""></path>
+            </svg>
+          </div>
+          <div class="calc-scale"><span>上皮 50μm</span><span>基质层微透镜</span><span>剩余基质床</span></div>
+        </div>
+        <p class="calc-note">公式来源：Excel 工作表「SMILE计算器」。剖面图按角膜总厚度比例显示 50μm 角膜上皮层、Cap 层和基质层内的微透镜；微透镜宽度随直径变化，厚度随公式估算值变化。</p>
+        <div id="calc-warning" class="calc-warning ok">提示：本工具只做全飞秒 SMILE 微透镜厚度预估，不替代完整术前检查、地形图/断层图评估和医生最终方案。</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>© 2026 李鹏飞眼科医生 · 本页面仅作科普参考，不构成医疗建议</footer>
+
+<script>
+  (function () {
+    const inputs = {
+      sph: document.getElementById('calc-sph'),
+      cyl: document.getElementById('calc-cyl'),
+      diameter: document.getElementById('calc-diameter'),
+      cap: document.getElementById('calc-cap'),
+      pachy: document.getElementById('calc-pachy'),
+      minBed: document.getElementById('calc-min-bed'),
+      k1: document.getElementById('calc-k1'),
+      k2: document.getElementById('calc-k2'),
+      shift: document.getElementById('calc-shift')
+    };
+    const outputs = {
+      lenticule: document.getElementById('calc-lenticule'),
+      bed: document.getElementById('calc-bed'),
+      bedWrap: document.getElementById('calc-bed-wrap'),
+      post: document.getElementById('calc-post'),
+      finalK: document.getElementById('calc-final-k'),
+      ratio: document.getElementById('calc-ratio'),
+      status: document.getElementById('calc-status'),
+      warning: document.getElementById('calc-warning'),
+      shape: document.getElementById('lenticule-shape'),
+      capLine: document.getElementById('cap-line'),
+      capLayer: document.getElementById('cap-layer'),
+      epithelium: document.getElementById('epithelium-layer'),
+      cornea: document.getElementById('cornea-section'),
+      corneaOutline: document.getElementById('cornea-outline'),
+      posteriorOutline: document.getElementById('posterior-outline')
+    };
+    const diameterFormula = {
+      5.5: { coefficient: 9.94595, intercept: 18.06686 },
+      6.0: { coefficient: 12.0306, intercept: 18.83532 },
+      6.5: { coefficient: 14.368749, intercept: 20.0048145 },
+      7.0: { coefficient: 17.00755, intercept: 21.0581026 },
+      7.5: { coefficient: 20.02, intercept: 22.44 }
+    };
+
+    function readNumber(input) {
+      const value = Number(String(input.value).replace('−', '-').replace('+', ''));
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    function corneaY(x) {
+      const cx = 210;
+      const halfWidth = 162;
+      const centerY = 28;
+      const edgeY = 78;
+      const t = Math.min(1, Math.pow((x - cx) / halfWidth, 2));
+      return centerY + (edgeY - centerY) * t;
+    }
+
+    function curvePath(x1, x2, offset) {
+      const cx = 210;
+      return [
+        `M ${x1.toFixed(1)} ${(corneaY(x1) + offset).toFixed(1)}`,
+        `Q ${cx} ${(corneaY(cx) + offset).toFixed(1)} ${x2.toFixed(1)} ${(corneaY(x2) + offset).toFixed(1)}`
+      ].join(' ');
+    }
+
+    function updateLenticuleShape(diameter, cap, lenticule, pachy) {
+      const cx = 210;
+      const left = 48;
+      const right = 372;
+      const displayPachy = pachy > 0 ? pachy : 540;
+      const corneaThicknessPx = 112;
+      const scale = corneaThicknessPx / displayPachy;
+      const epitheliumPx = 50 * scale;
+      const capPx = Math.max(epitheliumPx, cap * scale);
+      const visualCapPx = epitheliumPx + (capPx - epitheliumPx) * 0.62;
+      const stromalLinePx = capPx + 2;
+      const lenticulePx = Math.abs(lenticule) * scale;
+      const visibleLenticulePx = Math.min(lenticulePx, Math.max(1, corneaThicknessPx - stromalLinePx - 4));
+
+      const corneaD = [
+        curvePath(left, right, 0),
+        `L ${right.toFixed(1)} ${(corneaY(right) + corneaThicknessPx).toFixed(1)}`,
+        `Q ${cx} ${(corneaY(cx) + corneaThicknessPx).toFixed(1)} ${left.toFixed(1)} ${(corneaY(left) + corneaThicknessPx).toFixed(1)}`,
+        'Z'
+      ].join(' ');
+      outputs.cornea.setAttribute('d', corneaD);
+      outputs.corneaOutline.setAttribute('d', curvePath(left, right, 0));
+      outputs.posteriorOutline.setAttribute('d', curvePath(left, right, corneaThicknessPx));
+
+      const epitheliumD = [
+        curvePath(left, right, 0),
+        `L ${right.toFixed(1)} ${(corneaY(right) + epitheliumPx).toFixed(1)}`,
+        `Q ${cx} ${(corneaY(cx) + epitheliumPx).toFixed(1)} ${left.toFixed(1)} ${(corneaY(left) + epitheliumPx).toFixed(1)}`,
+        'Z'
+      ].join(' ');
+      outputs.epithelium.setAttribute('d', epitheliumD);
+
+      const capD = [
+        curvePath(left, right, 0),
+        `L ${right.toFixed(1)} ${(corneaY(right) + visualCapPx).toFixed(1)}`,
+        `Q ${cx} ${(corneaY(cx) + visualCapPx).toFixed(1)} ${left.toFixed(1)} ${(corneaY(left) + visualCapPx).toFixed(1)}`,
+        'Z'
+      ].join(' ');
+      outputs.capLayer.setAttribute('d', capD);
+      outputs.capLine.setAttribute('d', curvePath(left + 12, right - 12, stromalLinePx));
+
+      const halfWidth = Math.min(150, Math.max(84, diameter / 7.5 * 150));
+      const x1 = cx - halfWidth;
+      const x2 = cx + halfWidth;
+      const lensOffset = stromalLinePx + 4;
+      const yTopLeft = corneaY(x1) + lensOffset;
+      const yTopRight = corneaY(x2) + lensOffset;
+      const yTopCenter = corneaY(cx) + lensOffset;
+      const d = [
+        `M ${x1.toFixed(1)} ${yTopLeft.toFixed(1)}`,
+        `Q ${cx} ${(yTopCenter + 1).toFixed(1)} ${x2.toFixed(1)} ${yTopRight.toFixed(1)}`,
+        `Q ${cx} ${(yTopCenter + visibleLenticulePx).toFixed(1)} ${x1.toFixed(1)} ${yTopLeft.toFixed(1)}`,
+        'Z'
+      ].join(' ');
+      outputs.shape.setAttribute('d', d);
+    }
+
+    function calculate() {
+      const sph = readNumber(inputs.sph);
+      const cyl = readNumber(inputs.cyl);
+      const diameter = readNumber(inputs.diameter);
+      const cap = readNumber(inputs.cap);
+      const pachy = readNumber(inputs.pachy);
+      const minBed = readNumber(inputs.minBed);
+      const k1 = readNumber(inputs.k1);
+      const k2 = readNumber(inputs.k2);
+      const shift = readNumber(inputs.shift);
+      const formula = diameterFormula[diameter] || diameterFormula[6.5];
+      const lenticule = formula.coefficient * Math.abs(sph + cyl) + formula.intercept;
+      const bed = pachy - cap - lenticule;
+      const post = pachy - lenticule;
+      const finalK = (k1 + sph * shift + (k2 + cyl * shift + sph * shift)) * 0.5;
+      const ratio = pachy > 0 ? lenticule / pachy * 100 : 0;
+
+      outputs.lenticule.value = Number.isFinite(lenticule) ? lenticule.toFixed(0) : '--';
+      outputs.bed.value = Number.isFinite(bed) ? bed.toFixed(0) : '--';
+      outputs.post.value = Number.isFinite(post) ? post.toFixed(0) : '--';
+      outputs.finalK.value = Number.isFinite(finalK) ? finalK.toFixed(2) : '--';
+      outputs.ratio.value = Number.isFinite(ratio) ? ratio.toFixed(1) : '--';
+      updateLenticuleShape(diameter, cap, lenticule, pachy);
+
+      outputs.status.className = 'calc-badge';
+      outputs.bedWrap.className = 'calc-metric-value safe';
+      outputs.warning.className = 'calc-warning ok';
+      let warning = '剩余基质床 >= 300 μm，当前参数处于安全区间。本工具只做全飞秒 SMILE 微透镜厚度预估，不替代完整术前检查和医生最终方案。';
+      if (!Number.isFinite(lenticule) || lenticule <= 0 || sph > 0 || cyl > 0) {
+        warning = '当前输入包含远视或异常组合，请结合设备软件、nomogram 和医生方案复核。';
+        outputs.status.classList.add('danger');
+        outputs.bedWrap.className = 'calc-metric-value danger';
+        outputs.warning.className = 'calc-warning danger';
+      } else if (bed < 280) {
+        warning = '剩余基质床 < 280 μm，属于风险区间，通常需要重新评估微透镜直径、Cap 厚度或改选其他术式。';
+        outputs.status.classList.add('danger');
+        outputs.bedWrap.className = 'calc-metric-value danger';
+        outputs.warning.className = 'calc-warning danger';
+      } else if (bed < 300) {
+        warning = '剩余基质床 280-300 μm，属于临界区间，建议结合角膜形态、光区、Cap 厚度和医生方案谨慎评估。';
+        outputs.status.classList.add('warn');
+        outputs.bedWrap.className = 'calc-metric-value warn';
+        outputs.warning.className = 'calc-warning';
+      } else if (lenticule < 50) {
+        warning = '剩余基质床 >= 300 μm；但微透镜厚度低于 50 μm，原表建议考虑增加直径或额外透镜厚度。';
+      } else if (finalK < 34) {
+        warning = '剩余基质床 >= 300 μm；但术后平均 K 值低于 34D，原表提示可能影响泪膜以及视力，需要进一步评估。';
+      }
+      outputs.status.textContent = '';
+      outputs.warning.textContent = warning;
+    }
+
+    Object.values(inputs).forEach((input) => {
+      input.addEventListener('input', calculate);
+      input.addEventListener('change', calculate);
+    });
+
+    document.querySelectorAll('[data-preset]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const [sph, cyl, diameter, cap, pachy, minBed, k1, k2, shift] = button.dataset.preset.split(',');
+        inputs.sph.value = sph;
+        inputs.cyl.value = cyl;
+        inputs.diameter.value = diameter;
+        inputs.cap.value = cap;
+        inputs.pachy.value = pachy;
+        inputs.minBed.value = minBed;
+        inputs.k1.value = k1;
+        inputs.k2.value = k2;
+        inputs.shift.value = shift;
+        calculate();
+      });
+    });
+
+    calculate();
+  })();
+</script>
+</body>
+</html>
