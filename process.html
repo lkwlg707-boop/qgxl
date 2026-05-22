@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手术流程 — 清晰视界</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #0f1a2e; --ink-mid: #3d5068; --ink-light: #7a92a8;
+  --paper: #f8f6f1; --paper-warm: #f0ede6;
+  --accent: #1a5fb4; --accent-light: #e8f0fb;
+  --teal: #0d7a6a; --teal-light: #e5f5f2;
+  --serif: 'Noto Serif SC', serif; --sans: 'Noto Sans SC', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.7; font-size: 16px; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(248,246,241,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(15,26,46,0.08); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+.nav-brand { font-family: var(--serif); font-size: 17px; color: var(--ink); text-decoration: none; letter-spacing: 0.03em; }
+.nav-brand span { color: var(--accent); }
+.nav-back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--ink-mid); text-decoration: none; border: 1px solid rgba(15,26,46,0.12); padding: 6px 16px; border-radius: 100px; transition: all 0.2s; }
+.nav-back:hover { color: var(--accent); border-color: var(--accent); }
+
+.page-hero { padding: 100px 2rem 4rem; background: linear-gradient(135deg, #e8f0fb 0%, #e5f5f2 100%); text-align: center; }
+.page-hero-label { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+.page-hero-title { font-family: var(--serif); font-size: clamp(28px,4vw,44px); color: var(--ink); margin-bottom: 1rem; }
+.page-hero-sub { font-size: 16px; color: var(--ink-mid); max-width: 560px; margin: 0 auto; line-height: 1.8; }
+
+section { padding: 5rem 2rem; }
+.section-inner { max-width: 1000px; margin: 0 auto; }
+.section-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-light); margin-bottom: .75rem; }
+.section-title { font-family: var(--serif); font-size: clamp(22px,3vw,34px); color: var(--ink); margin-bottom: 1rem; }
+.section-sub { font-size: 15px; color: var(--ink-mid); max-width: 520px; line-height: 1.8; margin-bottom: 3rem; }
+
+/* TIMELINE */
+.timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+.timeline::before { content: ''; position: absolute; left: 27px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--teal)); opacity: 0.2; }
+.tl-item { display: flex; gap: 1.5rem; padding-bottom: 2.5rem; position: relative; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); color: #fff; font-family: var(--serif); font-size: 20px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; z-index: 1; box-shadow: 0 4px 16px rgba(26,95,180,0.25); }
+.tl-content { flex: 1; background: #fff; border-radius: 16px; border: 1px solid rgba(15,26,46,0.08); padding: 1.75rem; }
+.tl-phase { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.tl-title { font-family: var(--serif); font-size: 20px; color: var(--ink); margin-bottom: 10px; }
+.tl-desc { font-size: 14px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 1rem; }
+.tl-details { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.tl-detail-box { background: var(--paper); border-radius: 8px; padding: 10px 14px; }
+.tl-detail-label { font-size: 11px; color: var(--ink-light); margin-bottom: 3px; }
+.tl-detail-val { font-size: 13px; font-weight: 500; color: var(--ink); }
+
+/* AFTERCARE */
+.aftercare-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+.aftercare-card { background: #fff; border-radius: 14px; border: 1px solid rgba(15,26,46,0.08); padding: 1.5rem; }
+.aftercare-period { font-size: 13px; font-weight: 500; color: var(--accent); background: var(--accent-light); display: inline-block; padding: 4px 12px; border-radius: 100px; margin-bottom: 1rem; }
+.aftercare-title { font-family: var(--serif); font-size: 17px; color: var(--ink); margin-bottom: 10px; }
+.aftercare-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.aftercare-list li { font-size: 13px; color: var(--ink-mid); display: flex; gap: 8px; line-height: 1.6; }
+.aftercare-list li::before { content: '·'; color: var(--accent); flex-shrink: 0; font-size: 18px; line-height: 1.2; }
+
+.tip-box { background: var(--accent-light); border-radius: 12px; padding: 1.5rem; border-left: 4px solid var(--accent); margin-top: 2rem; }
+.tip-title { font-size: 14px; font-weight: 500; color: var(--accent); margin-bottom: 6px; }
+.tip-text { font-size: 14px; color: var(--ink-mid); line-height: 1.75; }
+
+footer { background: #0a1220; color: rgba(255,255,255,0.4); padding: 2rem; text-align: center; font-size: 13px; }
+footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+footer span { color: rgba(255,255,255,0.2); margin: 0 8px; }
+
+@media (max-width: 768px) {
+  .nav-brand { font-size: 20px; line-height: 1.25; letter-spacing: 0.02em; }
+  .tl-details { grid-template-columns: 1fr 1fr; }
+  .aftercare-grid { grid-template-columns: 1fr; }
+  .timeline::before { left: 23px; }
+  .tl-dot { width: 48px; height: 48px; font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html"><span>李鹏飞</span>眼科医生</a>
+  <a class="nav-back" href="index.html">← 返回主页</a>
+</nav>
+
+<div class="page-hero">
+  <p class="page-hero-label">手术流程</p>
+  <h1 class="page-hero-title">从检查到康复，全程指引</h1>
+  <p class="page-hero-sub">整个过程透明可预期，通常只需 2 次就诊即可完成手术。了解每个环节，消除对未知的恐惧。</p>
+</div>
+
+<!-- 主流程时间线 -->
+<section style="background: var(--paper);">
+  <div class="section-inner">
+    <p class="section-label">手术全流程</p>
+    <h2 class="section-title">四大阶段，步步清晰</h2>
+    <p class="section-sub">从预约到术后随访，通常在 4–6 周内完成，手术本身只需约 15 分钟。</p>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-content">
+          <div class="tl-phase">第一阶段</div>
+          <div class="tl-title">术前全面检查</div>
+          <p class="tl-desc">这是最重要的环节。医院会对你的双眼进行 20+ 项精密检查，全面评估手术可行性、确定术式方案、计算切削参数。检查结果直接决定你是否适合手术以及选择哪种术式。<br><br>⚠️ 检查前注意：软性隐形眼镜停戴至少 1–2 周，硬性角膜塑形镜停戴至少 4 周，当天不要化眼妆，避免使用眼药水。</p>
+          <div class="tl-details">
+            <div class="tl-detail-box"><div class="tl-detail-label">耗时</div><div class="tl-detail-val">约 2–3 小时</div></div>
+            <div class="tl-detail-box"><div class="tl-detail-label">检查项目</div><div class="tl-detail-val">20+ 项</div></div>
+            <div class="tl-detail-box"><div class="tl-detail-label">核心项目</div><div class="tl-detail-val">角膜地形图、厚度、眼压</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background: var(--teal);">2</div>
+        <div class="tl-content">
+          <div class="tl-phase" style="color: var(--teal);">第二阶段</div>
+          <div class="tl-title">方案设计与沟通</div>
+          <p class="tl-desc">医生根据检查数据为你量身设计手术方案，包括选择术式、计算切削量、预判手术效果。这是你提问和确认的重要机会，医生会解答所有疑虑，签署知情同意书。<br><br>建议提前准备好你的问题清单，例如：术后恢复期、风险概率、如果效果不佳怎么处理等。</p>
+          <div class="tl-details">
+            <div class="tl-detail-box"><div class="tl-detail-label">耗时</div><div class="tl-detail-val">30–60 分钟</div></div>
+            <div class="tl-detail-box"><div class="tl-detail-label">内容</div><div class="tl-detail-val">方案讲解 + 答疑</div></div>
+            <div class="tl-detail-box"><div class="tl-detail-label">输出</div><div class="tl-detail-val">个性化手术方案</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background: #b8902a;">3</div>
+        <div class="tl-content">
+          <div class="tl-phase" style="color: #b8902a;">第三阶段</div>
+          <div class="tl-title">手术当天</div>
+          <p class="tl-desc">手术本身非常简短。进入手术室前会点表面麻醉眼药水，全程无痛。你需要保持注视一个固定光点配合医生，激光照射时间约 20–40 秒（单眼），全程清醒，可与医生沟通。<br><br>双眼合计手术时间约 15 分钟，术后在休息室观察 30–60 分钟，视力基本恢复即可由家人陪同离开。当天不可独自开车。</p>
+          <div class="tl-details">
+            <div class="tl-detail-box"><div class="tl-detail-label">激光时间</div><div class="tl-detail-val">单眼约 20–40 秒</div></div>
+            <div class="tl-detail-box"><div class="tl-detail-label">双眼总时长</div><div class="tl-detail-val">约 15 分钟</div></div>
+            <div class="tl-detail-box"><div class="tl-detail-label">麻醉方式</div><div class="tl-detail-val">表面麻醉眼药水</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background: #7b5ea7;">4</div>
+        <div class="tl-content">
+          <div class="tl-phase" style="color: #7b5ea7;">第四阶段</div>
+          <div class="tl-title">术后复查随访</div>
+          <p class="tl-desc">术后定期复查是确保手术效果的关键。医生会追踪角膜愈合情况、视力变化和眼压等指标。多数人在术后 1–3 天即可恢复日常工作，但复查安排需严格遵守。</p>
+          <div class="tl-details">
+            <div class="tl-detail-box"><div class="tl-detail-label">术后 1 天</div><div class="tl-detail-val">视力 + 裂隙灯检查</div></div>
+            <div class="tl-detail-box"><div class="tl-detail-label">术后 1 周</div><div class="tl-detail-val">角膜愈合复查</div></div>
+            <div class="tl-detail-box"><div class="tl-detail-label">术后 1/3/6 月 / 1 年</div><div class="tl-detail-val">综合随访</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 术后注意事项 -->
+<section style="background: var(--paper-warm);">
+  <div class="section-inner">
+    <p class="section-label">术后护理</p>
+    <h2 class="section-title">术后各阶段注意事项</h2>
+    <p class="section-sub">严格遵守术后注意事项，是获得最佳效果的重要保障。</p>
+
+    <div class="aftercare-grid">
+      <div class="aftercare-card">
+        <div class="aftercare-period">术后 1–3 天</div>
+        <div class="aftercare-title">急性恢复期</div>
+        <ul class="aftercare-list">
+          <li>按时使用抗炎、抗感染眼药水</li>
+          <li>避免揉眼（可能破坏角膜愈合）</li>
+          <li>睡觉时佩戴保护眼罩（防止无意识揉眼）</li>
+          <li>不可自驾，需家人陪同出行</li>
+          <li>避免强光刺激，外出佩戴墨镜</li>
+        </ul>
+      </div>
+      <div class="aftercare-card">
+        <div class="aftercare-period">术后 1 周内</div>
+        <div class="aftercare-title">早期恢复期</div>
+        <ul class="aftercare-list">
+          <li>眼部不可进水（洗脸、洗发需注意）</li>
+          <li>不化眼妆，避免化妆品入眼</li>
+          <li>避免剧烈运动和大量出汗</li>
+          <li>减少屏幕使用时间，注意用眼休息</li>
+          <li>如有异常（视力骤降、剧烈疼痛）立即就诊</li>
+        </ul>
+      </div>
+      <div class="aftercare-card">
+        <div class="aftercare-period">术后 1 个月内</div>
+        <div class="aftercare-title">稳定恢复期</div>
+        <ul class="aftercare-list">
+          <li>继续使用人工泪液，缓解干眼</li>
+          <li>避免游泳、泡温泉等眼部接触水的活动</li>
+          <li>不做对抗性运动（篮球、拳击等）</li>
+          <li>驾驶前确认视力已通过医生评估</li>
+          <li>按时复查，不可跳过</li>
+        </ul>
+      </div>
+      <div class="aftercare-card">
+        <div class="aftercare-period">术后 1–3 个月</div>
+        <div class="aftercare-title">长期护理期</div>
+        <ul class="aftercare-list">
+          <li>视力可能持续微调，属正常现象</li>
+          <li>干眼症状通常在 3–6 个月内自行缓解</li>
+          <li>夜间光晕、眩光多在 3 个月内减轻</li>
+          <li>保持良好用眼习惯，避免度数再次增长</li>
+          <li>每年进行年度随访</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-title">💡 关于表层手术（PRK/TPRK）的特别说明</div>
+      <p class="tip-text">表层手术的恢复期比 SMILE 和半飞秒更长。术后 3–5 天上皮完全愈合前，会有畏光、异物感、流泪等不适，属正常反应。医院通常会配戴治疗性角膜接触镜（绷带镜）保护上皮，约 3–5 天取下。视力完全稳定可能需要 1–3 个月。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 李鹏飞眼科医生 · 屈光手术科普平台
+  <span>|</span> <a href="index.html">返回主页</a>
+  <span>|</span> 本页面仅作科普参考，不构成医疗建议</p>
+</footer>
+</body>
+</html>
