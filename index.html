@@ -756,5 +756,29 @@
     calculate();
   })();
 </script>
-</body>
+<script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/latest/libs/cn/index.js"></script>
+<script>
+new CozeWebSDK.WebChatClient({
+  config: {
+    bot_id: '7650306249132621887',
+  },
+  auth: {
+    type: 'token',
+    token: 'pat_6NZypGmv8pJ5rI6bbNiK0WKaCxo3zuaz6bcs2BTpTDJuuttOcLz2gRzLBAb8e1ls',
+    onRefreshToken: async () => 'pat_6NZypGmv8pJ5rI6bbNiK0WKaCxo3zuaz6bcs2BTpTDJuuttOcLz2gRzLBAb8e1ls',
+  },
+  ui: {
+    base: {
+      lang: 'zh-CN',
+    },
+    asstBtn: {
+      isNeed: true,
+    },
+    chatBot: {
+      title: '屈光手术小助手',
+      uploadable: false,
+    },
+  },
+});
+</script></body>
 </html>
