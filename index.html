@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>李鹏飞·眼科医生 — 屈光手术专科</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0f1a2e; --ink-mid: #3d5068; --ink-light: #7a92a8;
+    --paper: #f8f6f1; --paper-warm: #f0ede6;
+    --accent: #1a5fb4; --accent-light: #e8f0fb;
+    --gold: #b8902a; --teal: #0d7a6a; --teal-light: #e5f5f2;
+    --serif: 'Noto Serif SC', serif; --sans: 'Noto Sans SC', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.7; font-size: 16px; }
+  section[id], div[id] { scroll-margin-top: 82px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(248,246,241,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(15,26,46,0.08); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-brand { font-family: var(--serif); font-size: 17px; color: var(--ink); text-decoration: none; letter-spacing: 0.03em; }
+  .nav-brand span { color: var(--accent); }
+  nav ul { list-style: none; display: flex; gap: 1.4rem; }
+  nav li { flex: 0 0 auto; }
+  nav ul a { text-decoration: none; font-size: 14px; color: var(--ink-mid); transition: color 0.2s; }
+  nav ul a:hover { color: var(--accent); }
+  .nav-cta { background: var(--accent); color: #fff !important; padding: 7px 18px; border-radius: 100px; font-weight: 500 !important; }
+  .nav-cta:hover { background: #1450a0 !important; }
+
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 80px 2rem 4rem; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 65% 50%, #ddeafb 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 20% 80%, #e5f5f2 0%, transparent 60%); z-index: 0; }
+  .hero-grid { position: absolute; inset: 0; z-index: 0; opacity: 0.035; background-image: linear-gradient(var(--ink) 1px, transparent 1px), linear-gradient(90deg, var(--ink) 1px, transparent 1px); background-size: 40px 40px; }
+  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
+  .hero-eyebrow { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 1rem; }
+  .hero-title { font-family: var(--serif); font-size: clamp(34px, 4.6vw, 52px); line-height: 1.25; color: var(--ink); margin-bottom: 1.25rem; }
+  .hero-title em { font-style: normal; color: var(--accent); }
+  .hero-desc { font-size: 16px; color: var(--ink-mid); line-height: 1.85; margin-bottom: 2rem; max-width: 480px; }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2rem; }
+  .hero-tag { font-size: 12px; padding: 5px 12px; border-radius: 100px; background: rgba(26,95,180,0.08); color: var(--accent); }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--ink); color: #fff; padding: 14px 28px; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 500; transition: background 0.2s, transform 0.1s; }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-ghost { color: var(--ink-mid); text-decoration: none; font-size: 15px; border-bottom: 1px solid var(--ink-light); padding-bottom: 2px; transition: color 0.2s; }
+  .btn-ghost:hover { color: var(--accent); }
+
+  /* DOCTOR HERO CARD */
+  .doctor-card { background: #fff; border-radius: 20px; padding: 2rem; box-shadow: 0 20px 60px rgba(15,26,46,0.08); border: 1px solid rgba(15,26,46,0.06); position: relative; }
+  .doctor-photo { width: 100%; aspect-ratio: 1; border-radius: 14px; overflow: hidden; margin-bottom: 1.25rem; background: #f0f4fa; }
+  .doctor-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .doctor-name { font-family: var(--serif); font-size: 24px; color: var(--ink); margin-bottom: 4px; display: flex; align-items: baseline; gap: 8px; }
+  .doctor-name .title { font-size: 13px; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 100px; font-family: var(--sans); }
+  .doctor-hospital { font-size: 14px; color: var(--ink-mid); margin-bottom: 12px; }
+  .doctor-meta { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid rgba(15,26,46,0.06); }
+  .meta-item { flex: 1; }
+  .meta-val { font-family: var(--serif); font-size: 18px; color: var(--ink); }
+  .meta-label { font-size: 11px; color: var(--ink-light); margin-top: 2px; white-space: nowrap; }
+
+  .stats-bar { background: var(--ink); color: #fff; padding: 2rem; }
+  .stats-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+  .stat-num { font-family: var(--serif); font-size: 32px; font-weight: 600; color: #fff; line-height: 1; margin-bottom: 6px; }
+  .stat-num span { color: #7ab3f5; }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,0.55); }
+
+  /* DOCTOR PROFILE SECTION */
+  .profile-section { padding: 5rem 2rem; background: var(--paper-warm); }
+  .profile-inner { max-width: 1000px; margin: 0 auto; }
+  .profile-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.75rem; text-align: center; }
+  .profile-title { font-family: var(--serif); font-size: clamp(26px, 3.5vw, 38px); color: var(--ink); margin-bottom: 2.5rem; text-align: center; }
+  .profile-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: start; }
+  .profile-text { background: #fff; border-radius: 16px; padding: 2.5rem; border: 1px solid rgba(15,26,46,0.06); }
+  .pt-section { margin-bottom: 1.75rem; }
+  .pt-section:last-child { margin-bottom: 0; }
+  .pt-label { font-size: 12px; letter-spacing: 0.1em; color: var(--accent); font-weight: 500; margin-bottom: 8px; text-transform: uppercase; }
+  .pt-content { font-size: 14.5px; color: var(--ink-mid); line-height: 1.85; }
+  .pt-content strong { color: var(--ink); }
+  .pt-list { list-style: none; display: grid; gap: 4px; }
+  .pt-list li { position: relative; padding-left: 1.1em; }
+  .pt-list li::before { content: '·'; position: absolute; left: 0; top: 0; color: var(--ink-mid); font-weight: 500; }
+  .pt-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .pt-tag { font-size: 12px; padding: 4px 12px; border-radius: 100px; background: var(--teal-light); color: var(--teal); }
+  .pt-tag.b { background: var(--accent-light); color: var(--accent); }
+
+  .contact-card { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; background: linear-gradient(180deg, #fbfaf6, #f1efe8); border: 1px solid rgba(15,26,46,0.08); border-radius: 14px; padding: 16px; }
+  .contact-item { min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .haodf-btn, .xhs-btn { width: 74px; height: 74px; display: inline-flex; align-items: center; justify-content: center; color: var(--ink) !important; text-decoration: none; border-radius: 50%; text-align: center; line-height: 1; transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 12px 28px rgba(15,26,46,0.14); overflow: hidden; }
+  .haodf-btn { background: #f3f8ff; border: 2px solid rgba(26,95,180,0.28); }
+  .xhs-btn { background: #fff5f6; border: 2px solid rgba(255,36,66,0.28); }
+  .haodf-btn:hover, .xhs-btn:hover { opacity: 0.96; transform: translateY(-2px); box-shadow: 0 16px 34px rgba(15,26,46,0.18); }
+  .platform-icon { width: 46px; height: 46px; object-fit: contain; display: block; border-radius: 12px; }
+  .platform-name { font-size: 12px; font-weight: 600; color: var(--ink); margin-top: 10px; white-space: nowrap; }
+  .platform-sub { font-size: 11px; color: var(--ink-light); margin-top: 4px; line-height: 1.45; }
+
+  .entry-section { padding: 5rem 2rem; }
+  .entry-section.bg-warm { background: var(--paper-warm); }
+  .entry-section.bg-normal { background: var(--paper); }
+  .entry-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .entry-inner.reverse { direction: rtl; }
+  .entry-inner.reverse > * { direction: ltr; }
+  .entry-num { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.75rem; }
+  .entry-title { font-family: var(--serif); font-size: clamp(24px, 3vw, 36px); color: var(--ink); line-height: 1.3; margin-bottom: 1rem; }
+  .entry-desc { font-size: 15px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 1.75rem; }
+  .entry-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.75rem; }
+  .entry-tag { font-size: 12px; padding: 4px 12px; border-radius: 100px; border: 1px solid rgba(15,26,46,0.1); color: var(--ink-mid); }
+  .entry-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: 500; transition: opacity 0.2s, transform 0.15s; color: #fff; }
+  .entry-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+  .entry-btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.2s; color: var(--ink); border: 1.5px solid rgba(15,26,46,0.18); margin-left: 10px; }
+  .entry-btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .entry-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .entry-actions .entry-btn, .entry-actions .entry-btn-outline { margin-left: 0; max-width: 100%; justify-content: center; text-align: center; line-height: 1.4; }
+
+  .entry-visual { background: #fff; border-radius: 16px; padding: 2rem; border: 1px solid rgba(15,26,46,0.08); }
+  .mini-list { display: flex; flex-direction: column; gap: 10px; }
+  .mini-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--paper); border-radius: 10px; }
+  .mini-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .mini-name { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .mini-sub { font-size: 12px; color: var(--ink-light); margin-top: 1px; }
+  .mini-check { display: flex; flex-direction: column; gap: 0; }
+  .mc-group-title { font-size: 12px; font-weight: 500; margin-bottom: 8px; }
+  .mc-item { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--ink-mid); padding: 7px 0; border-bottom: 1px solid rgba(15,26,46,0.05); }
+  .mc-item:last-of-type { border-bottom: none; margin-bottom: 12px; }
+  .mc-icon { flex-shrink: 0; }
+  .mini-steps { display: flex; flex-direction: column; gap: 0; }
+  .ms-item { display: flex; gap: 12px; align-items: flex-start; padding: 11px 0; border-bottom: 1px solid rgba(15,26,46,0.06); }
+  .ms-item:last-child { border-bottom: none; }
+  .ms-num { width: 28px; height: 28px; border-radius: 50%; color: #fff; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ms-text { font-size: 13px; color: var(--ink-mid); line-height: 1.55; padding-top: 4px; }
+  .mini-faq { display: flex; flex-direction: column; }
+  .mf-item { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid rgba(15,26,46,0.06); font-size: 13px; color: var(--ink-mid); }
+  .mf-item:last-of-type { border-bottom: none; }
+  .mf-q { background: var(--accent-light); color: var(--accent); font-weight: 600; font-size: 11px; padding: 2px 7px; border-radius: 4px; flex-shrink: 0; }
+
+  /* EX500 CALCULATOR */
+  .calculator-section { padding: 5rem 2rem; background: #fff; }
+  .calculator-inner { max-width: 1100px; margin: 0 auto; }
+  .calculator-head { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 2rem; align-items: end; margin-bottom: 2rem; }
+  .calculator-kicker { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+  .calculator-title { font-family: var(--serif); font-size: clamp(26px, 3.5vw, 38px); line-height: 1.3; color: var(--ink); }
+  .calculator-copy { font-size: 14px; color: var(--ink-mid); line-height: 1.9; }
+  .calculator-shell { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 1.5rem; align-items: stretch; }
+  .calculator-panel { background: var(--paper); border: 1px solid rgba(15,26,46,0.08); border-radius: 8px; padding: 1.5rem; }
+  .calculator-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .calc-field { display: flex; flex-direction: column; gap: 6px; }
+  .calc-field label { font-size: 12px; color: var(--ink-mid); font-weight: 500; }
+  .calc-field input, .calc-field select { width: 100%; border: 1px solid rgba(15,26,46,0.12); background: #fff; border-radius: 6px; padding: 12px 12px; font-family: var(--sans); font-size: 15px; color: var(--ink); outline: none; }
+  .calc-field input:focus, .calc-field select:focus { border-color: rgba(26,95,180,0.45); box-shadow: 0 0 0 3px rgba(26,95,180,0.08); }
+  .calc-field small { font-size: 11px; color: var(--ink-light); line-height: 1.5; }
+  .calc-field.full { grid-column: 1 / -1; }
+  .calc-presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+  .calc-presets button { border: 1px solid rgba(15,26,46,0.12); background: #fff; color: var(--ink-mid); border-radius: 6px; padding: 8px 10px; font-family: var(--sans); font-size: 12px; cursor: pointer; transition: all 0.2s; }
+  .calc-presets button:hover { border-color: var(--accent); color: var(--accent); }
+  .calc-results { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .calc-result-main { grid-column: 1 / -1; background: var(--ink); color: #fff; border-radius: 8px; padding: 1.35rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: end; }
+  .calc-label { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 4px; }
+  .calc-value { font-family: var(--serif); font-size: clamp(34px, 5vw, 52px); line-height: 1; color: #fff; }
+  .calc-value span { font-family: var(--sans); font-size: 15px; color: rgba(255,255,255,0.55); margin-left: 4px; }
+  .calc-badge { align-self: start; font-size: 12px; border-radius: 100px; padding: 6px 10px; background: rgba(122,179,245,0.16); color: #9ecbff; white-space: nowrap; }
+  .calc-metric { background: #fff; border: 1px solid rgba(15,26,46,0.08); border-radius: 8px; padding: 1rem; }
+  .calc-metric-label { font-size: 12px; color: var(--ink-light); margin-bottom: 4px; }
+  .calc-metric-value { font-family: var(--serif); font-size: 26px; color: var(--ink); line-height: 1.1; }
+  .calc-metric-value span { font-family: var(--sans); font-size: 12px; color: var(--ink-light); margin-left: 3px; }
+  .calc-visual { background: linear-gradient(180deg, #f7fafc, #edf3f8); border: 1px solid rgba(15,26,46,0.08); border-radius: 8px; padding: 1rem; }
+  .cornea-chart { position: relative; height: 150px; margin: 6px 0 12px; border-bottom: 1px solid rgba(15,26,46,0.12); overflow: hidden; }
+  .cornea-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .cornea-fill { fill: rgba(13,122,106,0.16); }
+  .cornea-outline { fill: none; stroke: rgba(13,122,106,0.38); stroke-width: 3; stroke-linecap: round; }
+  .ablation-arc { fill: rgba(184,144,42,0.36); stroke: rgba(184,144,42,0.58); stroke-width: 1.4; transition: d 0.25s; }
+  .flap-line { stroke: rgba(26,95,180,0.42); stroke-width: 2; stroke-dasharray: 6 5; }
+  .calc-scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-light); }
+  .calc-note { font-size: 12px; color: var(--ink-light); line-height: 1.7; margin-top: 1rem; }
+  .calc-warning { margin-top: 1rem; padding: 12px 14px; border-radius: 8px; background: #fff8e6; color: #7a5a13; font-size: 12px; line-height: 1.7; border: 1px solid rgba(184,144,42,0.22); }
+	.calc-badge.badge-warn { background: rgba(184,144,42,0.16); color: #b8902a; }
+	.calc-badge.badge-danger { background: rgba(192,57,43,0.16); color: #c0392b; }
+	.calc-warning.warning-warn { background: #fff8e6; color: #7a5a13; border-color: rgba(184,144,42,0.22); }
+	.calc-warning.warning-danger { background: #fdecea; color: #a82020; border-color: rgba(192,57,43,0.22); }
+
+  /* CTA section - now shows both contacts */
+  #cta { background: var(--ink); color: #fff; padding: 6rem 2rem; }
+  .cta-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+  .cta-title { font-family: var(--serif); font-size: clamp(28px,4vw,40px); color: #fff; margin-bottom: 1rem; }
+  .cta-sub { font-size: 16px; color: rgba(255,255,255,0.55); max-width: 520px; margin: 0 auto 3rem; line-height: 1.8; }
+  .cta-grid { display: block; margin-bottom: 2.5rem; max-width: 620px; margin-left: auto; margin-right: auto; }
+  .cta-channel { background: linear-gradient(135deg, rgba(255,255,255,0.075), rgba(122,179,245,0.06)); border-radius: 16px; padding: 2rem; border: 1px solid rgba(122,179,245,0.18); box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); }
+  .cta-channel h3 { font-family: var(--serif); font-size: 18px; color: #fff; margin-bottom: 8px; }
+  .cta-channel p { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 1.25rem; line-height: 1.7; }
+  .cta-channel .contact-card { background: linear-gradient(135deg, rgba(232,240,251,0.1), rgba(229,245,242,0.08)); border-color: rgba(122,179,245,0.2); padding: 22px; gap: 18px; }
+  .cta-channel .haodf-btn, .cta-channel .xhs-btn { width: 88px; height: 88px; }
+  .cta-channel .xhs-btn { box-shadow: 0 18px 38px rgba(255,36,66,0.15); }
+  .cta-channel .haodf-btn { box-shadow: 0 18px 38px rgba(122,179,245,0.16); }
+  .cta-channel .platform-icon { width: 54px; height: 54px; }
+  .cta-channel .platform-name { color: #fff; font-size: 13px; }
+  .cta-channel .platform-sub { color: rgba(255,255,255,0.5); font-size: 12px; }
+  .cta-channel-link { display: inline-block; color: #7ab3f5; text-decoration: none; font-size: 13px; padding-top: 4px; }
+  .cta-channel-link:hover { color: #fff; }
+  .cta-form { display: flex; max-width: 440px; margin: 0 auto; border-radius: 8px; overflow: hidden; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); }
+  .cta-form input { flex: 1; background: none; border: none; padding: 14px 20px; font-family: var(--sans); font-size: 15px; color: #fff; outline: none; }
+  .cta-form input::placeholder { color: rgba(255,255,255,0.35); }
+  #cta input::placeholder, #cta textarea::placeholder { color: rgba(255,255,255,0.35); }
+  #cta input:focus, #cta textarea:focus { border-color: rgba(122,179,245,0.5); background: rgba(255,255,255,0.12); }
+  #cta textarea { font-family: var(--sans); line-height: 1.6; }
+  .cta-form button { background: var(--accent); color: #fff; border: none; padding: 14px 24px; font-family: var(--sans); font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+  .cta-form button:hover { background: #1450a0; }
+  .cta-note { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 1rem; }
+  .cta-divider { display: flex; align-items: center; gap: 12px; max-width: 480px; margin: 2rem auto; color: rgba(255,255,255,0.3); font-size: 12px; }
+  .cta-divider::before, .cta-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.15); }
+
+  footer { background: #0a1220; color: rgba(255,255,255,0.4); padding: 2rem; text-align: center; font-size: 13px; }
+  footer p { line-height: 1.9; }
+  footer a, .footer-link { color: rgba(255,255,255,0.4); text-decoration: none; }
+  .footer-link { appearance: none; border: 0; background: transparent; font: inherit; cursor: pointer; padding: 0; }
+  footer a:hover, .footer-link:hover { color: rgba(255,255,255,0.74); }
+  footer span { color: rgba(255,255,255,0.2); margin: 0 8px; }
+  .footer-icp { margin-top: 8px; color: rgba(255,255,255,0.32); }
+
+  .legal-modal { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: 1.5rem; }
+  .legal-modal.is-open { display: flex; }
+  .legal-backdrop { position: absolute; inset: 0; background: rgba(10,18,32,0.68); backdrop-filter: blur(8px); }
+  .legal-dialog { position: relative; width: min(680px, 100%); max-height: min(76vh, 720px); overflow: auto; background: #fff; color: var(--ink); border-radius: 10px; box-shadow: 0 24px 72px rgba(0,0,0,0.26); padding: 1.75rem; }
+  .legal-close { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border: 1px solid rgba(15,26,46,0.1); border-radius: 50%; background: var(--paper); color: var(--ink-mid); font-size: 22px; line-height: 1; cursor: pointer; }
+  .legal-close:hover { color: var(--accent); border-color: rgba(26,95,180,0.25); }
+  .legal-title { font-family: var(--serif); font-size: 24px; line-height: 1.3; padding-right: 42px; margin-bottom: 0.75rem; }
+  .legal-content { display: grid; gap: 1rem; font-size: 14px; color: var(--ink-mid); line-height: 1.85; }
+  .legal-content h3 { font-size: 15px; color: var(--ink); margin-bottom: 4px; }
+  .legal-content ul { padding-left: 1.2rem; }
+  .legal-content li + li { margin-top: 4px; }
+
+  @media (max-width: 900px) {
+    .hero-inner, .entry-inner, .profile-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .calculator-head, .calculator-shell { grid-template-columns: 1fr; }
+    .entry-visual { display: none; }
+    .entry-inner.reverse { direction: ltr; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .cta-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 620px) {
+    section[id], div[id] { scroll-margin-top: 148px; }
+    nav { height: auto; min-height: 112px; padding: 12px 1rem 10px; gap: 11px; align-items: flex-start; flex-direction: column; background: rgba(248,246,241,0.82); backdrop-filter: blur(20px) saturate(1.4); }
+    .nav-brand { font-size: 20px; line-height: 1.25; letter-spacing: 0.02em; }
+    nav ul { width: 100%; display: flex; flex-wrap: wrap; gap: 8px; overflow: visible; }
+    nav ul a { display: inline-flex; align-items: center; min-height: 32px; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,0.66); border: 1px solid rgba(15,26,46,0.08); box-shadow: 0 1px 2px rgba(15,26,46,0.04); font-size: 12px; line-height: 1; white-space: nowrap; color: var(--ink-mid); }
+    nav ul a:hover { color: var(--accent); }
+    .nav-cta { padding: 6px 13px; background: var(--accent); color: #fff !important; border-color: transparent; box-shadow: 0 4px 12px rgba(26,95,180,0.18); }
+    .hero { padding-top: 158px; }
+    .doctor-meta { gap: 8px; }
+    .meta-label { font-size: 10px; }
+    .doctor-meta .meta-item:last-child { flex: 1.35; }
+    .calculator-form, .calc-results { grid-template-columns: 1fr; }
+    .calc-result-main { grid-template-columns: 1fr; }
+    .entry-actions { align-items: flex-start; gap: 14px; }
+    .entry-actions .entry-btn, .entry-actions .entry-btn-outline { width: auto; max-width: 100%; }
+    .legal-dialog { padding: 1.35rem; max-height: 82vh; }
+  }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+  .hero-title { animation: fadeUp 0.6s 0.1s ease both; }
+  .hero-desc { animation: fadeUp 0.6s 0.2s ease both; }
+  .hero-tags { animation: fadeUp 0.6s 0.25s ease both; }
+  .hero-actions { animation: fadeUp 0.6s 0.3s ease both; }
+  .doctor-card { animation: fadeUp 0.7s 0.4s ease both; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#top"><span>李鹏飞</span>眼科医生</a>
+  <ul>
+    <li><a href="#surgery-types">手术类型</a></li>
+    <li><a href="#equipment">设备耗材</a></li>
+    <li><a href="#suitable">适合人群</a></li>
+    <li><a href="#process">手术流程</a></li>
+    <li><a href="#faq">常见问题</a></li>
+    <li><a href="#laser-depth">切削计算器</a></li>
+    <li><a href="#cta" class="nav-cta">预约咨询</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">屈光手术专科 · 主治医师</p>
+      <h1 class="hero-title">李鹏飞医生<br>专注<em>屈光手术</em>10余年</h1>
+      <p class="hero-desc">从激光角膜手术到 ICL 晶体植入，提供专业、个性化的屈光手术咨询。让你在做决定前，先看清每一个细节。</p>
+      <div class="hero-tags">
+        <span class="hero-tag">全飞秒 SMILE</span>
+        <span class="hero-tag">半飞秒 LASIK</span>
+        <span class="hero-tag">ICL 晶体植入</span>
+        <span class="hero-tag">高度近视</span>
+        <span class="hero-tag">青少年防控</span>
+      </div>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#cta">预约咨询 →</a>
+        <a class="btn-ghost" href="types.html">了解手术类型</a>
+      </div>
+    </div>
+    <div class="doctor-card">
+      <div class="doctor-photo">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAH0AfQDASIAAhEBAxEB/8QAHAAAAwADAQEBAAAAAAAAAAAAAAECAwQFBgcI/8QARRAAAgEDAgMGAwYDBQYGAwEAAAECAwQRBSESMUEGEyJRYXEHMoEUI0KRobFSwdEIM0NichUkgpKy4RZEU6Lw8SU1wmP/xAAaAQEBAAMBAQAAAAAAAAAAAAAAAQIDBQQG/8QAKhEBAQACAQQCAgIBBAMAAAAAAAECEQMEEiExE0EiYQVRIzIzQvBxkcH/2gAMAwEAAhEDEQA/AOWhgCM2JoaAaAENIEhoAGkAwDAJDGAsDwCHgoQ0PA0iAwMAQAPABhgADwGAENIMDAAwCGAAMMAIOhWAwBIFbCwAsbgPA8ASA8B0AQDwG4CAeAwAgG0ACDAxAIGMGBOCWWJgSLBWBASyS2SwJaBjFgCWJlCfMBEsoTAliZTJAliZTQmBIihALADAosaQDIBFISGAxgkNACGNAAYHgMDwwAeAGAhoEhgCQ0gSGAAAAADwCAQ8AMBDSGNIBAkPAwFgBhgAEPAJAIMDABYDAwAWAxsAwFgSQ0MCWBQmUJiwU8iIJAoTQCYhhgCWIoTAkTQ2ICWIpoTAliaKE+YE4EyhMCWiWWS0BImhhgCWhFMGgJAYFFDQDRA0UkJIpACQ8AhlAUkCQ8EBgYAUAwAgEPAYGAAA0AYAYIADAYGAYBIYwFgYYGAsDDqPACwA8BgBDwMAFgRQASAwwAsBgeAwBOAwVgMATgCsCAQDwGCiWJlMRAhDEwFgQxMBMkskBE4KYAQxFNCAloTRTEBDEymhAQ0IslgLAhg0UIAACxoEMgaKQkNANeQ8AisACAYIAGCGigwAwIAMAhlAMMDIDAJAkNACGAJACQ8ANACQYGAAABgoADAYIABhgBAHMAAAQ8AIB4DACAeAwAgHgWAFgBgUTzEU+QsASxFCaIJYimSAmLBTEAmSUxASxNFMTAh8xMpoTKJYmUS+ZBImUJgSA2JgIAAyFopCSGiBopCRSIGhghgAwQAAwSGADQkMAGA0UCDqMCAGAYABoBooMDAAAMDSAgMbAANlAGdxZAgGwYAAAAAA8iABgAFAAwABDYiAaEMAEJjEwJYihASJlCaAkGhsQCFgbACGIpoTQEtCZTJYEsTRTEwJ6klMQEtCZTEAsAMDIWhoOo8GIaGhFIBoYByAY0hIoABcwGADQkNAMaBDAABIaQBgB4AoEMARADQIAAABgDYgE2A2xZRjqzjCLcpJJLLz0RwdV7WaLpttVq3V7Sh3cnGUOJOXF5JdQPRZ6+mSIVaU/kqQl7SyfBe13xIvdZvXTt4SoadTfhpcTXG1+KWOfs9l5HFvu1muX1urWnf3FK2aw4RnhPzz6ehO6MtP0PHVaFeEqlpOnOjHOa0pKMNuePP35Gu+0WjU5qlX1WxhV/h71H5vq3V/UpRpSrVKkFtw8lg1qkZST4qTz7k7jT9VWl3a3UeO1uKVePnTkpfsbC3PyvpGo3em1ozsruvbVU9uCP8A3PX6b8SO0ltOMbivSu6a6yi4Sx7l2afeUM+ddm/iZY31xGhe0pWs5bKXEpRf5H0G2rU7ijGpSmpRktmi7RkGsCGghhgAATEULoAhNFCYE4E0UICWAxPmBLE+ZTJwAmJlMTAkTKJARLKEwJJZTE0BLJZYmBAYGwAkCgMhY1yBIDENFIlFAMYkUigQxDRA8B1BgUNDBchogYYAaQAPAIEUMABEAh4AEAAAFDExiIJZir1adOOZyST2y+WTJUkoxcm8JHgu3fbHT7KDs6veONSLjPh2fTr+e/oFaHxX7WO0s1ptjPx14N1pp7wgnjC8m316I+L3lxUubiVZrdvCS5JeSyZdZ1C4v7x1KtaVThXDGclhuOds+pz61RtJJ42Ne9s5NM8cJN52XRdRq6cZuGUmub549DU718O34VsYY53eeSz9QbdSN041VPEX/qWX+Rkr3FOMVOpNSbXhjFJJHIpykk5PfJlpQp/3lapJekebCNlXc854W4v02M9O6p4zKLj5GmrqjCSSo8S/hTMsZKonPgjBLk5Pif5AbneQl4oTx1xzZ7f4edurjQ7qNtfVZV9OqNJ9ZU/VenofOlxybaeGubSwXSquDxUTw+eQP1rY3dvfWtO6tK0K1GolKM4PKaNg/Pvwv7YVdB1KNpd1+LTa0sSb/wAJv8XovM+/0KkK1KNSnJSjJZTTymjOXbGxYANFQgGDQE4EULACaEMGUTsSymIBCY2BBDwIpksoQmUxEEMRXUQEtCZT5EsCWhMoXUCWJopoQCAYGQyAkA0YhoYikAJDBchgCGhYGADQhoCkMS5DQDQ0IoADADKAAGQIYIYCSHjqAAJoBhgDh9stZttC0Wre3CqNJcMVCOXl+h+aO0Ou3OqXVarUbUakm8H3j43W7rdiqzVZU1Gazl4TPzbJtNrOV5GGTPFmjPME9ue41TcltjJFKnJvwJ79D2/YzsDr3aDDtbV92380tka7nMfNbMcMs7qR4mVKW6S90VSt5zi0k2ffdH+BmpVZR+217eEU855s93p/wZ7MUKajWpVa9TCT8XDh+6Rpy6rjnp6Mei5Mvc0/KUNNqTjlReV+TLp6VWqVHTVOTl0R+nbz4O6fQvlVspTVF7So1G2l6pnatvhjoltwz+zp1Vh58vT2ML1eP02Toc9+X5EutIu6L4qlKS+hhg5UX/cJ+5+w9R+Huj3MHGpZU910WDxfaD4RaXODlbU5Qa9SY9XL7Mugynqvzm7qjFb0d+jXQbffS4oRbz0aR9B7YfDC7sqTq20XJLLeea/qfPKtrd6fcOnUU6cl5raR6cOTHOeHl5OHLjv5RceOL3i9uaawz758EdYlqHZ2dnVlJ1LSXAm9+KONv/o+ETqxrQlUe0o/P7eZ9d/s8ScrbU4cafBOD4eu+Tbj7aco+tjQIZmwIYAUIRRJAhMbEAhMYmAmIYgEyWUxASJjYnzAliZTEyiRNDBkEiYxAIT5DACQG0BdjINCQ+pA0UhIa2ABgMAAAAaGCABoaBDXMBpDQDQAAAUAwSBED6AAAAwGAgSGAHhvjeorsDcNynF99BLh9+vofnVUlxYxJLzyfpn4sUY1uwt9GcXJJwbS9z4XoWmRur+MeHZPyNebZg9J8H+wFXtDqKubqMo2dFqUn5+iP1N2a0S00+zp29tRjTpxWEkuZxfhjoNPS+z9CHBwzmuKe2N/I93b0VFrCONz8tzyd7puGceP7Kjbehkds4vwrc6FKnBYy9087GZumspR2NHt6XInQzs1lgrfMccP5nRfCnskUlTcd8/QykHJrW0XHdYfsc+6s008xTO/Xcd8GhXT6PJNmnidd0uNWnNOCaa8j5D287D0bu1q1KNFccU2mfftQp5TTjz9Dy+qWUKinDCw0bOPO43cauTjmeOq/HWpWNWwryhJS8K4W0fR/wCzhU4db1WhltSoRa+kv+5fxN0CFrfVMU8U5bx/+zV+ANOVHtrdQcms2sts81lczscWczkrgc3HcMrK+7gx4A3tBYAYihAMTIJYihMsEsGDAgliYxMBMQxAIllCYEsTKJ6AITGIBCGJ8wExDEAAAAZENCKQAuZQkMBoAAAGgQygGuQIZAIpCRQAhiQwGGNgQ0AAPAAGAAYAADwAgwMeAOP20oRuOyupU2m/uJS29N/5Hzn4Ldnnq+tU5TpKVOlLvJt8sLofVdWgp6VeQfJ0Kif/ACs1v7Punwodn+/x4qrWW+eEuR5Orz7cXs6PDvz8vqNlSVGjCK8jpUalGEcyktjzHa3WoaPYOpGKnUl4YRfmfN6+qdqbq5dzCvczTfhjTi+Be22Dl4cVzdnPlnH4ffKM4T+VpGzC2nUWx8CtPiF2q0iou/0upc0orDzFp/m0fSOxXxX0XVaUIV6da1r5WVKDcc+/T6mV6fLHyk6nHLxHrK1KpCbilLZ4CNvOaeJSXquh1bTU6F5B1IU4Ti383saGs6uqEJT7qnFLZcPNmHb+2yZ+PTDXoxim5fuee1zWNO0+Llc14Q9G+Z8/+IfxC1jjdjpFJupJcKcFlo8np/ZLtl2iq/aNUuatKnLdKUtzbjwz3ldNOXPlfGM2+gXHbbRHcKjUruCk8RnzX1a5FTu6FePeUa1OpF9YvKPJ1vhpXpUli/XFvlvL/maVjp+paDd4qvvKUucodPdDLDCz8auGfJv8ozduNKoajZVITSUvwtdD5t8IrN2nxHuqcopSjaVFt/qR9avZKvZOonnOx867PV7TTviXdXNerGlCFtKGEsym5tYSS36G/o89XV9PL1/H3SWe31TAiaFWnXpRrUpcUJLKZkOo49mvCQHj1EVCYhtCIEJjE+YCYhiAliYxMoCWMTATE+QxMgRI2IBMRTEBLE8FPkT1KEJjB8iBAPABWRDQkUioBoBkDBCKQANCGAwQIpcwBIaAYANCKQANcgSAoYAgwAAMCAwAwwAYAYYAx1Kcrqp9ipSpurVg/BL8S5P9x/BKlO27PVbeUeGdKvODXk08Hb7LUYVdRi+BOrBpwljdJvG36HS0uxVjr+r0ow7tVbt1Ukv4oxbf55OT1WeXdljk7vSceHx454zz52qWjRv7uN1dxU4QlmEJLKyd21p2dpSc6ndUow3lKTUYx929kVWTpWrUEklyyeJ1Pstf6p2gpaneaj38baXFRsasP9393HO79XuePG93jb3XHXnTt6j2z7D1KrtJdotGqVlPu3B14NcX8OW8Z9Mmlcdn9Auasby2pUqFbOVOk/DL+qPlHa/4XavXqyjb3tG3snc1qzoOrOcJceybi3w8UU5RUsZae/I9/wBjNPuqLdvSdCjYqkoxoxqucoTikuJbbZ3bXLyN2cmMnZk08Uyzus8dft9B7IKdCh9n2zHKi+hy+1lVtToueEst74On2bk/tNRLnHz8jgdsYy+0qLezeGaO61u7JvTndmNF06M5XlSmm285lvk5naz4naNoFSpb22l3OpVKdvK4cozjSpOEXhuMpPx77Yim3h4zg7FbS4ano8LDv7i3g5LvXQSzOKfyvP4X1xzOd2s7BaV2noUKWq3d7i2oRoUu7owp+CMuKCeF+F7r3Zu4+y3ebXy98muPTz1D4nW15Y0r6+0evY2tebpwrKrxQUovDT22Z1rZ0NS4alCfFGe8X5mKl2G0my0uGm0oVruhSb7uNZvCbeW2uTZ0tF0ladFQUVBRxiPkY59n/FnhM5Pzrm6np32W1cEvBJ5+p80q6VGj2m1bVoxUnQt4cEWurzv9MH2PXnCdo9uS8j5xWvLa21Wpb16fErngj+6x+owyuqlx/KX+nV7EOb7O0J1JynKUpSbfXc7Zodn6ELfSKFGHyw4kvXd7m+dvh/24+d6m75sr+6TEPIjY0EwATKExAxDQGIHzEyBMQ2SAMljYmAgYCZQCYxMBMkpiIExDYgJAbEAAAFGUaEUKBDEMgaGJDAaGIaAZQkMAQwGgBDSBDABgCQAhgBQIa5guYyAQAAAMEAHoOwTjHXeKSTSozf6HfqxjPtA6kGmqtCE/rhr+R47Q7l2uo06i3Uswkm8ZT6Hq7eErS/oOXE4VItU23lrfPCzk9dLM3e/jrLxa+5XdpWvepJrlvuWtLjUbyn9DctOBxz6G9bYzssHixke7K2OHLQLKW9Sip/6tyJ6db2tNxo0oQzz4Vg9HcQjwcTljBxL6qqn3VvlSeW5ehnWGN21NCpxp1K2DkdrIpVePGcM9NoNtGceHvIxbeW5dDkdsKFKlTnxVIZzth8zGY/iz7vycjR5qE4OO2enkelhSjOEXjH0PFyrTspUaq3hxKMk+mT3FpKLoxkuq3XqIWNa5sk47NcuRwdStOCpxNZx1PVV5NxOHfLjluLFxeR1pYoy9j5Tq1lWuu0dvWjUjGjRTdVt8lnbY+q9oZKnRqeiPC6dRhc15ya8VWWG35J9DPjlt1GOeXb+V+ne01NWFHKxmOce7ybAopRSSWElhAd7Gakj5bPLuytDEwEysQxMGyWACYZE2ACYNktgDEAihMQA2APkIBZZAN4EAmAAAgB8hA2ACYhgUIAAgzIYAkA0ADAMDQIAKGiSkA0NCRSACkJDQDQxDAaQANcslAkAwIEMAAASAYAAABS8z1lnqULnQ+KpKPf2zjUznD2eH+jZ5NchSWV9DRz8M5cdPX0vU3gy3re31rTKmaUWnlNHTp1OFZyjzPZG677TqLby1FJnoZwzDi3OJZ23T6DcykqL6da4pOlSm4N7KWM4NO7tKjocFtX7irGDjGeM8/Q2u8xJpczFVqNZy0vdg/Uec06x1rSqs50tSr3kZZzSrzUl7xeE17bo8v2m0vtL2gu4wq169haqP+FU4Jy/4lul7YPd/a6U3KFK5oSqJZUXNLP1exqajf29Jx7+pRpTb2hKqnLHqlyMoy1bfTzeidlJWtvQtbi/q1KNKamqeW3Jr+KTy2e0t13Ufm5nIV7SlBVadSMl5p5Lt71zTSlnBjVv7blxctT4c4eTTvKj4MryMV1Vc2muY6z+5blyS3ZibeH7YV+7tKks9GcnR7H7NShKpwufAlt0NntlPvalOhF/3lRR/NmddTp9Dxy7yrk/yPNlNYT7MljbEzouOCRktgDEDJbKBiyDZLZA29iWDYsgDYsibFkBsQNiyANiBsWQBgAmACAWQG+QgEAAAAAABRnH0ENciAGAIBgAANFIlDQFIpEopANFIlFIBjQkMA6jwCGUAAAAA8B7gCQAAAAwRA0ADQHquwV5FTqWc3unxx9up9Bo7xwz4xZ16trd07mj89N5x5rqj6roGqUb21hUjJNtHH6zj7M9z7d7oeX5OPX3GXUI1KUZTgt2tvc+R67Ptxbdo3V1C5o3Wj1XFwt0nTlCKkuLDXzSaysPzyfaayjVjuc3VdNt7y1dGrBOL2PLhl217Zr1XmbKt8Prq1gry0vLeolPiipzbzxbLMeeDk3ll2CjQu2qmqVK/E1SeJ88bfTPVm9LSVpFSUorv6a+WM4Zx6epy7y5lOXBRtaDy8vhpyTS+pv8Akn6bMeDD6zy/9vHdpKkYqT7OVK9tV7tJOdeWIzT3bT559OR2/hdpfaWla3N/rmuSv3Xa7mkqSjCnH06vP8jPp/ZuNe6VevGUsv5eh7S3pq1tVSikl5YNefJLNRMsccfEtYoUpbSZqalcd1Qnl9DJqF8qEcdDx+u6q5Qmoy3fqasZal9brk3NT7Zr8eF5hQTm/fkjoZwaWkUuC3lWmvvKkm37LZI3Mnd6bDs45HznV8vyctNskBNm95TJbDJLKBslsbZDZA2yWxNibKBsWRZJbIKymLJLYnLcCshknIZKHkMk5DJAwFkRQwEBAAHIMgDBMQAGQAANgYhoAGhDRdhjQgAoFzAEBSGuYkPmBSGiSkyCkMkpAMYAADQlzGUAABAAAwAABAGCkI9L2I0T/aFz9ruKblb034U1tOX9EWTauTqcbbs/pVlqGp0p1at9V7u3oLnl8s+r8j0dpCvp9RXEIyS5VqflJbN/1H2+0uOq9uuw+nvhcKeozu6sX1p0afF/1cK+p6rXNN7i+m0l3dzJzh/q5yX8zxdfhe2ZT6dP+P5JjlcP7Gm6hTrQW/Q38ZXmmePrUqmn18pPunuv8ptUtddthV03B8peRye3fmOtfDv3FCE4tyjnJoVrSj1px/I0anavTMb3NNdOfU0rztfo9P8AvbmNNPk5pxTfuxIbdF2tKMspYwaV/UhTTm2kkji3nbbSeFuncwm1z4WeY1PtSr+bo0ZOa5NwW35lmFpcteWTX9SlUqyUJeHPM49OlKrKVWotk9k+vqZqdKVWXHPZdEZqyUKLWMt+GKXNt7JfmbNSeI122+adssW0F6FG/fWM7dTWN6XApfWKOezuYzUkfN5+cqGyRsTKxDJbBkt7AKTJbCTIbAGyWwbIbAbkS2JshyAyZFlGPINgZM+oZMeR5AvIZITHkC8hkhMeShthkWQyQMBZDIDAWQyAwJAo2gXMAIGNCGgGhggAY0CGgBDAaAY0SikBQ0SUgGMAAaAAAAGgAQw5jQAB0dL0XUdQSnb27VNvHe1PDD6Pr9MnqdK7EUYyjK/uHWlz7qkuGP1b3MpjaPMdn9HudXu1TpJxpRf3lTGy9F6n1vStPpWNnSt6MVGMFhIvS9PtrOiqVtRhTprkorCN1JOexnJoeUubaL+JmmXMl4qenXEY56ZnTz+x7W7tKN9ZyoVk+GW6a2cWuTT8zyuqx4e2uk1k8ZpVqL+qjL+R7G1eaaJlJZqsrbLLHjb+1nQrfZL9Rba8FTG1Refo/Q81qdjPilTtlxQy1LPT2Pp+uUbKpp9R386dKjHd1JyUeB9HnzPltbtJplrrb0yvcQfFJxp1c+CpjqmcPn6acOW5fDu9L1N5sdWeY85a6TbaVqDv69pOrVTf3mc8C9F09+Z6atp2m6rp/HwUqymvEmspm5cUoVcqKUk10OVKwudIqK4pSfczfjj5euDy7r2e5+3lqPYbR9N1t3ys5VbefOjKTlGk/OMTBq+l0rC/lKhCKt6vjpuPJZ6H1CyhQr0HV8L2zueM7VKlC4jGUcUazaePwvzNm6xl7o8xVr0qFNynNJLqeo7G9mrytVjrOrUZUKcd7S3msT3/AMSa6PyXTdm78O+zmnU1/tK7mr2+hNpcccRo+XDHzxjxPfywe3vGlByfJLLOl0nSyazycnq+rt3x4vL3umxqUrqrNeGpUUceiikeEvqEra6qUJc4PZ+a6M+s3FDGnUotbyXG/d7nmdX0WnezhxeCTWFNLl5HQuO3NrwrJOtrGhajpqdStRc6HStT3j9fL6nIbMNITIbKlyIkyCZPYhvI2yJAJsxtjkzHJgOTJbE2S2BWRZIyGQLyPJjTGmBkTGmY0ykwLyMhMMgWGSU9h5AaB+YgAoBAAwEAG11GAFDGJDIGtxiWwwKQ0JDXIBjQIaKBFIQ0QMaEhoooABAMASN/RtIvdVqSjaU1wQxx1JbRjn+fogNEy2ttcXVTu7ahUrT8oRb/APo9/pfYzS6dGE68qt3VfPj8MF9Fz+rPRWlpCzXdUKEKUH+GEUo/kjKYf2beG0rsNqV3S7y4rU7b/J80vrjZHY03snZWVWMq1tVuq0Hs6kk4N+fCv55PZWTxWlD0RkqRx4muXUzkg5FahVjR4mnnovJehv2T4qEZqLi+XLmbFSOIR23k8IyOMMcMOS25lVjhCS3UsmehHiz6GJKpnHCzboxUIY811JUcPWbfN5RvG2vs0+8il12xL9Gz0NnJOGYvbGc+ho3UFNODXQ8x2mV1Ws7ezjOaoU3LjSeOJ7cOfRLJq5c/jwuTdxcfy5zHZfEVuvrNGhXqPuo0VKjHOzbbzL1e2DydzotLUofZZUKVZZzipHK9yNZ0GWoSpOlWq29zSf3FWnJ+D/h5Neh63RaX2eonOO+N8rBweXP5c7k73Hh8OEx209EtZ2cadrUpRhGG0UuWEdDV+7rzcOHZw4WjLWalU4muT54NG4lKVTDzsY68MpfO3LoKdvDu1J7bHD11Kvc06Ul4cPJ6W9h905JdDzeqwfFGe+U+aIy+2HQNSno+oqNTilSl4Zf5l/VdPM9zWuqd1ChTozU1cSSTXLh5t/kfNtXxKlxLbqdr4fXjdaXezb7qS4cvZcS3/U6XQc132X05vXcMs+Se30K8SllLZJYNCVGMqbWDerSU6Lknkw20W3g6jlLsYeKVvVinGccrK2Z5Ltf2RtO5qXmnR7iot5U18j+nQ9nPKUZxilOnul5rqjFWSurarGDyprK9TKzcR8YutOvraLlWtakYL8SWV+ZoSZ9opwcraNJRTwsNNHD1LsjZXtSU3bOhOX4qUuH9ORruH9D5fJ7mOTPd3/YCUYr7LetTfSrHw/mjg6l2P7Q2SlKpYSqRXWlJS/7mPbR55siTMlaFSlUdOrCVOa5xksNfQwyMQmyW9wbJbKG2LIsiyQVkaZA8gWmVkxLkUngDImMgaeWBfoPJI0BQISGBQCTABgLcCjbQxDIBDEMBopEopANcilyJRSKKQ1zEhogaKJQwGikShgUjZ06xub+4VC1pOc3u+iivNvoLS7OtqOoULK3WaleahHPJev0W59o7N9nrHS9PVKlRi5NLjqNeKb82zKTY8Zo3Yy1pqFa+qO7nzdOOY0179X+h7Cxs6VKhGlSpwp048oQiopfRG5GhGhU3Xgb3z0NiVBKXFDlJYaRtkk9I0rCjKMpUZc6cmn7c0bvAs8kYqSdO8zLnVgsv1RsPbGfMDTp+C9aM99tBerMVwuC6hPozJfb92gv2y1otUVNU5VGltFSxl+5o3lzd21rCtTtKdWo+dN12nn3xg6fA3BeJ48jVv4/IsddizX2baNHVdRVGNSvotWD4sYhXUseu6R3Itypxclwycd4vp6EU4ZjGWOW69WZUljG/1JlZ9DWmmpZZ57tNeWGl29S+1S5ha2UIS72tP5YYWU39dvqekqLc87230qjrXZy902vCM416ThhrKzzT/NIwuMymqzxysu45+iys76nb6hbVY1aVaCqUai5Si1lM6FaEXN8K4WcjstWVzoNpUUVTqU493OKWOGUdmsfQ7ijxROJzcXx53F2+Ll+TCVpzi1ybNOun3vsjp1YY58jRuaMlUVRJYezNNjZK1JfeU5QccP1POazTcIv03PVTSaUovPqcnWrbvLaTS3warW6eXjdRfHbSilvz9jN2SqO2gptf3kv2FUpSjCcJJ8jPotFd1RXRRT/M9/8AH+c7Xj6/xhI+g6bXlWt+HHTY3rVJrK2eDl6EscO+DHc9oJ0NUr2UdE1CUqLw6i4eGaaymt+R2pLXEr0HDJeJPl6GGMe4v4RS+7q5lHyT6r+Zx6ev6nVm42/Z+4f+addJfsdGynq1etCV/a2trRW8YQm5zb9XskjLtsHQq0oqTfCss1Kzcq0KMer3N6tJKm5ehpWUXJ1Ll+eImMRsV6cONN4S4cM0bmfG+FZwtkjJWc5z4IvLfMi4UbSkpPxVJPEV6lRxtX0yxvKfd3tvSqp8k47r680fPu0fY67tM3Gnp3FF86Tf3kP6r9T6tStJ4dWrJOpLn6GWFpFRc5xXCvPmyZYym353qKUJyhKLjKLxJNYaZDPt+t9n9N1uk6l5aQguFqFWmlGon556/U+Mataux1K4s3UVTuajgppY4l5mq46VqsTYmIgrIE5BMC8lJmNMpMgyJlJmNFJgWmUiEUgKQyUMCgJH0AYCyAG4NCACgQAuYFIpEFICkUuRK5lICkNEopAUgEthgNcxiXMYHsPhRaOtr9W5ccq3oPD8pSeP2yfVqMnGai+TR5D4XWCttBVzKOJ3UnNv/LyX/wA9T2MoOS8PNbr3NuPiIzThGa8SNeinRqd234c+B/yM1KfEkx1oKUcsow3NNOdKS6SFdLhpcS6PJlpqTzCW+PEmZJUo1KM4PyA0akY1VBN80F0vvIR8kY7TxThF845TM1yv96iiq24/IjG6Kq1o55ReWZUvCjHRuKcbj7PPwyn8rfX0IRsqPXApRwy/Qa3RBr1I7mle0uKlJY3wdKaTRrVobMsV8/0tPT+0eoWMtqddfaqS9eU8fXD+p6a3cZwW/Q4vbGh9kr22rxjj7NNqphf4ctpfls/ocvRO09tC/uqF3c29C1+2U7O0qVKii6taUXJ0455vCPL1XD34909x6+n5e26v29hKnlcsmvVtpOLSjg2qdaMtkZo4e5yri6Pc4VWhJLlj0Na5pKcXHnjod65op5WOfU51xTUW0/zNWWLZhlp5G+sYxk5NI5+kR4Kro9YPC9uh6TU4ZzwpNdTzF5Opa3ka9OOXF7rzXVGfS884eTd9U5+K83Hr7e50aGYnXqUlKKqxjmpFYf8AmRxuztzSuLaFak8wksr+h6Cm+HxI+hl8bjgZSy6qbeMGoyjjDC5l97GK58kEXGhc8OyhUy4ej6oVv97cSq/hWyMmGkahLhoqC5vZF1Iq3tY010RKj3+oLrGlu/cyVl3twodFuxFrHbUcR42t3yNKlH7Xq1Wo96dv4Y/6up1VVhStat3N4hFNr2Rp6PSnS0+M5L72q3UkvWTzgRGbgUp4/DHmOvwuPBjLfRBbyhUuZU14qdF4k/4p+RrXzqXNWdOjPggnirUXPH8KGvI072VKVF2kXKTSw3DofKPiT2drafcLVqUZyt68uGo2vkn0z7n2ClawpwxTi0vPzPPdurdXWhXNmnmVSGEn5rdGOU3B8MYsif6iNKmNMjI8gUmUmYyo+4GRMtMxJ9S4vYDImNEZKXIC8lZITGmBQC6AAwADIboCHkxDQ0JDAZSJKTApFIlDQFDEMChoSBAUOKcmorm9kJHS7M2v2ztBY22MqVaLfst3+wH2rRbWNrp1vbxWFTpRj+SOjCMk+Rit1iKNmKfQ2ox1INPvEv8AUv5mSm1KO++TJGSez2ZirU3TfHDl1XkWApvgqcLLoP7yon5mJyU4qUXuipT4K8ZrlJAaFCPBq1Sn0w5Gxf08OFaPJPDIqQ//ADPEuTos21FVrPHPKLVLlR4vQ58aSr125bo26snC0w+eMBYU8U1J9dyQZac5wXBUfElyn/UzJNbERSfME3T2e8P1j/2FItoxyjkyvdJrk+omt8EHI1qyp3VrVo1IKUJxcZLzR+H/AI03ep2HaKp2bu+8jb6NOfdJtp1ZVHx997uPCk/KJ+8q0U4tYPzN/bG7DyrWtn2xsaWXQxa33Cv8NvMJv2k3H/iRlKv0898DvjZqMoLSu2FWNShSj91qMpYmo5UUqi/FjPzLfHPPM/S+n3tK4owq0pxnCaUoyi8qSfJp9UfgvTLWnTtFUhwtJNP0Z7r4KfFTUOyOtW+javcTrdnq0+74Z7u0cntOL5qOeceWG2vXy9T0X492L0dP1fntyfshvjhhLLNG9t/u8vPsXbVmkmnlPyNi4xVhlHGyjr4vLXtLDbSfkzhX9vxckmvU9VewXFut/Y5NWimm3FHnyjfjdOR2cvXpWqfZasv93ry2b5Rn/R8vyPoVvVUoZyfOdWt+Km8xWOr8jbo9q69jpNtCnaSur+tKVGnxvhpKUcZlOfRYaeFudj+O57lPjv05nX8HmZ4/b3d5Tlc06VGE1CqqqqR33UVtL9zd4IULbEeUUcXSlLS9OqXWo3X2m8lHjuazxFN9IRX4Yrkl/NnVr1ftFvTVNSSrtKOVh4Olvzpze2639Jsk4WkqzXiqvi+nQm6bt7GrV/HLEY+7eDb4FKSil4VskampSi7m2oyWVGbqY82lt+r/AEMmLFqUe9ja6bDlUac/SEd3+bwbF/W7iliDxUl4ae2d31x1x/QmlKMb+6uaslGFGlGDk+S5yl/IwaeqlzV/2hXi4zqr7inJb06fRv1f6FRmsrV29oqMPDLHV5xnm2+r6t+ZUaMIQUIrwrz6vzZs7pcMVl+ZLiorifjfm+SMbRrV6c3HMcHD1KNNQlKosvGx3K8nUTXFhHMvY0o025JY9SK/Peu0Vb6xd0UsKNaWF6Zz/M0sne+INJUe1Fw0sKpGM19Vj+R5/JqorKS3DKJyBBeSkY0ykyjImupUWY0WgMiGmQmUiC0xpkJlJgWgRORoCgFkAN4fQQAMokoBoaEhoCkUiVyKQFIaENANDEvQZQz1/wAKLZV+1EqrWVRt5y+rxFfuzyB7z4NNLVtQzz+zxx/zFx9j6fSXhRniyYx8i0l1M0U45W3MmnVxJwnzK4XHlujDdw4occecdwFXpuDc4fK+aIqPjtXJc4fsZKFVVKZhisV5U18tSLXszKKyxjm4dR9KSQ9Mlx2sWDfDY951cEvyWDHorzYU35j6D1H5VBdWbEI8NNJeRhuE5XNOP1NiWyyQoiD6gtsDfMhGpcV5WjjJRc6TeJxXNeq/obcJQqQjOElKEllNGpqEc08YCxjKEOKCzF/NH+a9S/Q2pI4vavRrTXdCvNIvoKdveUZUZp+UljPunh/Q7mzWVumYLmPhafJiUfgCdvXta9zp9ylGvbVp0a3hx4oScX+qObpmhV+0faew0HT0/tGoXMLeO3y8T3fsll/Q+i/2kdIloPxRvK0IcNtqtON7Txyc34an/uWf+I9J/ZA7LPUu1Wodr7mm+40ym7e2bXOvUXif/DD/AKz0Z57waccNZP0DY2FPSra302g5uhb0YUqTnJtuMYqKy312N2L8OGbGs08U4VkvleH7M04PKTPneqw7eSu/02fdxxgvKMZYaimce7oOL8KwvQ9DNZi9vc515BtNY2W7aPJY9UrzdW2nc3FO2hvOpLC9PX2XM9HV0O1q6MrOinTVNZpVFtKMufGn553MmmaZUtqcr2vDhqVY4pr+GH/f9jraclKhg6/RdP8AHh3X3XK6zqLnnJjfEcF29K9tYUbvxVITTWHhZ5PK9m9jo3tk7y7t2pxjSovxwlxYnF7NYTXTz2/I1rii6d/UlFfLLJu2tdTa4fxHtuMryzlymtX1/wDWrqSuLzVqVilKlZ02pz4oPFRR3wtsdVv6C71V9ehSpNONGKTSecYy8fpE3NXrVJUHa2/E6tSMmlGWHhLz6eWfU4fZ1ytrS7vXCdapKbjTgoYlJvlFLo9ki4TVrPPOZ4T61/3bu1ZUJV1YbVG/vKqfKW/X0z/I3YxUMuW8pPMm+pztKoTs7fN1ONS9rPjrOC6/wr0XL9epu4rT8qS/ORnXnXKoo7ywl67GtVvIzfDTTn7LYyO2i+cJVH5yewOnNLCUYr0RPA1X3sllqMF6s5+o17ehBtp1Z4OhcU575kcfUaU2nhZMVfG/iZWlV7Scckot0Y7fVnls7npfibGVPtNwyXi7iDf5s8xk1X2KbY0yMjTAtFxZjTKTIMiZaZiTLQGRMpEIafQC0xokpMCkxkoaAoBABvgGRgNDRKKQFIaJTKQFIpEoaKLQ0SikQNDJGgKR7/4O0M3eoXP8MIUvzbf8kfP0fQ/g7L/9pDy7uX/UZY+yvptCWVh8zK11/M14ppKpFe5sUmmbECk4vD3XRlvDW62ZMo7cL+hjjNwfDLkRWtOLt7j/ACT5PyZN3N0+GsucXlm9UhGcHFrMX+hp14OMHCW66PzLBlk1LT545LOCNCedNov0Rq6bUbs69vJ+KlmP0xt+mDP2afFo1CXnEys1BtYzdN/woyT3xHzFLEJSk+o6SzmcvoYCseP2BfMxxQnsnkEYryOaeSbFpZizPOPFA1eFwmpeZYNvk2115kVUpLHTzHCXFEiq1DLfLr6eo0PhH9rrsrV1bsVaa1Z0JVbvSrpJxgsynSqtQaX/ABcD/M+l/CPslDsT8P8ATNBaX2qnT728kvx157zf0fhXpFHqJUKddrvYRqQTTw1lNrdGaRd/Q4fbOVzR0Ode1xmnUhKaf8Ke5oWFzCvQhUg8wnFNM7+oU1Vpd3OKlCacJRbxlPqvVYyeT0rs7rVpKdBVbf7OpvupOpvwv0SPB1nDlnZcY6HSc2GEsyunVdWG2+DoaZp8aklXuI8t4Qf7v+hOl6VTtn3txVVat0aXhj7Lz9TpRTi/C8ox6fpO38s/adR1fdO3D0nUKSnSbwc2wXBOUHyR16j4qbRoxpcGZPryOhHPaV5TSuJT6Th+xzranVp3kVBLFTLSfQ7FSnKbUEm1F5fsU6EXwzwlJcvQDyuuXt3pdlqV9Oip3TiqVrTzs87R383J8uZv9lLG7stDtba5nGd7wcVzVitu8lvJRXkuXsjNrtvRua1CdSg5TtqneU5PO0sNJ+vM8Hqur6rC+q0dXvadKglhUKcnGMovk443f1MeXmnHj5j1dP0958u2V9MoVbWM5UqNWnUqL5kqib+vUzccll5jFeiPkehaxTfaO3uo0atrZUM8VTge6S3SXPc93/4t03gUqdK5rJrOI08be7Zo4upxzx3l4buo6DPjz7cPLvvxrKk5fUw1U0uhr6XfWt7QVzZ1G6VTfhksNPy9GbUoueXGLx7npl3Nx4MpcbqtC5qVIp4jn6nA1LUbmmnFU0vVs7d5UaUklvyOBf29eumksLzYHw/tRf1tQ167ua7bl3jgsrkk8JHNyzb1/hWuX6i8pXE0mv8AUzSyahWRxZGRkGRPYpMxplJgZUy0zEmXFgZEykY0y0wLQ+hCKTKKRWSMjyQXkCcgZDojTEPJiGPqSUgKQyUUgLQ0SmUgKQ0SmUAxiXIAKR774OLN9qSz/hQ/6meBR7z4Oyxf6kv/APGD/wDczLH2V9YoR+5SJknTeV8vX0ChVUqUZLk0ZdpejM0EZKUeeURXhxwyvmQnCKltJwbGpSjJKfPo/MqsNKq0+GXNGSTjUi01zMV3T344mKFRprIGm4zttYT/AMKvTcX/AKluv0ybHZh8FjK2fOjVnT/J7fo0ZL6He0OKHzx8Ufc0tCuIzvp8OyrxVTHrHwv9kZ+8aOy4upVx0TMstljohU1jLJnLinwo1i4N8xTXhY1sD3TBsR3iRKKccFQBgY6e2w6seJDhHmyas1FepUVbw4aSX6eRg1O9ttPtJ3F1Phpry5yfRJdWbFScKNGVSpJRhCPFJvkkjylONXXtQ+3V01aUXi3pv/qfqyybZCxhe6vqFPUrzipU6Tzb0U/l9X5s9DSeGo8s7ezFb01FKMUZK8VFxf0Yy8ohQisSmpSk2bFKDcU1hew44mllriXNlrwx2RiVDWzWcmGMcx4WuplnJ5yl7ihF8ckn0TwVGPupQWVBSb5+LBinOCnwzVSD83DK/NG2+RjpbT4vMsGBwpz+SpTqPyUtzkaxomm6hj7bZRlKPyzxiUfZo9HJRzxOKbXoTLglz/JmNks1WUyuN3HyrtFpT0qrRo21KVzTuW4U8RbnGXPGFz90ZLDs7qVG2l9s1Cy0ui02/tNTjqfSmnt9cHpO3mnVLrR7inbVZ0502qkXGTTwn4ltzWM7Hh7zs/eafD7dYRq3tOHCqlKlDNTfltnde26OfydPMcu6Y7jsdN1d5MJjcpL/AOP+x7Lso9JtqT0+w1KN1NeOpxSxOTfXGFt7HXuaklxKO3ueC0jQu0dXVrfUKtBabTp7pVJxlPGPlcU9s+57y1rq5puhdQ4Kq29H6pnu4d3DdmnP6vDDDk/HLucq8nVWd1seP7W6rd2ej3dxQkuOnTbjnke01eh3EW5tuL23PFduKNtLs7frLi3QljfbkZ15nxWUpSk5Sbbby2+osk5DJpFJlJkZADIi0zEmWmBkTMiZii9ikwMqZSZjTKTAyIaZGRpgXkaZCY8gXn1AkAOqAAAxoSAC0UiEUgKTKRCKQFoZKKQDQxDAaPafCSb/APEFxR/9S2f6SR4tHrvhPJLtYk3u7eeP0MsfY+v0kobLl1MqqOLw1leZjjsypLhxLPhX6e5sRnTjUj0Zik3FOMsuP6oHTfzxez6rdCzxLDxn9wulwkp03F4b/c0KkeCo0zLUlOj44pyj+KPVeqIqyjWgqlOXEmUh05eFo4mkcVHtfVt38nDUqw/0yUf/AOkzrQbNHuXHtPaXSW0rerSl7pxkv/6Msb7Hoqk8RwiaCy3JmKcstGentFGGhfUTZOcywE3hIiHHmPzEjHWqKCLoFWqo7GCTcrinDzeX9DDCUq1XPRF3leNha1r6typw2XV+S+r2LrRHG7X3lW8vKeg2S45SSqXOH8sM7J+52LChG3so0YpJxWMI4vZ7TacKtS+v6zndXMu9moJprPJZ6JcsHpLamqdLOGk31H6ZMlGHDHL5kVfEm3yMnNGKq8JoiJocfBlbtcvUaqubxGDfvsjXtbmMbp28pYck5Q9cczfgkt0twFwvgfFvJ/oC+eDXVFS5Ewxxx+pEE03L6bkcmsmXlIVRJb9OoCxtklpb7DWej2CfygcvUZRjJuWOFrc8/oVeEtRr0Y7waSWeuDP2uve7j3FN/eT2Rh7P2TocFSecsyX6dSbdOt3DznGYeq8jOo05RTlH3XX3XqTrVNxs1cw+ag1P/h6iVeNS0dWKy4rdeQRN9bq4t52tSWXKOac/M+NfF26q2un0rN5jKtPhmvSO7X7H2ics2yfNLxRfkfKf7Q1i/sWm6lTj4JVpQqPylw7fnh/kTP0sfHWxZExI1C8jTIDJBkTLizEnkpMtGaLKTMSZSZBmQ0zEmUpAZUykzGmNMDImPJCY8gWmBOQA7CGJDABghgCKTJRSKKQ0SikQUiokoaAsaJQ0Az0nw2m4dsrFL8fHD84s82dvsRXjbdrNNqyeF36i37pr+ZZ7K+7qO6MiylsakZ1F0yZ4d/JclH3NqKhNQl4Fw+cS5wjNcSXCye6TXinllJOC+fKCsE30byzm14ytqjr0V4H88f5nQn4puT2y+RDhxNx9Mll0NWdWPdd5BZRjnVj9pt/NzwvyZNSHdSfAvA9px8vVHL1CrJTsJxljub2MZ+sWpRX6tGeMlpXo4NuobcZYRpQeHnyMrqYRjpGeMvEyqjy0jVoybnlmSU0pNk0M8pqMTmXVWVat3cWx3l1hNJ7i02m5SdSRlJryOhaUY0oLbc5mvqV3fWNklmn3ne1faPJfn+x1XLY51r99qFa4aeF4I58kSf2N6b4UlFblvMaaXVk0lxTyzJJ5aIbOO0dzUrTzMy1qqisI1ZPbI0rh6vWdPtJo0VJxzWm36rgeV+p6qnPCxzPE9o5L/wAVaNBvGXVf/tR6uyqKpT7vK4obJi+oys8RsxlKcpY2WcFpKMkufmYqeVty3Lxs2uZixZF/EU2m9jEnjrskNSTQBjh2/D0FVeKbfoZFiSwzDceGnJPyCPDVYO/15ykm1E9BwKCSXQ5unQjHUK0mt2zqy3wZaK3lTjXtHTmk4zg4tPqmjzttN2se5nJvgapzz1XJP/55HprZYoR2PI64pLWbm2hznaTqr3i01+wHVs54hOlLd03wteaPK/GW3p1fhtqLlhuhOlUhnzU0v2bO3YXCq3XGuVanGa/I8p8ca3ddh6sMtd7Wpxxnn4s/yGXo+3wNsWRNiyaFVkaZGQyUZEykzGmNMDKmWpGFPBSkQZkykzCmUmBmTKTMSexSkBlTKyYkykwMgEZAo7q5jEMgaGIYAhiQwKGhDQFIpElAUhkoaApci6NWVKrGtB4lCSmn6p5MaHjKaKP0hZrjtaNV85wjL81k2e8xszk9krxXvZzTrhP57eGfdLD/AFR2ML0NiIdVfhiY6kuJbSaS9DNJ7YWCJqUotNRaa3TLBpVKltRzKpV39ZGK3v6Fyqv2SSl3e0ptPhT8s9TLWt6SpuTjCL83hmlxSrYo21PFNPxTxhLz+plIsYq1vculKvGtGSTy8rGfY5uoQ+0W8p00+8i4TlBdeGSef3O7d06VzS+yyUnT5OMZNZ98BTtaNCKhClCEcYSS5Isy0HRnGpDii8phVqKMXuOjaxow4KO0VyTecGvVtK1Sf3taNKGeiy2WWVGe1qNpzb2Mdeu0m2zLdUJRhFUa/dRisNOOcmnGMKlTu8OrLq3shLPZpjpcVarvyydu3goU0kalCiozfDBLHU28uK3ZMsthXNTgpt+SMOn0+Gny/PmKpPiqYM1HHDh5JsZZVIwWDWrXkYp+Y69FZzmTT9TBK1ovnTy/cs0aYndcTy2TO7gupl+y0Vypr6kV7WnKHAoJcTSylvzFsV5PtRdUF2n0OU5tJOtxNLOFwo6Gma4nrUIwg4Wji4ScubedpemP5mv2rs40NVUqdPEJUYtY6btP+Rp2UMuL8nv7HM6nq88cu3H6dXp+lwz4+6/b6GpYeWjJGUnyWF5s5+mzqTsaMqjzJx5+eHg24zS2b9j245d025mWPbbFzf4Vvh+ZW+OSz7mOo08SxjGzLZkwJyl0wgqZnSeX0JzuW9oAeYoRcL6ontudOnFyaW5o3K4dSl6s6tjDiab5IyG7BcNNJ9EcLV6FKOqUb6ckoxpTpyz5NHbuKihBs8R2vvnOULWLzxvdegg09Cud7Pf8PD9DyX9oa/irDTdPjLxVKkqsl6RWF+rO/Zfc3dCl1hHLPkPxO1z/AG52suKtOXFb2/3FHHJpPd/V5/ImV8L9vMNhklsWfQ1C2wyQ2LJBkT3KTMWSkwMiluUmYkxplGZPcpMxJlJkGZMtPcwJlqXqBmTGpGJMakBmyBjyBdj0g0JDXMgaGAAA0JDAaKXIQICkUiRoCkUiUNAUNEoZR9h+FV1Gt2UpUZb9xVnB+m+V+57OEptbSiz5V8HNRjTvrvTKksd9FVaf+qOzX5Y/I+op4TSM5UbEeLGXNJeiMNapw7Ri5y9TIuUfLASdOknJ7Z6mQ1I2tWvV4rl+BfgRmrU/Co01iJDuJ1Z8NNbGWMKzW7QtVFOkoLluOcHJGSNGbeZybMvAooiNSMZR5oa3aTWUbEksPJiaahKWCq515VnVq91Dm2bNtbRo0+Fc+r6sw0KbVR1GtzdhOLWM7loSi4rYxV29jYxsYcxdVwlyZEYbeHHUz+Rs0n42jHTj3MnGSzHo/IzwjGp4oPEkUKSzLYngxIy0oufG2Dg092RWJwWeRNRRU6WetRL9zK3GPORqXldSubOlTTcpVuJ+iUXn9wNXtPa05ujOSy+CUVt6pnAsrNOUnxJQzzPQ9qZ4pWbT51JRf/K/6HFqVY0YYT2OR1U/yV2ejy/xR3dJlCdi6OUnSnhPyzv/AFNmDzLgmllHmNH1ehS1JUKs493cYp7vlL8P9Pqd66cqXhqLipPlLy9z39Nl3cc/TndVh28l/bdnUjClObi8RTbTKpcXcxU8cWFn3NBYmoxlUk4KSkk3lZXI3IT3w9je862sY6scpYRMpPYUpLARxtRji/hj8R2qKjSoLJzryObu3njKUsMeq3Uk1Qp/NIom/uXU4kuSPA3dx3+p17lvNOk+6h6vmz1WuVvsWlycd6slwwXnJnge0uo2mhWCdzPajHdJ71Kr3aQ9LHI7e6+9K06oqVTF9dpwpY5wj+Kf8l6+x8ib2NzWtSuNV1Gre3Uszm9kuUV0ivRGi2a7dh5DJOQyYh5DJGR5ArJSZGQTLsZMlJmNMaZBlTGmY0xp7gZUy0zEn0GmBmTKTMSZUWBlyBGQKPVIa5iQ0AwGBAIYIAKBAAFD6kjXICkNMSGAx9BIaA2tKva2najQvrd4q0JqcfXzX1Wx960W9oalY0ryhLNOrFTX16H58R9F+Eus8Kq6VVl8n3lJeafzL89/qZY0r6e3KMc5SRp4nc1cJtxzzNqVKVZLEvA/LqbFGlGlHCRlsFtRhSjjmzK8EuSXMjibYGRvbkRJgssfCubZUqGslbYxjYU5pe5j4mBpVa8u+ko0lwp4XqTK4px/vKdSHrw5/Yzzgm8ojeL23KbY6d/bJ4+0w9pbMqpOFVqVOcZP/K0zPBQl89OL90ate2tZVdqFNPzSwy+FbUJKUHGXPA7B4nLPMw/ZYqm+7qVYbfxZ/cmypV8tzuXJdMwSf6D6HQoNZqN/xGC5qylUVOmm2x0ISbnHiby93gyqEKUuJtZxjcgxRoJfPmTNDU7iNvqNpTdNR44VMP18J0JXD4W4/Q8/2t72VnSvettPO38L2f8AIDW7XX8KOn29SckkrlJevhkeC7Q9p6FCnwuqocXLzfsg+IOq1NQs6NjZcU69Kp3jlF7QlhpL1e54ar2f1G5v6Easp1K3BxTk93u/+x58+m+TPuvp7eHn+Pj0zXeuanWryVlSUMvMalRNyT80uR9o7DdqKWsafQt79xp36glVg9lNpbyj788dDzOk9k0tOhOpTUZqO+xl/wBjxpRhOnxQqR3Uls00b8OPHGajTy8l5Pb6JUtZQjxUOX8PQmlWee7qLD6Z6HE7N69WcFbX6zOO3edJL+p6CfcXMMxab6NF00LjNraTCo9jVcqlF8M/FFcmRVu6cYtuSJoRe1pQXh5nOhXVKUq1WWZPq2aGu67bW1OdSpVjGEE5Sk3hJeZ8u7T/ABJhKMqOl03Wl/6s1iC9lzf6F3pHs+3fa+w0yCuK0+8qwi+4pLm5+f0PhfaDWLzWb13N3POMqEE9oL+vqYNRvbq/uZXN5WlVqy6y6ei8karNdu1JksbJbMQZATZOQKyLIhAWmPJGR5AtMeSExpgZEUmY0xpgZEWmYospMDKmUmYky0wMmfUCMgB68pEoaYFIa5iGAxpCXIAKAAAaGhIa5gUhkjAaGJcxgUbWk3tXTtRoXtB+OjPix5rqvqjTGB+hOz2qUrzT6NzQlx0asVKLzy9DrKpGWMM+QfC3XHQrT0mvLwSzOjnz6r+f5n1CnXwsrkbJdjoc3yyUkkjSV9GK8UJ/RGOeo/wUZt+w0Og5+SMFa4injiTfoaE6l5cdO7iXStpY3f1KM/e5ew+N4J7mMFmUzWrXlpReHVy/JbsDZbfUhykuSRzqmp5bVGhOXq9jG539bqqafkUdOU1HedRL6mCpfWsJb1Vn03Zq09NnU3rVZy88s2oWtnarPBGUvUAWoSqrgt7apUfm/ChwlezkqaqUqK/hpx4pfmy/vZrhgu5g+cmt/ojYoOnRioQWPOT3bKFvRagpz4msylnL+pzdRlKcJ4r1ZShvukkdGo8zcUsqXVmnfuFOi188mmmgNP7a6bjiU3TaXrj3HezV7YVrSpFuFWDg8rzRxri/Vt/ur++nzxHo/Uz291rFbidK2pRg/NNvBdK4nZ7Qqam+/Sc03nbmzp2+n0Y9op/drCoRx9JM39NtbmNfiq01Ft5eDJKHBrcZ+dLH6l2WurToxdHGDk3FslKSx1O1bvw4Ne5ppyZJ4YuNRs4O4cOFYlB5NK5vrvSqyjlzpv8ANf1O3S8N9T25nL7Q0eO7jTx1Ltdm+0UpUGu64pY2f9TzmsX13Om597KL/wAp3lp+IZS5nI1y14LWcsYwRfDy93Cd3aXNCpKU3VpThu884s+PvON+fU+0UY/eJ+TPj+r0fs2qXdvy7utOP5NmvMrUkyGxslmG0JibBksAZOQYmAwySBBSe4yc7jApMpEDKLTHkhMogtMpMxplAZEyk9jGmUmBkTAkC6HskNEplIgpDJRSYDQxDQFAJDAY1zJyMCholDQFBkSGAwXMQ0BltK9W2uadxQlw1KclKL9UfZOzetQ1HS6VxTSae0odYSXNf/Oh8XR2eyWrXGmarTVLM6VecadSnnZ5eE/dZMpdD7JC5WfC4p+UtjNG7qL/AAU/aRoOUoZjWpSWOuMo1ql3bRzhVMryM9DtLUYr5qMkY62o1Z7UpU4eslucaGoxeeFVvrgJX2f8GTx7F1VdCVOdd5uL3byTLpUbClyak/M5tO64v/LYfuZHUuP8OhFjVHUVajHaEP0LVRNpvb32ORCd/OSjK1j/AMzOlSsLt4/u4/RtjQzuspya4uGK/h5iUqccOGE+r5sxT06+zmFWkv8AhZL0zUX/AOZpR9qYG3KptiLyyXWpUd69WlBvpKWGacdI1CeVV1Gpw4/D4f2Cj2atOOUqzdSTe7luUa8+0mnTqVqNGF7Wq0ZqE0rScVFvk3KSSx1zk5OoX97qNXgoLuafLw/M/qemr6Db1FCLqVHCHKLk2kZ7bTba3woQSwPBtwdB0NQkqtdZfqekhShTjiMUkjM4qKwtiG0NsbUSSy3g42oRULynUx1wdp+foczU4Z8XkwNi2lnCCsszMFrN4RtSWZZA5l6+7r05+TRqagu81VL1NjWpY5dDXa4tUnLngsG/GknDkcntHap6dXkl+BvkdyKzFGvrNJS06tHH4Gv0IR83tqWd8Hyft/R7jtbfLGFNxqfnFH2PTafFB7cj5d8XaHc9qKc8f3ttF/k2jHOeFeNbJY2SzUES2NksBMTYMlgHUZIFFAmSPJBaY8kJjTAyJjTITGmBaZSITGmBlQ0zGmWgLyBIGQ9omUiENMxFlIhFZApDySnuUihoaJQyChiQAUholDTApAIaYDBABQ0dbshQ+09qNOpNZTuIyfst/wCRyEep+F9F1u19CXSlSqTf5Y/mJ7H124pcdNnIq2Lcm8HfkiO7Uppeptg5lLS+FR2XIz09OjndI7DjEFFF2bc1afBY2NilbQh0NvASWxNm0xpwW6SMqe6RECsbkRfTIgT2wNcsAJ8gXNsmo3wMcHnK8mFUzFPmZGYp7pliUSfMn0YPzCO8ihT2WTRukmjdqy8Jz6lTMmgMNLMdvI3oyTpcRpSwvqKrcd3asDn6tU4oyx0KoLNxUm+rNa+yrTilzkbtFYqSyWDeovkVfQUrWa80YovE0bFVp0X7Eo+faTHE5x8m0fO/jjbuN9p1yls4Tpt/VP8AqfRrPwajXp+VWS/U8j8cLfi0ShXS/uq8f1Ul/QZTwr48yWNsls0BEsbJYCbJZRLAQgABgmIALTGiMlJgUuZSIGmBaZSZCZSAtFJkJlICsgGQKPaIaACCkUuQABQ0AACKXIAAcQXIAApAAANDAC0NDABAI9v8H0v9v3Uuqttv+ZABcfY+qcTxkq2bdZJgBt+kbLe4JtsAJVX0G/lACIiPzIyAAAUAAiKny/UKPJ+4AVVswvqACJUZzJL0Cm95MAKMVZvODmSf30/cAAmo3kwXW6pRfJ8wADW1zalTiuRt0kuJvq2AFVc5PiNmDbptPyACo8HNuOvXSXLvWcT4txU+xd3KSy493Je/eR/qADL/AEq+GPmTkAPMqWSwAIlksALQhABAAgAyDGgAxFLmUgAChrkAANMuIAWigACD/9k=" alt="李鹏飞医生"/>
+      </div>
+      <div class="doctor-name">李鹏飞<span class="title">主治医师</span></div>
+      <div class="doctor-hospital">普瑞眼科 · 屈光手术专科</div>
+      <div class="doctor-meta">
+        <div class="meta-item">
+          <div class="meta-val">10<span style="font-size:14px;color:var(--ink-light);">+</span></div>
+          <div class="meta-label">从业年限</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">专科</div>
+          <div class="meta-label">屈光手术</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">认证</div>
+          <div class="meta-label">VISULYZE 认证官</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div><div class="stat-num">8000<span>万+</span></div><div class="stat-label">全球手术例数</div></div>
+    <div><div class="stat-num">96<span>%</span></div><div class="stat-label">患者满意度</div></div>
+    <div><div class="stat-num">30<span>年</span></div><div class="stat-label">技术验证历史</div></div>
+    <div><div class="stat-num">15<span>min</span></div><div class="stat-label">手术时长</div></div>
+  </div>
+</div>
+
+<!-- DOCTOR PROFILE -->
+<section class="profile-section">
+  <div class="profile-inner">
+    <p class="profile-label">医生介绍</p>
+    <h2 class="profile-title">关于李鹏飞医生</h2>
+    <div class="profile-grid">
+      <div class="profile-text">
+        <div class="pt-section">
+          <div class="pt-label">医生资质</div>
+          <div class="pt-content">
+            <strong>李鹏飞 · 主治医师</strong>，屈光手术专科医生。毕业于湖北科技学院眼耳鼻喉科专业，从事眼科临床工作 10 余年。
+          </div>
+        </div>
+        <div class="pt-section">
+          <div class="pt-label">学术任职与认证</div>
+          <div class="pt-content">
+            <ul class="pt-list">
+              <li>中国民族卫生协会卫生健康技术推广专家委员会委员（眼科）</li>
+              <li>微创全飞秒精准 4.0–VISULYZE 科普品质认证官</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pt-section">
+          <div class="pt-label">临床擅长</div>
+          <div class="pt-content">
+            熟练掌握眼科常见病、多发病的诊断及治疗，擅长青少年近视防控及屈光不正诊治，特别是对高度近视性视网膜病变和各种眼底病的诊治有比较丰富的理论和临床实践。
+            <div class="pt-tags">
+              <span class="pt-tag">近视矫治</span>
+              <span class="pt-tag b">远视矫治</span>
+              <span class="pt-tag">散光矫治</span>
+              <span class="pt-tag b">高度近视</span>
+              <span class="pt-tag">眼底病诊治</span>
+              <span class="pt-tag b">青少年防控</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 手术类型 -->
+<div class="entry-section bg-normal" id="surgery-types">
+  <div class="entry-inner">
+    <div>
+      <p class="entry-num">01 · 手术类型</p>
+      <h2 class="entry-title">五大主流术式，各有所长</h2>
+      <p class="entry-desc">从全飞秒 SMILE、半飞秒 FS-LASIK、表层手术 LASEK、全激光 TPRK，到 ICL 晶体植入，每种术式针对不同角膜条件和度数范围，了解详细介绍与横向对比表。</p>
+      <div class="entry-tags">
+        <span class="entry-tag">全飞秒 SMILE</span>
+        <span class="entry-tag">半飞秒 FS-LASIK</span>
+        <span class="entry-tag">表层手术 LASEK</span>
+        <span class="entry-tag">全激光 TPRK</span>
+        <span class="entry-tag">ICL 晶体植入</span>
+      </div>
+      <a class="entry-btn" href="types.html" style="background: var(--accent);">查看五大手术类型 →</a>
+    </div>
+    <div class="entry-visual">
+      <div class="mini-list">
+        <div class="mini-item"><div class="mini-dot" style="background:#1a5fb4;"></div><div><div class="mini-name">全飞秒 SMILE</div><div class="mini-sub">近视 100–1000° · 干眼症风险最低</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#0d7a6a;"></div><div><div class="mini-name">半飞秒 FS-LASIK</div><div class="mini-sub">近视 100–1200° · 技术最成熟</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#7b5ea7;"></div><div><div class="mini-name">表层手术 LASEK</div><div class="mini-sub">近视 100–800° · 角膜薄者首选</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#d4522a;"></div><div><div class="mini-name">全激光 TPRK</div><div class="mini-sub">近视 100–800° · 一步完成升级版</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#b8902a;"></div><div><div class="mini-name">ICL 晶体植入</div><div class="mini-sub">近视 300–1800° · 不切削角膜</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 设备与耗材 -->
+<div class="entry-section bg-warm" id="equipment">
+  <div class="entry-inner reverse">
+    <div>
+      <p class="entry-num">02 · 设备与耗材</p>
+      <h2 class="entry-title">主流激光设备与 ICL 晶体</h2>
+      <p class="entry-desc">蔡司、阿玛仕、爱尔康三大品牌激光设备各有侧重，STAAR EVO ICL V4C/V5 与国产爱博诺德晶体各具优势。了解核心参数与品牌对比，与医生沟通更有把握。</p>
+      <div class="entry-tags">
+        <span class="entry-tag">蔡司 VisuMax 800/500/MEL90</span>
+        <span class="entry-tag">阿玛仕 1050RS/750S</span>
+        <span class="entry-tag">爱尔康 EX500/FS200</span>
+        <span class="entry-tag">EVO ICL V4C/V5</span>
+      </div>
+      <div class="entry-actions">
+        <a class="entry-btn" href="equipment.html" style="background:#1a3a6b;">查看激光设备介绍 →</a>
+        <a class="entry-btn-outline" href="equipment.html#icl">ICL 晶体详情</a>
+      </div>
+    </div>
+    <div class="entry-visual">
+      <div style="font-size:12px;color:var(--ink-light);letter-spacing:.08em;margin-bottom:10px;">激光设备</div>
+      <div class="mini-list" style="margin-bottom:1.25rem;">
+        <div class="mini-item"><div class="mini-dot" style="background:#2d5fa8;"></div><div><div class="mini-name">蔡司 ZEISS</div><div class="mini-sub">VisuMax 800 / 500 / MEL 90</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#2a9d6e;"></div><div><div class="mini-name">阿玛仕 AMARIS</div><div class="mini-sub">1050RS / 750S · 全球最高频率</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#c0692a;"></div><div><div class="mini-name">爱尔康 ALCON</div><div class="mini-sub">EX500 / FS200 · 装机量最大</div></div></div>
+      </div>
+      <div style="font-size:12px;color:var(--ink-light);letter-spacing:.08em;margin-bottom:10px;">ICL 晶体</div>
+      <div class="mini-list">
+        <div class="mini-item"><div class="mini-dot" style="background:#1a5fb4;"></div><div><div class="mini-name">STAAR EVO ICL V4C / V5</div><div class="mini-sub">全球销量第一 · 中央孔设计</div></div></div>
+        <div class="mini-item"><div class="mini-dot" style="background:#0d7a6a;"></div><div><div class="mini-name">爱博诺德 龙晶 ®PR ICL</div><div class="mini-sub">国产 · NMPA 认证 · 性价比优</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 适合人群 -->
+<div class="entry-section bg-normal" id="suitable">
+  <div class="entry-inner">
+    <div>
+      <p class="entry-num">03 · 适合人群</p>
+      <h2 class="entry-title">我适合做屈光手术吗？</h2>
+      <p class="entry-desc">年龄、度数、角膜厚度、眼部健康……了解适应症与禁忌症，以及不同情况对应的可选术式矩阵，初步判断你是否为合适的手术候选人。</p>
+      <div class="entry-tags">
+        <span class="entry-tag">适应症 / 禁忌症</span>
+        <span class="entry-tag">术式适应矩阵</span>
+        <span class="entry-tag">术前自查清单</span>
+      </div>
+      <a class="entry-btn" href="suitable.html" style="background: var(--teal);">查看适合人群详情 →</a>
+    </div>
+    <div class="entry-visual">
+      <div class="mini-check">
+        <div class="mc-group-title" style="color:var(--teal);">✓ 适合考虑手术</div>
+        <div class="mc-item"><span class="mc-icon" style="color:var(--teal);">✓</span>年龄 18–50 岁，度数稳定 2 年以上</div>
+        <div class="mc-item"><span class="mc-icon" style="color:var(--teal);">✓</span>近视度数在可矫正范围内</div>
+        <div class="mc-item"><span class="mc-icon" style="color:var(--teal);">✓</span>角膜厚度、形态正常，无圆锥角膜</div>
+        <div class="mc-item" style="border-bottom: 1px solid rgba(15,26,46,0.05); margin-bottom: 12px;"><span class="mc-icon" style="color:var(--teal);">✓</span>眼压正常，无青光眼</div>
+        <div class="mc-group-title" style="color:#e05a5a;">✕ 暂不建议手术</div>
+        <div class="mc-item"><span class="mc-icon" style="color:#e05a5a;">✕</span>未满 18 岁，或度数仍在增长</div>
+        <div class="mc-item"><span class="mc-icon" style="color:#e05a5a;">✕</span>角膜过薄或存在圆锥角膜</div>
+        <div class="mc-item" style="border:none;"><span class="mc-icon" style="color:#e05a5a;">✕</span>自身免疫性疾病 / 妊娠哺乳期</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 手术流程 -->
+<div class="entry-section bg-warm" id="process">
+  <div class="entry-inner reverse">
+    <div>
+      <p class="entry-num">04 · 手术流程</p>
+      <h2 class="entry-title">从检查到康复，全程透明</h2>
+      <p class="entry-desc">术前检查 → 方案设计 → 手术当天 → 术后随访，整个流程通常只需 2 次就诊。手术本身约 15 分钟，了解每个环节，消除未知的焦虑感。</p>
+      <div class="entry-tags">
+        <span class="entry-tag">术前检查 20+ 项</span>
+        <span class="entry-tag">手术约 15 分钟</span>
+        <span class="entry-tag">6 次术后随访</span>
+        <span class="entry-tag">术后注意事项</span>
+      </div>
+      <a class="entry-btn" href="process.html" style="background: var(--ink);">查看完整手术流程 →</a>
+    </div>
+    <div class="entry-visual">
+      <div class="mini-steps">
+        <div class="ms-item"><div class="ms-num" style="background:var(--accent);">1</div><div class="ms-text"><strong>术前全面检查</strong> — 20+ 项精密检查，约 2–3 小时，评估手术可行性</div></div>
+        <div class="ms-item"><div class="ms-num" style="background:var(--teal);">2</div><div class="ms-text"><strong>方案设计与沟通</strong> — 个性化手术方案设计，签署知情同意书</div></div>
+        <div class="ms-item"><div class="ms-num" style="background:#b8902a;">3</div><div class="ms-text"><strong>手术当天</strong> — 双眼约 15 分钟，表麻全程无痛，全程清醒配合</div></div>
+        <div class="ms-item"><div class="ms-num" style="background:#7b5ea7;">4</div><div class="ms-text"><strong>术后复查随访</strong> — 1天/1周/1月/3月/6月/1年，全程追踪视力</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 常见问题 -->
+<div class="entry-section bg-normal" id="faq">
+  <div class="entry-inner">
+    <div>
+      <p class="entry-num">05 · 常见问题</p>
+      <h2 class="entry-title">你最想问的，这里都有答案</h2>
+      <p class="entry-desc">汇集患者术前最常见的 20+ 个疑问，涵盖安全与风险、手术过程、效果与恢复、费用与选择四大主题，找到你的问题，消除手术前的顾虑。</p>
+      <div class="entry-tags">
+        <span class="entry-tag">安全与风险</span>
+        <span class="entry-tag">手术过程</span>
+        <span class="entry-tag">效果与恢复</span>
+        <span class="entry-tag">费用与选择</span>
+      </div>
+      <a class="entry-btn" href="faq.html" style="background:#4a2d8a;">查看全部常见问题 →</a>
+    </div>
+    <div class="entry-visual">
+      <div class="mini-faq">
+        <div class="mf-item"><span class="mf-q">Q</span>手术疼吗？全程清醒吗？</div>
+        <div class="mf-item"><span class="mf-q">Q</span>术后会失明吗？</div>
+        <div class="mf-item"><span class="mf-q">Q</span>术后会反弹、近视复发吗？</div>
+        <div class="mf-item"><span class="mf-q">Q</span>近视手术需要多少钱？</div>
+        <div class="mf-item"><span class="mf-q">Q</span>干眼症术后会变严重吗？</div>
+        <div class="mf-item" style="border:none;"><span class="mf-q">Q</span>SMILE、半飞秒、表层、ICL 怎么选？</div>
+        <div style="text-align:center;padding-top:12px;"><a href="faq.html" style="font-size:13px;color:var(--accent);text-decoration:none;">查看全部 20+ 个问题 →</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 激光切削深度入口 -->
+<div class="entry-section bg-warm" id="laser-depth">
+  <div class="entry-inner reverse">
+    <div>
+      <p class="entry-num">06 · 激光切削深度</p>
+      <h2 class="entry-title">术前先估算切削深度与剩余基质</h2>
+      <p class="entry-desc">这里提供两类激光切削深度估算工具：准分子激光用于半飞秒 EX500 切削深度预估，全飞秒用于 SMILE 微透镜厚度、剩余基质床和术后平均 K 值预估。两套计算器都配有角膜结构可视化，方便术前沟通时快速判断参数变化。</p>
+      <div class="entry-tags">
+        <span class="entry-tag">准分子激光</span>
+        <span class="entry-tag">全飞秒 SMILE</span>
+        <span class="entry-tag">剩余基质</span>
+        <span class="entry-tag">角膜可视化</span>
+      </div>
+      <div class="entry-actions">
+        <a class="entry-btn" href="ablation-calculator.html" style="background:var(--accent);">准分子激光切削计算器 →</a>
+        <a class="entry-btn-outline" href="smile-calculator.html">飞秒激光切削计算器 →</a>
+      </div>
+    </div>
+    <div class="entry-visual">
+      <div class="mini-steps">
+        <div class="ms-item"><div class="ms-num" style="background:var(--accent);">1</div><div class="ms-text"><strong>准分子激光</strong>输入球镜、柱镜、光学区和瓣厚，估算半飞秒切削深度</div></div>
+        <div class="ms-item"><div class="ms-num" style="background:var(--teal);">2</div><div class="ms-text"><strong>全飞秒 SMILE</strong>输入微透镜直径、Cap 厚度和 K 值，估算微透镜厚度</div></div>
+        <div class="ms-item"><div class="ms-num" style="background:var(--gold);">3</div><div class="ms-text"><strong>可视化对照</strong>切削区或微透镜会随光区、厚度和直径变化</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA - dual channel -->
+<section id="cta">
+  <div class="cta-inner">
+    <p style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:1rem;">联系医生</p>
+    <h2 class="cta-title">两种方式，找到合适的咨询路径</h2>
+    <p class="cta-sub">日常科普可关注小红书，小红书发送私信可联系医生线上线下预约咨询。</p>
+
+    <div class="cta-grid">
+      <div class="cta-channel">
+        <h3>选择咨询入口</h3>
+        <div class="contact-card">
+          <div class="contact-item">
+            <a class="xhs-btn" href="https://www.xiaohongshu.com/user/profile/5e9079de000000000100906e" target="_blank" rel="noopener noreferrer" aria-label="打开小红书主页" title="小红书">
+              <img class="platform-icon" src="https://www.xiaohongshu.com/favicon.ico" alt="小红书图标"/>
+            </a>
+            <div class="platform-name">小红书</div>
+          </div>
+          <div class="contact-item">
+            <a class="haodf-btn" href="https://www.haodf.com/doctor/9032806776.html" target="_blank" rel="noopener noreferrer" aria-label="打开好大夫在线主页" title="好大夫在线">
+              <img class="platform-icon" src="https://www.haodf.com/favicon.ico" alt="好大夫在线图标"/>
+            </a>
+            <div class="platform-name">好大夫在线</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-divider">或留下联系方式，由我主动联系你</div>
+
+    <form action="https://formspree.io/f/mnjwgwzl" method="POST" style="max-width:520px;margin:0 auto;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+        <input type="text" name="name" placeholder="您的姓名（选填）" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);padding:13px 16px;font-family:var(--sans);font-size:14px;color:#fff;outline:none;border-radius:8px;width:100%;"/>
+        <input type="tel" name="phone" placeholder="手机号码" required style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);padding:13px 16px;font-family:var(--sans);font-size:14px;color:#fff;outline:none;border-radius:8px;width:100%;"/>
+      </div>
+      <textarea name="question" placeholder="想咨询的问题（选填，如：近视度数 800°，想了解适合哪种手术）" rows="3" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);padding:13px 16px;font-family:var(--sans);font-size:14px;color:#fff;outline:none;border-radius:8px;width:100%;margin-bottom:10px;resize:vertical;"></textarea>
+      <button type="submit" style="width:100%;background:var(--accent);color:#fff;border:none;padding:14px;font-family:var(--sans);font-size:15px;font-weight:500;cursor:pointer;border-radius:8px;transition:background 0.2s;" onmouseover="this.style.background='#1450a0'" onmouseout="this.style.background='#1a5fb4'">
+        提交预约 · 24 小时内回电
+      </button>
+      <p class="cta-note">隐私保护承诺：您的信息仅用于预约联系，不会用于其他商业目的</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 李鹏飞眼科医生 · 屈光手术科普平台
+  <span>|</span> <button type="button" class="footer-link" data-legal="privacy">隐私政策</button>
+  <span>|</span> <button type="button" class="footer-link" data-legal="disclaimer">免责声明</button>
+  <span>|</span> 本页面仅作科普参考，不构成医疗建议</p>
+  <p class="footer-icp">鄂ICP备2026024091号</p>
+</footer>
+
+<div class="legal-modal" id="legal-modal" aria-hidden="true">
+  <div class="legal-backdrop" data-legal-close></div>
+  <div class="legal-dialog" role="dialog" aria-modal="true" aria-labelledby="legal-title" tabindex="-1">
+    <button type="button" class="legal-close" data-legal-close aria-label="关闭">×</button>
+    <h2 class="legal-title" id="legal-title"></h2>
+    <div class="legal-content" id="legal-content"></div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const inputs = {
+      sph: document.getElementById('calc-sph'),
+      cyl: document.getElementById('calc-cyl'),
+      oz: document.getElementById('calc-oz'),
+      pachy: document.getElementById('calc-pachy'),
+      flap: document.getElementById('calc-flap'),
+      vd: document.getElementById('calc-vd')
+    };
+    const outputs = {
+      ablation: document.getElementById('calc-ablation'),
+      stroma: document.getElementById('calc-stroma'),
+      post: document.getElementById('calc-post'),
+      power: document.getElementById('calc-power'),
+      ratio: document.getElementById('calc-ratio'),
+      status: document.getElementById('calc-status'),
+      warning: document.getElementById('calc-warning'),
+      arc: document.getElementById('ablation-arc')
+    };
+    if (!Object.values(inputs).every(Boolean) || !Object.values(outputs).every(Boolean)) return;
+
+    function excelRound(value, digits) {
+      const factor = Math.pow(10, digits || 0);
+      return Math.sign(value) * Math.round(Math.abs(value) * factor) / factor;
+    }
+
+    function readNumber(input) {
+      const value = Number(input.value);
+      return Number.isFinite(value) ? value : 0;
+    }
+
+    // === Excel「切削深度」查表数据 (ALLEGRETTO EX500, K=43 dpt) ===
+    const S_VALS  = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8];
+    const C_VALS  = [0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3];
+    const DEPTH_TABLE = {
+      6.0: [[7,10,14,17,20,23,26,29,33,36,39,42,45],[14,17,20,23,26,30,33,36,39,42,45,48,51],[20,23,27,30,33,36,39,42,45,48,51,54,57],[27,30,33,36,39,42,45,48,51,54,57,60,63],[33,36,39,42,45,48,51,54,57,60,63,66,69],[39,42,45,48,51,54,57,60,63,66,69,72,75],[45,48,51,54,57,60,63,66,69,72,75,78,81],[52,55,57,60,63,66,69,72,75,78,81,83,86],[58,67,63,66,69,72,75,78,81,84,86,89,92],[64,67,69,72,75,78,81,84,86,89,92,95,98],[70,72,75,78,81,84,87,89,92,95,98,100,103],[75,78,81,84,87,89,92,95,98,100,103,106,109],[81,84,87,90,92,95,98,101,103,106,109,111,114],[87,90,92,95,98,101,103,106,109,111,114,117,119],[93,95,98,101,103,106,109,112,114,117,119,122,125],[98,101,104,106,109,112,114,117,120,122,125,127,130]],
+      6.3: [[8,11,15,19,22,26,29,33,36,40,43,46,50],[15,19,22,26,29,33,36,40,43,46,50,53,56],[22,26,29,33,36,40,43,46,50,53,56,60,63],[29,33,36,40,43,46,50,53,56,60,63,66,69],[36,40,43,46,50,53,56,60,63,66,69,73,76],[43,46,50,53,56,60,63,66,69,73,76,79,82],[50,53,56,60,63,66,69,73,76,79,82,85,89],[56,60,63,66,69,73,76,79,82,85,88,91,95],[63,69,70,73,76,79,82,85,88,91,95,98,101],[69,73,76,79,82,85,88,91,95,98,101,104,107],[76,79,82,85,88,91,95,98,101,104,107,110,113],[82,85,88,91,95,98,101,104,107,110,113,115,118],[88,91,95,98,101,104,107,110,113,115,118,121,124],[95,98,101,104,107,110,113,115,118,121,124,127,130],[101,104,107,110,113,115,118,121,124,127,130,133,135],[107,110,113,115,118,121,124,127,130,133,135,138,141]],
+      6.5: [[8,12,16,20,23,27,31,34,38,42,46,49,53],[16,20,24,27,31,35,38,42,46,49,53,56,60],[24,27,31,35,38,42,46,49,53,56,60,63,67],[31,35,39,42,46,49,53,56,60,63,67,70,74],[39,42,46,49,53,57,60,64,67,71,74,77,81],[46,50,53,57,60,64,67,71,74,78,81,84,88],[53,57,60,64,67,71,74,78,81,84,88,91,95],[60,64,67,71,74,78,81,85,88,91,95,98,101],[68,71,74,78,81,85,88,91,95,98,101,105,108],[75,78,81,85,88,92,95,98,102,105,108,111,115],[82,85,88,92,95,98,102,105,108,111,115,118,121],[88,92,95,98,102,105,108,112,115,118,121,124,127],[95,99,102,105,108,112,115,118,121,124,128,131,134],[102,105,109,112,115,118,121,125,128,131,134,137,140],[109,112,115,118,121,125,128,131,134,137,140,143,146],[115,118,122,125,128,131,134,137,140,143,147,150,153]]
+    };
+
+    function lerp2D(tbl, s, c) {
+      let si = 0, ci = 0;
+      while (si < S_VALS.length - 1 && S_VALS[si + 1] <= s) si++;
+      let si2 = Math.min(si + 1, S_VALS.length - 1);
+      if (si === si2 && si > 0) si--;
+      while (ci < C_VALS.length - 1 && C_VALS[ci + 1] <= c) ci++;
+      let ci2 = Math.min(ci + 1, C_VALS.length - 1);
+      if (ci === ci2 && ci > 0) ci--;
+      const s1 = S_VALS[si], s2 = S_VALS[si2], c1 = C_VALS[ci], c2 = C_VALS[ci2];
+      const v11 = tbl[si][ci], v12 = tbl[si][ci2], v21 = tbl[si2][ci], v22 = tbl[si2][ci2];
+      const t = (s2 - s1) ? (s - s1) / (s2 - s1) : 0;
+      const u = (c2 - c1) ? (c - c1) / (c2 - c1) : 0;
+      return (1-t)*(1-u)*v11 + (1-t)*u*v12 + t*(1-u)*v21 + t*u*v22;
+    }
+
+    function lookupDepth(tbl, s, c) {
+      let sE = Math.max(S_VALS[0], Math.min(S_VALS[S_VALS.length-1], s));
+      let cE = Math.max(C_VALS[0], Math.min(C_VALS[C_VALS.length-1], c));
+      let val = lerp2D(tbl, sE, cE);
+      if (s < S_VALS[0]) {
+        const slope = (lerp2D(tbl, S_VALS[1], cE) - lerp2D(tbl, S_VALS[0], cE)) / (S_VALS[1] - S_VALS[0]);
+        val += (s - S_VALS[0]) * slope;
+      } else if (s > S_VALS[S_VALS.length-1]) {
+        const n = S_VALS.length;
+        const slope = (lerp2D(tbl, S_VALS[n-1], cE) - lerp2D(tbl, S_VALS[n-2], cE)) / (S_VALS[n-1] - S_VALS[n-2]);
+        val += (s - S_VALS[n-1]) * slope;
+      }
+      if (c < C_VALS[0]) {
+        const slope = (lerp2D(tbl, sE, C_VALS[1]) - lerp2D(tbl, sE, C_VALS[0])) / (C_VALS[1] - C_VALS[0]);
+        val += (c - C_VALS[0]) * slope;
+      } else if (c > C_VALS[C_VALS.length-1]) {
+        const n = C_VALS.length;
+        const slope = (lerp2D(tbl, sE, C_VALS[n-1]) - lerp2D(tbl, sE, C_VALS[n-2])) / (C_VALS[n-1] - C_VALS[n-2]);
+        val += (c - C_VALS[n-1]) * slope;
+      }
+      return Math.round(val);
+    }
+
+    function corneaY(x) {
+      const cx = 210;
+      const cy = 150;
+      const rx = 170;
+      const ry = 116;
+      const normalized = Math.min(1, Math.pow((x - cx) / rx, 2));
+      return cy - ry * Math.sqrt(1 - normalized);
+    }
+
+    function updateAblationShape(opticalZone, ablationDepth) {
+      const cx = 210;
+      const halfWidth = Math.min(160, Math.max(82, opticalZone * 23));
+      const x1 = cx - halfWidth;
+      const x2 = cx + halfWidth;
+      const y1 = corneaY(x1);
+      const y2 = corneaY(x2);
+      const depthPx = Math.min(42, Math.max(12, Math.abs(ablationDepth) / 4.2));
+      const topSag = corneaY(cx) - Math.min(y1, y2);
+      const bottomY = Math.min(144, Math.max(y1, y2) + depthPx);
+      const bottomControlY = bottomY + topSag * 0.42;
+      const d = [
+        `M ${x1.toFixed(1)} ${y1.toFixed(1)}`,
+        `A 170 116 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}`,
+        `L ${x2.toFixed(1)} ${bottomY.toFixed(1)}`,
+        `Q ${cx} ${bottomControlY.toFixed(1)} ${x1.toFixed(1)} ${bottomY.toFixed(1)}`,
+        'Z'
+      ].join(' ');
+      outputs.arc.setAttribute('d', d);
+    }
+
+    function calculate() {
+      const sph = readNumber(inputs.sph);
+      const cyl = readNumber(inputs.cyl);
+      const oz = readNumber(inputs.oz);
+      const pachy = readNumber(inputs.pachy);
+      const flap = readNumber(inputs.flap);
+      const vd = readNumber(inputs.vd);
+      // 顶点距离换算: P_vd0 = (S+C) / (1 - (S+C) * VD/1000)
+      const totalPower = sph + cyl;
+      const powerAtVd0 = totalPower / (1 - totalPower * vd / 1000);
+      // Excel 查表: 球镜轴=|VD=0等效屈光力|, 柱镜轴=|柱镜|
+      const tbl = DEPTH_TABLE[oz];
+      const ablation = tbl
+        ? lookupDepth(tbl, Math.abs(powerAtVd0), Math.abs(cyl))
+        : Math.round(Math.abs(powerAtVd0) * oz * oz / 3);
+      const stroma = pachy - flap - ablation;
+      const post = pachy - ablation;
+      const ratio = pachy > 0 ? ablation / pachy * 100 : 0;
+
+      outputs.ablation.value = Number.isFinite(ablation) ? ablation.toFixed(0) : '--';
+      outputs.stroma.value = Number.isFinite(stroma) ? stroma.toFixed(0) : '--';
+      outputs.post.value = Number.isFinite(post) ? post.toFixed(0) : '--';
+      outputs.power.value = Number.isFinite(powerAtVd0) ? powerAtVd0.toFixed(2) : '--';
+      outputs.ratio.value = Number.isFinite(ratio) ? ratio.toFixed(1) : '--';
+
+      updateAblationShape(oz, ablation);
+
+      let status = '计算正常';
+      let warning = '提示：本工具只做切削深度预估，不替代完整术前检查、地形图/断层图评估和医生最终方案。';
+      if (!Number.isFinite(ablation) || ablation < 0) {
+        status = '需人工复核';
+        warning = '当前输入包含远视或异常组合，Excel 原公式会给出负向结果；请结合设备 nomogram 与医生方案复核。';
+      } else if (stroma < 280) {
+        status = '剩余偏低';
+        warning = '剩余基质低于 280 μm，通常需要重新评估光区、瓣厚或改选其他术式。';
+      } else if (stroma < 300) {
+        status = '谨慎评估';
+        warning = '剩余基质低于 300 μm，建议结合角膜形态、残余床厚和 PTA 等指标进一步判断。';
+      }
+      outputs.status.textContent = status;
+      outputs.warning.textContent = warning;
+    }
+
+    Object.values(inputs).forEach((input) => {
+      input.addEventListener('input', calculate);
+      input.addEventListener('change', calculate);
+    });
+
+    document.querySelectorAll('[data-preset]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const [sph, cyl, oz, pachy, flap, vd] = button.dataset.preset.split(',');
+        inputs.sph.value = sph;
+        inputs.cyl.value = cyl;
+        inputs.oz.value = oz;
+        inputs.pachy.value = pachy;
+        inputs.flap.value = flap;
+        inputs.vd.value = vd;
+        calculate();
+      });
+    });
+
+    calculate();
+  })();
+
+  (function () {
+    const modal = document.getElementById('legal-modal');
+    const dialog = modal && modal.querySelector('.legal-dialog');
+    const title = document.getElementById('legal-title');
+    const content = document.getElementById('legal-content');
+    const legalCopy = {
+      privacy: {
+        title: '隐私政策',
+        body: `
+          <section>
+            <h3>一、信息收集</h3>
+            <p>当您通过本页面提交预约或咨询信息时，我们可能收集您的姓名、手机号码以及您主动填写的咨询内容，用于与您取得联系并安排咨询服务。</p>
+          </section>
+          <section>
+            <h3>二、信息使用</h3>
+            <ul>
+              <li>您的信息仅用于预约确认、咨询沟通、就诊提醒及必要的服务跟进。</li>
+              <li>未经您同意，不会将您的个人信息出售、出租或用于无关商业推广。</li>
+              <li>表单提交可能由第三方表单服务协助完成，其处理行为受其平台规则约束。</li>
+            </ul>
+          </section>
+          <section>
+            <h3>三、信息保护</h3>
+            <p>我们会采取合理措施保护您提交的信息，但互联网传输无法保证绝对安全。请避免在留言中提交身份证号、详细病历、检查报告等敏感信息。</p>
+          </section>
+          <section>
+            <h3>四、联系与更新</h3>
+            <p>如需查询、更正或删除您提交的信息，可通过页面提供的咨询入口联系处理。本政策会根据页面功能调整适时更新。</p>
+          </section>
+        `
+      },
+      disclaimer: {
+        title: '免责声明',
+        body: `
+          <section>
+            <h3>一、科普用途</h3>
+            <p>本网站内容用于屈光手术相关知识科普和术前沟通参考，不构成诊断意见、治疗方案、手术承诺或医疗广告中的效果保证。</p>
+          </section>
+          <section>
+            <h3>二、医疗决策</h3>
+            <ul>
+              <li>近视手术是否适合个人，需要结合完整术前检查、眼部条件、既往病史及医生面诊评估。</li>
+              <li>页面中的数据、范围、计算器结果和常见问题答案仅作初步参考，不能替代正规医疗机构的检查和医生判断。</li>
+              <li>任何手术均存在个体差异和潜在风险，请在充分知情后再作决定。</li>
+            </ul>
+          </section>
+          <section>
+            <h3>三、外部链接</h3>
+            <p>本页面可能包含第三方平台链接。跳转后产生的内容、服务、隐私处理及交易行为，由相应平台负责。</p>
+          </section>
+          <section>
+            <h3>四、内容更新</h3>
+            <p>医学知识、设备参数和诊疗规范可能随时间变化，页面内容会尽量保持更新，但不保证所有信息在任何时点均完全适用。</p>
+          </section>
+        `
+      }
+    };
+
+    if (!modal || !dialog || !title || !content) return;
+
+    function closeLegal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function openLegal(type) {
+      const copy = legalCopy[type];
+      if (!copy) return;
+      title.textContent = copy.title;
+      content.innerHTML = copy.body;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      dialog.focus();
+    }
+
+    document.querySelectorAll('[data-legal]').forEach((button) => {
+      button.addEventListener('click', () => openLegal(button.dataset.legal));
+    });
+
+    document.querySelectorAll('[data-legal-close]').forEach((button) => {
+      button.addEventListener('click', closeLegal);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modal.classList.contains('is-open')) closeLegal();
+    });
+  })();
+</script>
+
+<!-- Coze 智能体小助手 -->
+<script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.20/libs/cn/index.js"></script>
+<script>
+  new CozeWebSDK.WebChatClient({
+    config: {
+      type: 'bot',
+      bot_id: '7650306249132621887',
+      isIframe: false,
+    },
+    auth: {
+      type: 'token',
+      token: 'cztei_l8qCMNcghq9CvYF59qXgek3KiI35zKEgMsjCGLcuit8ByfMKTpjbnhRrjhRRwi9Fa',
+      onRefreshToken: async () => 'token'
+    },
+    userInfo: {
+      id: 'user',
+      url: 'https://lf-coze-web-cdn.coze.cn/obj/eden-cn/lm-lgvj/ljhwZthlaukjlkulzlp/coze/coze-logo.png',
+      nickname: 'User',
+    },
+    ui: {
+      base: {
+        icon: 'https://lf-coze-web-cdn.coze.cn/obj/eden-cn/lm-lgvj/ljhwZthlaukjlkulzlp/coze/chatsdk-logo.png',
+        layout: 'pc',
+        lang: 'zh-CN',
+        zIndex: 1000
+      },
+      header: {
+        isShow: true,
+        isNeedClose: true,
+      },
+      asstBtn: {
+        isNeed: true
+      },
+      footer: {
+        isShow: false,
+      },
+      chatBot: {
+        title: '屈光手术小助手',
+        uploadable: true,
+        width: 390,
+      },
+    },
+  });
+</script>
+
+</body>
+</html>
