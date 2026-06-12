@@ -756,16 +756,48 @@
     calculate();
   })();
 </script>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="./main.css" />
-  </head>
-  <body>  
-    <!-- Install SDK -->
-    <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.20/libs/cn/index.js"></script>
-    <script src="./index.js"></script>
-  </body>
-</html></body>
+<!-- Coze 智能体小助手 -->
+<script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.20/libs/cn/index.js"></script>
+<script>
+  new CozeWebSDK.WebChatClient({
+    config: {
+      type: 'bot',
+      bot_id: '7650306249132621887',
+      isIframe: false,
+    },
+    auth: {
+      type: 'token',
+      token: 'cztei_l8qCMNcghq9CvYF59qXgek3KiI35zKEgMsjCGLcuit8ByfMKTpjbnhRrjhRRwi9Fa',
+      onRefreshToken: async () => 'token'
+    },
+    userInfo: {
+      id: 'user',
+      url: 'https://lf-coze-web-cdn.coze.cn/obj/eden-cn/lm-lgvj/ljhwZthlaukjlkulzlp/coze/coze-logo.png',
+      nickname: 'User',
+    },
+    ui: {
+      base: {
+        icon: 'https://lf-coze-web-cdn.coze.cn/obj/eden-cn/lm-lgvj/ljhwZthlaukjlkulzlp/coze/chatsdk-logo.png',
+        layout: 'pc',
+        lang: 'zh-CN',
+        zIndex: 1000
+      },
+      header: {
+        isShow: true,
+        isNeedClose: true,
+      },
+      asstBtn: {
+        isNeed: true
+      },
+      footer: {
+        isShow: false,
+      },
+      chatBot: {
+        title: '屈光手术小助手',
+        uploadable: true,
+        width: 390,
+      },
+    },
+  });
+</script></body>
 </html>
